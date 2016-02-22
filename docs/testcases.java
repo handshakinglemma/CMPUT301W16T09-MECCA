@@ -37,6 +37,26 @@ public class ArtListTest extends ActivityInstrumentationTestCase2 {
 
     }
 
+    // Test that hasItem(item) returns true if the item is in ArtList
+    public void testHasItem() {
+        
+        ArtList myArt = new ArtList();
+        Artwork art1 = new Artwork("The Scream", "Edvard Munch", "available");
+        Artwork art2 = new Artwork("Mona Lisa", "Leonardo da Vinci", "available");
+        
+        // check that ArtList is empty
+        assertFalse(myArt.hasItem(art1));
+        assertFalse(myArt.hasItem(art2));
+        
+        // add items to myArt
+        myArt.add(art1);
+        myArt.add(art2);
+        
+        // check that ArtList has items in it
+        assertTrue(myArt.hasItem(art1));
+        assertTrue(myArt.hasItem(art2));
+    }
+
     // checks for invalid input, should be changed to check each individual field
     // but for testing will check all fields at the same time
     public void testInvalidInput(){
