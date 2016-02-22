@@ -3,3 +3,5 @@ When I grow up, I wanna be famous. - mercy
 When I grow up, I want to be less confused. - handshakinglemma
 When I grow up, I want to be tall. -cpatel1
 When I grow up, I want to eat dessert before dinner. - venhuisuofa
+
+This is a distinct commit to test that github is integrated with our slack channel. - handshakinglemma
