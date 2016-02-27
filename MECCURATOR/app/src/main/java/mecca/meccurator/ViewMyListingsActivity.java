@@ -3,7 +3,8 @@ package mecca.meccurator;
 /**
  * Created by svetlanna on 16-02-27.
  */
-public class JacViewMyListingsActivity {
+public class ViewMyListingsActivity {
+
     private ArtList itemlistinglist;
 
     public ArtList getItemlistinglist() {
@@ -23,6 +24,6 @@ public class JacViewMyListingsActivity {
     }
 
     public void viewBidOnItemsOnly() {
-        
+
     }
 }
