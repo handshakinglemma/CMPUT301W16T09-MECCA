@@ -1,6 +1,8 @@
 package mecca.meccurator;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.sax.StartElementListener;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -26,7 +28,13 @@ public class HomeActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
+        public void viewMyListings(View view) {
+            Intent intent = new Intent(this, ViewArtListingsActivity.class);
+            startActivity(intent);
     }
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
