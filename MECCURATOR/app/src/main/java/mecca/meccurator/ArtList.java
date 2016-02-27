@@ -16,6 +16,8 @@ public class ArtList {
 
     }
 
+    public void hasItem() {}
+
     public void updateItem() {
 
     }
