@@ -9,4 +9,10 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
     public testArtList() {
         super(HomeActivity.class);
     }
+
+    public void testAddItem() {}
+
+    public void testUpdateItem() {}
+
+    public void testDeleteItem() {}
 }
