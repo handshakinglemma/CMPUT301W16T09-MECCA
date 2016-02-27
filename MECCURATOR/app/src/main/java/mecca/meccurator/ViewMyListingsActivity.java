@@ -13,4 +13,16 @@ public class ViewMyListingsActivity {
     public void setItemlistinglist(ArtList itemlistinglist) {
         this.itemlistinglist = itemlistinglist;
     }
+
+    public void seeListingItem() {
+
+    }
+
+    public void viewBorrowedItemsOnly() {
+
+    }
+
+    public void viewBidOnItemsOnly() {
+        
+    }
 }
