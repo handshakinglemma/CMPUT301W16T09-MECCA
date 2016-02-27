@@ -3,7 +3,7 @@ package mecca.meccurator;
 /**
  * Created by svetlanna on 16-02-27.
  */
-public class ViewMyListingsActivity {
+public class JacViewMyListingsActivity {
     private ArtList itemlistinglist;
 
     public ArtList getItemlistinglist() {
