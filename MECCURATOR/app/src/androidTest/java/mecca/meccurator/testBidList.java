@@ -9,4 +9,10 @@ public class testBidList extends ActivityInstrumentationTestCase2 {
     public testBidList() {
         super(HomeActivity.class);
     }
+
+    public void testAddBid() {}
+
+    public void testDeleteBid() {}
+
+    public void testAcceptBid() {}
 }

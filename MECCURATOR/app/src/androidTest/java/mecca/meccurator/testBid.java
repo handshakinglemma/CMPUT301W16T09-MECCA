@@ -9,4 +9,12 @@ public class testBid extends ActivityInstrumentationTestCase2{
     public testBid() {
         super(HomeActivity.class);
     }
+
+    public void testGetAmount () {}
+
+    public void testSetAmount() {}
+
+    public void testGetBidder() {}
+
+    public void testSetBidder() {}
 }

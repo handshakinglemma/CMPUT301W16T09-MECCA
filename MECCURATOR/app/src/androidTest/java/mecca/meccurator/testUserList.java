@@ -9,4 +9,8 @@ public class testUserList extends ActivityInstrumentationTestCase2 {
     public testUserList() {
         super(HomeActivity.class);
     }
+
+    public void testGetSize() {}
+
+    public void testSetSize() {}
 }
