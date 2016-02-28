@@ -1,12 +1,18 @@
 package mecca.meccurator;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+
 import java.math.BigDecimal;
 import java.sql.Blob;
 
-/**
- * Created by svetlanna on 16-02-27.
- */
-public class ViewItemActivity {
+public class ViewItemActivity extends AppCompatActivity {
+
     private BigDecimal bid;
     private Art item;
     private String usertype;
@@ -19,6 +25,30 @@ public class ViewItemActivity {
     private BigDecimal minimumprice;
     private String artist;
     private String title;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_view_item);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+      //  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+      //  fab.setOnClickListener(new View.OnClickListener() {
+      //      @Override
+      //      public void onClick(View view) {
+      //          Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+      //                  .setAction("Action", null).show();
+      //      }
+      ///  });
+    }
+
+    // click to view art listings
+    public void ViewItemBidsButton(View view) {
+        Intent intent = new Intent(this, ViewItemBidsActivity.class);
+        startActivity(intent);
+    }
 
     public BigDecimal getBid() {
         return bid;
@@ -108,9 +138,9 @@ public class ViewItemActivity {
         this.artist = artist;
     }
 
-    public String getTitle() {
-        return title;
-    }
+    //public String getTitle() {
+    //    return title;
+    //}
 
     public void setTitle(String title) {
         this.title = title;

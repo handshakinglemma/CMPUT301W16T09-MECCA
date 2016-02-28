@@ -30,6 +30,10 @@
         <activity
             android:name=".ViewItemBidsActivity"
             android:label="@string/title_activity_view_item_bids"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ViewItemActivity"
+            android:label="@string/title_activity_view_item"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
