@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ViewArtListingsActivity"
+            android:name=".ViewMyListingsActivity"
             android:label="@string/title_activity_view_art_listings"
             android:parentActivityName=".HomeActivity"
             android:theme="@style/AppTheme.NoActionBar">

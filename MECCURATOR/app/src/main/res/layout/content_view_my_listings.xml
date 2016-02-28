@@ -9,7 +9,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="mecca.meccurator.ViewArtListingsActivity"
-    tools:showIn="@layout/activity_view_art_listings">
+    tools:context=".ViewMyListingsActivity"
+    tools:showIn="@layout/activity_view_my_listings">
 
 </RelativeLayout>
