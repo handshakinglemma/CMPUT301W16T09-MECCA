@@ -18,19 +18,9 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_my_listings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-       // FloatingActionButton additembutton = (FloatingActionButton) findViewById(R.id.fab);
-       // additembutton.setOnClickListener(new View.OnClickListener() {
-       //     @Override
-        //    public void onClick(View view) {
-        //        CreateNewListingButton(view);
-        //    }
-        //});
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-
-    // click to view art listings
+    // Click to create a new listing
     public void CreateNewListingButton(View view) {
         Intent intent = new Intent(this, ViewItemActivity.class);
         startActivity(intent);

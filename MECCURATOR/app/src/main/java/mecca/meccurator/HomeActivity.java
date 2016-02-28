@@ -17,7 +17,6 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
     }
 
 
@@ -45,7 +44,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
-    // click to view art listings
+    // Click to view art listings
     public void ViewListingsButton(View view) {
         Intent intent = new Intent(this, ViewMyListingsActivity.class);
         startActivity(intent);

@@ -33,18 +33,9 @@ public class ViewItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-      //  FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-      //  fab.setOnClickListener(new View.OnClickListener() {
-      //      @Override
-      //      public void onClick(View view) {
-      //          Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-      //                  .setAction("Action", null).show();
-      //      }
-      ///  });
     }
 
-    // click to view art listings
+    // Click to view bids on this item
     public void ViewItemBidsButton(View view) {
         Intent intent = new Intent(this, ViewItemBidsActivity.class);
         startActivity(intent);
