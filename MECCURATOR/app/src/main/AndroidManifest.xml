@@ -27,6 +27,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.HomeActivity" />
         </activity>
+        <activity
+            android:name=".ViewItemBidsActivity"
+            android:label="@string/title_activity_view_item_bids"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

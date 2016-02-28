@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">MECCURATOR</string>
     <string name="action_settings">Settings</string>
-    <string name = "title_activity_view_art_listings" > View My Listings</string>
+    <string name="title_activity_view_art_listings"> View My Listings</string>
     <string name="viewListings">View My Listings</string>
+    <string name="title_activity_view_item_bids">ViewItemBidsActivity</string>
 
 
 </resources>
