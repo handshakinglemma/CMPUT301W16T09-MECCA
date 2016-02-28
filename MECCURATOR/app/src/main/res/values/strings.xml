@@ -2,5 +2,6 @@
     <string name="app_name">MECCURATOR</string>
     <string name="action_settings">Settings</string>
     <string name = "title_activity_view_art_listings" > View Art Listings</string>
+    <string name="viewListings">See Art Listings</string>
 
 </resources>
