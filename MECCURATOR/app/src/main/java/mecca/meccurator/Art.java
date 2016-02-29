@@ -24,7 +24,6 @@ public class Art {
         artist = workArtist;
         status = artStatus;
         // This is a comment.
-
     }
 
     public String getStatus() {

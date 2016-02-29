@@ -14,9 +14,9 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
 
         ArtList myArt = new ArtList();
 
-        // Assumes owner is logged in and status is set to available, with no borrower
-        //Art art = new Art("The Scream", "Edvard Munch", "available");
-        //myArt.addItem(art);
+         // Assumes owner is logged in and status is set to available, with no borrower
+         Art art = new Art("The Scream", "Edvard Munch", "available");
+         //myArt.addItem(art);
 
         // check if allArt contains the new item
         //assertTrue(myArt.hasItem(art));

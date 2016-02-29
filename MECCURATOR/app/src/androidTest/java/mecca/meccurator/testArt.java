@@ -11,7 +11,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSetStatus() {
-        Art art = new Art();
+        Art art = new Art("The Scream", "Edvard Munch", "available");
 
         // test that it can be unavailable
         art.setStatus("unavailable");
@@ -28,7 +28,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     }
 
     public void testGetStatus() {
-        Art art = new Art();
+        Art art = new Art("The Scream", "Edvard Munch", "available");
         art.setStatus("unavailable");
 
         assertEquals(art.getStatus(), "unavailable");
@@ -38,15 +38,15 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSetOwner() {
-        Art art = new Art();
+        Art art = new Art("The Scream", "Edvard Munch", "available");
     }
 
     public void testGetOwner() {
-        Art art = new Art();
+        Art art = new Art("The Scream", "Edvard Munch", "available");
     }
 
     public void testSetDescription() {
-        Art art = new Art();
+        Art art = new Art("The Scream", "Edvard Munch", "available");
     }
 
     public void testGetDescription() {}
