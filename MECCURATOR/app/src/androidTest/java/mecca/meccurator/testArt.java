@@ -22,11 +22,19 @@ public class testArt extends ActivityInstrumentationTestCase2 {
         assertEquals("available", art.getStatus());
 
         // test that it can be nothing else
-        art.setStatus("Nope");
+        //art.setStatus("Nope");
+        // Unnecessary because it shouldn't be possible to set it to
+        // anything else.
     }
 
     public void testGetStatus() {
         Art art = new Art();
+        art.setStatus("unavailable");
+
+        assertEquals(art.getStatus(), "unavailable");
+
+        art.setStatus("available");
+        assertEquals(art.getStatus(), "avaialable");
     }
 
     public void testSetOwner() {
