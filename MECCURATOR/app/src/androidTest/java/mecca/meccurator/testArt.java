@@ -10,39 +10,60 @@ public class testArt extends ActivityInstrumentationTestCase2 {
         super(HomeActivity.class);
     }
 
-    public void testGetStatus() {}
+    public void testSetStatus() {
+        Art art = new Art();
 
-    public void testSetStatus() {}
+        // test that it can be unavailable
+        art.setStatus("unavailable");
+        assertEquals("unavailable", art.getStatus());
 
-    public void testGetOwner() {}
+        // test that it can be available
+        art.setStatus("available");
+        assertEquals("available", art.getStatus());
 
-    public void testSetOwner() {}
+        // test that it can be nothing else
+        art.setStatus("Nope");
+    }
+
+    public void testGetStatus() {
+        Art art = new Art();
+    }
+
+    public void testSetOwner() {
+        Art art = new Art();
+    }
+
+    public void testGetOwner() {
+        Art art = new Art();
+    }
+
+    public void testSetDescription() {
+        Art art = new Art();
+    }
 
     public void testGetDescription() {}
 
-    public void testSetDescription() {}
+    public void testSetBorrower() {}
 
     public void testGetBorrower() {}
 
-    public void testSetBorrower() {}
+    public void testSetTitle() {}
 
     public void testGetTitle() {}
 
-    public void testSetTitle() {}
+    public void testSetArtist() {}
 
     public void testGetArtist() {}
 
-    public void testSetArtist() {}
+    public void testSetPhoto() {}
 
     public void testGetPhoto() {}
 
-    public void testSetPhoto() {}
+    public void testSetDimensions() {}
 
     public void testGetDimensions() {}
 
-    public void testSetDimensions() {}
+    public void testSetMinprice() {}
 
     public void testGetMinprice() {}
-
-    public void testSetMinprice() {}
 }
