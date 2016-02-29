@@ -31,7 +31,16 @@
         android:layout_margin="@dimen/fab_margin"
         android:background="#83d1ef"
         android:onClick="ViewItemBidsButton"
-        android:text="@string/view_bids"
-        android:src="@android:drawable/ic_input_add" />
+        android:text="@string/view_bids" />
+
+    <Button
+        android:id="@+id/saveitem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:background="#83d1ef"
+        android:onClick="SaveItem"
+        android:text="@string/save_item" />
 
 </android.support.design.widget.CoordinatorLayout>

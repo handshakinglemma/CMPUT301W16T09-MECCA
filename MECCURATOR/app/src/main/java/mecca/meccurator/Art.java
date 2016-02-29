@@ -31,7 +31,13 @@ public class Art {
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        if( status.equals("available") ) {
+            this.status = status;
+        } else if ( status.equals("unavailable") ) {
+            this.status = status;
+        } else {
+            // throw an exception?
+        }
     }
 
     public String getOwner() {
