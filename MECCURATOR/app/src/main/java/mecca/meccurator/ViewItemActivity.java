@@ -41,6 +41,10 @@ public class ViewItemActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void SaveItem() {
+
+    }
+
     public BigDecimal getBid() {
         return bid;
     }

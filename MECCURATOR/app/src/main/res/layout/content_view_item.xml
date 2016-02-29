@@ -12,4 +12,11 @@
     tools:context="mecca.meccurator.ViewItemActivity"
     tools:showIn="@layout/activity_view_item">
 
+    <EditText
+        android:id="@+id/artist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:hint="@string/artist"/>
+
 </RelativeLayout>
