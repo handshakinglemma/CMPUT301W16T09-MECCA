@@ -18,6 +18,14 @@ public class Art {
     private String dimensions;
     private BigDecimal minprice;
 
+    public Art(String workTitle, String workArtist, String artStatus) {
+        
+        title = workTitle;
+        artist = workArtist;
+        status = artStatus;
+
+    }
+
     public String getStatus() {
         return status;
     }
