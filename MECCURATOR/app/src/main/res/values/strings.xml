@@ -16,5 +16,6 @@
     <string name="dimensionHint">width x height</string>
     <string name="minprice">Minimum Bidding Price</string>
     <string name="description">Description</string>
+    <string name="title_activity_edit_my_item">EditMyItemActivity</string>
 
 </resources>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 /**
  * Created by chaitali on 16-02-27.
+ * 
  */
 public class ArtList {
 
@@ -33,5 +34,13 @@ public class ArtList {
     public void deleteItem(Art art) {
         artwork.remove(art);
         
+    }
+
+    public ArrayList<Art> getArtwork(){
+        return artwork;
+    }
+
+    public void remove(int pos) {
+        artwork.remove(pos);
     }
 }

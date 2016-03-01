@@ -19,11 +19,14 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
 import java.sql.Blob;
+import java.util.ArrayList;
 
 public class AddNewItemActivity extends AppCompatActivity {
 
 
-    private static final String ARTFILE = "artfile.sav";
+    protected static final String ARTFILE = "artfile.sav";
+   // public static ArrayList<Art> artwork;
+
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -87,8 +90,13 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
+<<<<<<< HEAD
+        ArtList.artwork = new ArrayList<Art>();
+        ArtList.artwork.add(newestArt);
+=======
         ArtList artwork = null;
         artwork.addItem(newestArt);
+>>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
 
         /* toast message */
         // new func: displayToast or something?
@@ -103,6 +111,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
 
     }
+
 
     protected void saveInFile() {
         try {
