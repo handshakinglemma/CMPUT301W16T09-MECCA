@@ -7,12 +7,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-<<<<<<< HEAD
-import android.widget.Button;
-=======
 import android.view.Window;
 import android.view.WindowManager;
->>>>>>> Marcy
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -23,21 +19,6 @@ public class HomeActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-<<<<<<< HEAD
-        Button viewArtListingButton = (Button) findViewById(R.id.viewMyArtListings);
-
-        viewArtListingButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                setResult(RESULT_OK);
-
-                Intent intent = new Intent(HomeActivity.this, ViewArtListingsActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
-=======
->>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
     }
 
 

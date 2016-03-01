@@ -1,10 +1,6 @@
 <resources>
     <string name="app_name">MECCURATOR</string>
-    <string name="button_myArtListing">My Art</string>
     <string name="action_settings">Settings</string>
-<<<<<<< HEAD
-    <string name="title_activity_view_art_listings">ViewArtListingsActivity</string>
-=======
     <string name="title_activity_view_art_listings">My Listing</string>
     <string name="viewListings">My Listings</string>
     <string name="title_activity_view_item_bids">Bids</string>
@@ -21,5 +17,4 @@
     <string name="minprice">Minimum Bidding Price</string>
     <string name="description">Description</string>
 
->>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
 </resources>
