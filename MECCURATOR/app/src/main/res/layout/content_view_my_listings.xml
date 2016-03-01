@@ -16,12 +16,12 @@
 
 
     <ListView
-        android:id="@+id/oldMyListing"
+        android:id="@+id/oldMyListings"
         android:layout_width="fill_parent"
-        android:layout_height="400dp"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:scrollbars="vertical"
-        android:background="#83d1ef">
+        tools:listitem="@android:layout/simple_expandable_list_item_2">
 
     </ListView>
 

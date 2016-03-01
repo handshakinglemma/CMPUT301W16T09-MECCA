@@ -34,4 +34,12 @@ public class ArtList {
         artwork.remove(art);
         
     }
+
+    public ArrayList<Art> getArtwork(){
+        return artwork;
+    }
+
+    public void remove(int pos) {
+        artwork.remove(pos);
+    }
 }

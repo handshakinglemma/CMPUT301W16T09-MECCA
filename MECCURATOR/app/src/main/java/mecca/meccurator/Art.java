@@ -108,4 +108,10 @@ public class Art {
     public void setMinprice(BigDecimal minprice) {
         this.minprice = minprice;
     }
+
+    @Override
+    public String toString()
+    {
+        return title + "    " + artist + "  " + minprice;
+    }
 }
