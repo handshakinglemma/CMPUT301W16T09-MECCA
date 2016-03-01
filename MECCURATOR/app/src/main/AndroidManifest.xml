@@ -34,7 +34,16 @@
         <activity
             android:name=".ViewItemActivity"
             android:label="@string/title_activity_view_item"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AddNewItemActivity"
+            android:label="@string/title_activity_add_new_item"
+            android:parentActivityName=".ViewMyListingsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mecca.meccurator.ViewMyListingsActivity" />
+        </activity>
     </application>
 
 </manifest>

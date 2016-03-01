@@ -7,7 +7,13 @@
     <string name="title_activity_view_item">Item</string>
     <string name="new_item"> + </string>
     <string name="view_bids"> View Bids </string>
+    <string name="title"> Title </string>
     <string name="save_item"> Save </string>
     <string name="artist"> Artist Name </string>
+    <string name="title_activity_add_new_item">AddNewItemActivity</string>
+    <string name="dimensions">Dimensions</string>
+    <string name="dimensionHint">width x height</string>
+    <string name="minprice">Minimum Bidding Price</string>
+    <string name="description">Description</string>
 
 </resources>

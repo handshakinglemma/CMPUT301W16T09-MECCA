@@ -7,8 +7,8 @@ import java.util.ArrayList;
  */
 public class ArtList {
 
-
-    private ArrayList<Art> artwork = new ArrayList<Art>();
+    //TODO: singleton
+    public static ArrayList<Art> artwork = new ArrayList<Art>();
 
     private int size;
 

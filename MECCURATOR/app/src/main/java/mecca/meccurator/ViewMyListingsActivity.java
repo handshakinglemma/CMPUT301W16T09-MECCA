@@ -46,7 +46,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
     // Click to create a new listing
     public void CreateNewListingButton(View view) {
-        Intent intent = new Intent(this, ViewItemActivity.class);
+        Intent intent = new Intent(this, AddNewItemActivity.class);
         startActivity(intent);
     }
 

@@ -18,12 +18,17 @@ public class Art {
     private String dimensions;
     private BigDecimal minprice;
 
-    public Art(String workTitle, String workArtist, String artStatus) {
-        
-        title = workTitle;
-        artist = workArtist;
-        status = artStatus;
-        // This is a comment.
+
+    public Art(String status, String owner, String borrower, String description, String artist, String title, String dimensions, BigDecimal minprice) {
+        this.status = status;
+        this.owner = owner;
+        this.borrower = borrower;
+        this.description = description;
+        this.artist = artist;
+        this.title = title;
+        //this.photo = photo;
+        this.dimensions = dimensions;
+        this.minprice = minprice;
     }
 
     public String getStatus() {
