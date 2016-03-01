@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 =======
     tools:context=".HomeActivity"
+<<<<<<< HEAD
 >>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
     tools:showIn="@layout/activity_home">
     <Button
@@ -21,14 +22,100 @@
 </LinearLayout>
 =======
         android:text="Hello World!" />
+=======
+    tools:showIn="@layout/activity_home"
+    android:weightSum="1"
+    android:orientation="vertical">
 
-    <Button
-        android:id="@+id/fuel"
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/background"/>
+>>>>>>> Marcy
+
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/viewListings"
-        android:onClick="ViewListingsButton"
-        android:background="#83d1ef" />
+        android:orientation="horizontal"
+        android:weightSum="1">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello,"
+            android:textColor="#0026ff"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/username"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:text="User1"
+            android:textSize="30dp"
+            android:background="#0083d1ef"
+            android:layout_weight="0.32" />
+
+    </LinearLayout>
+
+
+
+    <TextView
+    android:layout_width="fill_parent"
+    android:layout_height="79dp"
+    android:id="@+id/homeDescription"
+    android:text="@string/homeDescription"
+    android:textStyle="bold"
+    android:textColor="#0026ff" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:text="My Notifications"
+            android:textSize="10dp"
+            android:background="#83d1ef"
+            android:layout_margin="10dp"
+            android:layout_gravity="right" />
+
+        <Button
+            android:layout_width="76dp"
+            android:layout_height="50dp"
+            android:textSize="10dp"
+            android:text="@string/viewListings"
+            android:onClick="ViewListingsButton"
+            android:background="#83d1ef"
+            android:layout_margin="10dp"
+            android:layout_gravity="right" />
+
+        <Button
+            android:layout_width="88dp"
+            android:layout_height="50dp"
+            android:textSize="10dp"
+            android:text="My Borrowed Items"
+            android:background="#83d1ef"
+            android:layout_gravity="right"
+            android:layout_margin="10dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="10dp"
+            android:text="My Bids"
+            android:background="#83d1ef"
+            android:layout_margin="10dp"
+            android:layout_gravity="right" />
+
+    </LinearLayout>
+
+<<<<<<< HEAD
 </RelativeLayout>
 >>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
+=======
+</LinearLayout>
+>>>>>>> Marcy
