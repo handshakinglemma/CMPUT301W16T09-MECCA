@@ -18,12 +18,31 @@ public class Art {
     private String dimensions;
     private BigDecimal minprice;
 
+
+    public Art(String status, String owner, String borrower, String description, String artist, String title, String dimensions, BigDecimal minprice) {
+        this.status = status;
+        this.owner = owner;
+        this.borrower = borrower;
+        this.description = description;
+        this.artist = artist;
+        this.title = title;
+        //this.photo = photo;
+        this.dimensions = dimensions;
+        this.minprice = minprice;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
-        this.status = status;
+        if( status.equals("available") ) {
+            this.status = status;
+        } else if ( status.equals("unavailable") ) {
+            this.status = status;
+        } else {
+            // throw an exception?
+        }
     }
 
     public String getOwner() {

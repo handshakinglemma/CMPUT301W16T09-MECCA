@@ -6,11 +6,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
+<<<<<<< HEAD
+=======
+    tools:context=".HomeActivity"
+>>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
     tools:showIn="@layout/activity_home">
     <Button
         android:id="@+id/viewMyArtListings"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:text="@string/button_myArtListing"/>
 
 </LinearLayout>
+=======
+        android:text="Hello World!" />
+
+    <Button
+        android:id="@+id/fuel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/viewListings"
+        android:onClick="ViewListingsButton"
+        android:background="#83d1ef" />
+
+</RelativeLayout>
+>>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
