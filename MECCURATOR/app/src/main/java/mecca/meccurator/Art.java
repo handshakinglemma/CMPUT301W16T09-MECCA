@@ -108,4 +108,9 @@ public class Art {
     public void setMinprice(BigDecimal minprice) {
         this.minprice = minprice;
     }
+
+    public String toString(){
+        return title;
+    }
+
 }

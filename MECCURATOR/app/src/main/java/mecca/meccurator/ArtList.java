@@ -8,21 +8,22 @@ import java.util.ArrayList;
 public class ArtList {
 
     //TODO: singleton
-    public static ArrayList<Art> artwork;
+    public static ArrayList<Art> allArt = new ArrayList<Art>();
 
     private int size;
 
-    public void addItem(Art art) {
+    public void addItem(Art artwork) {
 
-        if(artwork == null){
-            artwork = new ArrayList<Art>();
+        if(allArt == null){
+
+            ArtList allArt = new ArtList();
+
         }
-
-        artwork.add(art);
+        allArt.add(artwork);
     }
 
     public void hasItem(Art art) {
-        artwork.contains(art);
+        allArt.contains(art);
     }
 
 
@@ -31,7 +32,7 @@ public class ArtList {
     }
 
     public void deleteItem(Art art) {
-        artwork.remove(art);
+        allArt.remove(art);
         
     }
 }

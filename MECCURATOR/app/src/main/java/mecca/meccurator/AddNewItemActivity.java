@@ -23,7 +23,7 @@ import java.sql.Blob;
 public class AddNewItemActivity extends AppCompatActivity {
 
 
-    private static final String ARTFILE = "artfile.sav";
+    protected static final String ARTFILE = "artfile.sav";
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -42,7 +42,8 @@ public class AddNewItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         /* declare all input fields
@@ -110,7 +111,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson = new Gson();
-            gson.toJson(ArtList.artwork, out);
+            gson.toJson(ArtList.allArt, out);
             out.flush();
             fos.close();
 

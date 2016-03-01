@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -29,8 +30,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
 
     private static final String FILENAME = "file.sav";
-    private ListView oldMyListing;
-    private ArrayList<Art> itemlistinglist = new ArrayList<Art>();
+    private ListView oldArtListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
 
@@ -40,7 +40,25 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_my_listings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        oldMyListing = (ListView) findViewById(R.id.oldMyListing);
+        oldArtListings = (ListView) findViewById(R.id.oldMyListing);
+
+        oldArtListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent edit = new Intent(getApplicationContext(), AddNewItemActivity.class);
+                int pos = position;
+                edit.putExtra("position", pos);
+                startActivity(edit);
+                return true;
+
+
+            }
+
+
+        });
+
 
     }
 
@@ -58,31 +76,40 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         super.onStart();
         loadFromFile();
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.activity_view_item, itemlistinglist);
-        oldMyListing.setAdapter(adapter);
+                R.layout.list_item, ArtList.allArt);
+        oldArtListings.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {
         try {
-            FileInputStream fis = openFileInput(FILENAME);
+            FileInputStream fis = openFileInput(AddNewItemActivity.ARTFILE);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Gson gson = new Gson();
             // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
             Type listType = new TypeToken<ArrayList<Art>>() {
             }.getType();
-            itemlistinglist = gson.fromJson(in, listType);
+            ArtList.allArt = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            itemlistinglist = new ArrayList<Art>();
+            ArtList.allArt = new ArrayList<Art>();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
 
+
+    /*
     // Code from https://github.com/joshua2ua/lonelyTwitter
     private void saveInFile() {
         try {
@@ -91,7 +118,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
                     0); // This file can be accessed by this application only, file will be filled with new stuff
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson = new Gson();
-            gson.toJson(itemlistinglist, out);
+            gson.toJson(ArtList.allArt, out);
             out.flush();
             fos.close();
         } catch (FileNotFoundException e) {
@@ -101,10 +128,11 @@ public class ViewMyListingsActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
-    }
+    } */
 
 
     public void seeListingItem() {
+
 
     }
 
