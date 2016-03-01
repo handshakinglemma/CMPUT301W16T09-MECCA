@@ -87,7 +87,8 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        ArtList.artwork.add(newestArt);
+        ArtList artwork = null;
+        artwork.addItem(newestArt);
 
         /* toast message */
         // new func: displayToast or something?
