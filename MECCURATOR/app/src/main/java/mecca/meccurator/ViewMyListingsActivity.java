@@ -47,7 +47,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent edit = new Intent(getApplicationContext(), AddNewItemActivity.class);
+                Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
                 int pos = position;
                 edit.putExtra("position", pos);
                 startActivity(edit);

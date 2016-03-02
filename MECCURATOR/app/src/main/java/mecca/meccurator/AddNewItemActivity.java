@@ -2,8 +2,6 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,7 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
-import java.sql.Blob;
 
 public class AddNewItemActivity extends AppCompatActivity {
 
@@ -61,7 +58,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     public void saveEntry(View view){
 
 
-        BigDecimal minprice;
+        float minprice;
 
 
         /* get text from EditText */
@@ -77,7 +74,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         /* check for valid input FIX THIS */
         try {
-            minprice = BigDecimal.valueOf(Long.parseLong(inputMinPrice.getText().toString()));
+            minprice = Float.parseFloat(inputMinPrice.getText().toString());
         } catch(NumberFormatException wrong){
             inputMinPrice.setError("Invalid Input...");
             return;
@@ -88,8 +85,13 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        ArtList artwork = null;
-        artwork.addItem(newestArt);
+        try{
+            ArtList.allArt.add(newestArt);
+        }catch(NullPointerException e){
+            ArtList allArt = new ArtList();
+            ArtList.allArt.add(newestArt);
+        }
+
 
         /* toast message */
         // new func: displayToast or something?

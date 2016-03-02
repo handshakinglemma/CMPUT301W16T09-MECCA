@@ -1,6 +1,5 @@
 package mecca.meccurator;
 
-import java.math.BigDecimal;
 import java.sql.Blob;
 
 /**
@@ -16,10 +15,10 @@ public class Art {
     private String title;
     private Blob photo;
     private String dimensions;
-    private BigDecimal minprice;
+    private float minprice;
 
 
-    public Art(String status, String owner, String borrower, String description, String artist, String title, String dimensions, BigDecimal minprice) {
+    public Art(String status, String owner, String borrower, String description, String artist, String title, String dimensions, float minprice) {
         this.status = status;
         this.owner = owner;
         this.borrower = borrower;
@@ -101,11 +100,11 @@ public class Art {
         this.dimensions = dimensions;
     }
 
-    public BigDecimal getMinprice() {
+    public float getMinprice() {
         return minprice;
     }
 
-    public void setMinprice(BigDecimal minprice) {
+    public void setMinprice(float minprice) {
         this.minprice = minprice;
     }
 
