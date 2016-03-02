@@ -2,8 +2,6 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -18,15 +16,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
+<<<<<<< HEAD
 import java.sql.Blob;
 import java.util.ArrayList;
+=======
+>>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
 
 public class AddNewItemActivity extends AppCompatActivity {
 
 
     protected static final String ARTFILE = "artfile.sav";
+<<<<<<< HEAD
    // public static ArrayList<Art> artwork;
 
+=======
+>>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -45,7 +49,8 @@ public class AddNewItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         /* declare all input fields
@@ -63,7 +68,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     public void saveEntry(View view){
 
 
-        BigDecimal minprice;
+        float minprice;
 
 
         /* get text from EditText */
@@ -79,7 +84,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         /* check for valid input FIX THIS */
         try {
-            minprice = BigDecimal.valueOf(Long.parseLong(inputMinPrice.getText().toString()));
+            minprice = Float.parseFloat(inputMinPrice.getText().toString());
         } catch(NumberFormatException wrong){
             inputMinPrice.setError("Invalid Input...");
             return;
@@ -91,12 +96,22 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
 <<<<<<< HEAD
+<<<<<<< HEAD
         ArtList.artwork = new ArrayList<Art>();
         ArtList.artwork.add(newestArt);
 =======
         ArtList artwork = null;
         artwork.addItem(newestArt);
 >>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
+=======
+        try{
+            ArtList.allArt.add(newestArt);
+        }catch(NullPointerException e){
+            ArtList allArt = new ArtList();
+            ArtList.allArt.add(newestArt);
+        }
+
+>>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
 
         /* toast message */
         // new func: displayToast or something?
@@ -119,7 +134,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson = new Gson();
-            gson.toJson(ArtList.artwork, out);
+            gson.toJson(ArtList.allArt, out);
             out.flush();
             fos.close();
 

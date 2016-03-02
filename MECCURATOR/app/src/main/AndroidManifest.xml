@@ -45,8 +45,13 @@
                 android:value="mecca.meccurator.ViewMyListingsActivity" />
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".EditMyItemActivity"
             android:label="@string/title_activity_edit_my_item"
+=======
+            android:name=".EditItemActivity"
+            android:label="@string/title_activity_edit_item"
+>>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
             android:parentActivityName=".ViewMyListingsActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
