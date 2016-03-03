@@ -18,7 +18,8 @@ public class Art {
     private float minprice;
 
 
-    public Art(String status, String owner, String borrower, String description, String artist, String title, String dimensions, float minprice) {
+    public Art(String status, String owner, String borrower, String description,
+               String artist, String title, String dimensions, float minprice) {
         this.status = status;
         this.owner = owner;
         this.borrower = borrower;
