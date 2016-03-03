@@ -15,11 +15,9 @@
     <string name="dimensionHint">width x height</string>
     <string name="minprice">Minimum Bidding Price</string>
     <string name="description">Description</string>
-<<<<<<< HEAD
     <string name="title_activity_edit_my_item">EditMyItemActivity</string>
-=======
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="delete_item">DELETE</string>
->>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
+
 
 </resources>

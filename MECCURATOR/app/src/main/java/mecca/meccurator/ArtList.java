@@ -38,10 +38,10 @@ public class ArtList {
     }
 
     public ArrayList<Art> getArtwork(){
-        return artwork;
+        return allArt;
     }
 
     public void remove(int pos) {
-        artwork.remove(pos);
+        allArt.remove(pos);
     }
 }

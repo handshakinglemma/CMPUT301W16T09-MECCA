@@ -108,16 +108,9 @@ public class Art {
         this.minprice = minprice;
     }
 
-<<<<<<< HEAD
     @Override
-    public String toString()
-    {
-        return title + "    " + artist + "  " + minprice;
-    }
-=======
     public String toString(){
         return title;
     }
 
->>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
 }
