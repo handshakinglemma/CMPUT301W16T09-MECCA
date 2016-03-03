@@ -12,6 +12,14 @@ public class User {
     private String phoneNumber;
     private Blob photo;
 
+    // TODO pass parameter photo
+    public User(String username, String name, String phoneNumber) {
+        this.username = username;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        //this.photo = photo;
+    }
+
     public String getUsername() {
         return username;
     }
