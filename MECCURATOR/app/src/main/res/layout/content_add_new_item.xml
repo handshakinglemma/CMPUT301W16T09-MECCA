@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context="mecca.meccurator.AddNewItemActivity"
     tools:showIn="@layout/activity_add_new_item"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <include layout="@layout/app_bar"/>
 
@@ -84,7 +85,7 @@
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/minprice"
             android:id="@+id/viewMinPrice"
@@ -92,7 +93,7 @@
 
         <EditText
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:id="@+id/enterMinPrice"
             android:layout_weight="1"
             android:inputType="numberDecimal"/>
@@ -119,13 +120,13 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_weight="0.50">
 
         <EditText
             android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_height="109dp"
             android:id="@+id/enterDescription"
-            android:layout_weight="1"
             android:inputType="text"/>
 
     </LinearLayout>
