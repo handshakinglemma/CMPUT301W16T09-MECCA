@@ -113,22 +113,26 @@
             android:id="@+id/viewDescription"
             android:layout_weight="1" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="160dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/enterDescription"
             android:layout_weight="1"
             android:inputType="text"/>
 
     </LinearLayout>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/item_bids"
+        android:id="@+id/item_bids"
+        android:onClick="ViewItemBidsButton"
+        android:layout_marginTop="10dp"
+        android:background="#47d8ca"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="match_parent"

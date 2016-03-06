@@ -54,13 +54,10 @@ public class ViewMyListingsActivity extends AppCompatActivity {
                 edit.putExtra("position", pos);
                 startActivity(edit);
                 return true;
-
-
             }
 
 
         });
-
     }
 
     // Click to create a new listing
@@ -113,35 +110,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         }
     }
 
-
-    /*
-    // Code from https://github.com/joshua2ua/lonelyTwitter
-    private void saveInFile() {
-        try {
-            adapter.notifyDataSetChanged();
-            FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE,
-                    0); // This file can be accessed by this application only, file will be filled with new stuff
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-            Gson gson = new Gson();
-<<<<<<< HEAD
-            gson.toJson(artwork, out);
-=======
-            gson.toJson(ArtList.allArt, out);
->>>>>>> 6209c79eb1722cfb61cd61c4c2971e5639f6a284
-            out.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-    } */
-
-
     public void seeListingItem() {
-
 
     }
 
@@ -152,7 +121,5 @@ public class ViewMyListingsActivity extends AppCompatActivity {
     public void viewBidOnItemsOnly() {
 
     }
-
-
 
 }

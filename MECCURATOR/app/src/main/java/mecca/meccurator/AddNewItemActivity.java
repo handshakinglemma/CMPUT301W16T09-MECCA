@@ -22,10 +22,7 @@ import java.util.ArrayList;
 
 public class AddNewItemActivity extends AppCompatActivity {
 
-
     protected static final String ARTFILE = "artfile.sav";
-
-    //public static ArrayList<Art> artwork;
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -33,10 +30,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputDescription;
     private EditText inputDimensions;
     private EditText inputMinPrice;
-
     /* also need an input field for photos but idk anything yet so */
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +38,6 @@ public class AddNewItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_item);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         /* declare all input fields
            maybe can move it out of the onCreate w/e
@@ -62,9 +53,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
     public void saveEntry(View view){
 
-
         float minprice;
-
 
         /* get text from EditText */
         String title = inputTitle.getText().toString();
@@ -74,8 +63,6 @@ public class AddNewItemActivity extends AppCompatActivity {
         String status = "available";
         String owner = "who?";
         String borrower = "";
-
-
 
         /* check for valid input FIX THIS */
         try {
@@ -90,12 +77,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-
         ArtList.allArt = new ArrayList<Art>();
-        ///ArtList.allArt.add(newestArt);
-
-        //ArtList artwork = null;
-        //artwork.addItem(newestArt);
 
         try{
             ArtList.allArt.add(newestArt);
@@ -134,9 +116,4 @@ public class AddNewItemActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
-
-
-
-
-
 }

@@ -15,10 +15,12 @@
     <string name="dimensionHint">Length x Width</string>
     <string name="minprice">Minimum Bidding Price</string>
     <string name="description">Description</string>
-    <string name="title_activity_edit_my_item">EditMyItemActivity</string>
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="delete_item">DELETE</string>
     <string name="homeDescription">Rent fascinating pieces of art locally\u0021</string>
+    <string name="title_activity_view_user">ViewUserActivity</string>
+    <string name="item_bids"> View Bids On Item </string>
+    <string name="title_activity_edit_user">EditUserActivity</string>
 
 
 </resources>

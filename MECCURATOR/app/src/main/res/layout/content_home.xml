@@ -53,6 +53,7 @@
             android:text="User1"
             android:textSize="30dp"
             android:background="#0083d1ef"
+            android:onClick="ViewMyProfileButton"
             android:layout_weight="0.32" />
 
     </LinearLayout>

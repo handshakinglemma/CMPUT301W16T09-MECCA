@@ -23,8 +23,8 @@ public class ArtList {
         allArt.add(artwork);
     }
 
-    public void hasItem(Art art) {
-        allArt.contains(art);
+    public boolean hasItem(Art art) {
+        return allArt.contains(art);
     }
 
 

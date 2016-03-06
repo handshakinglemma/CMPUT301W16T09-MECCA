@@ -114,19 +114,11 @@
             android:id="@+id/viewDescription"
             android:layout_weight="1" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.50">
-
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="109dp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/enterDescription"
+            android:layout_weight="1"
             android:inputType="text"/>
 
     </LinearLayout>
