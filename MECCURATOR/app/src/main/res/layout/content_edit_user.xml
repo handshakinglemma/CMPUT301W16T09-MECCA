@@ -3,13 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mecca.meccurator.AddNewItemActivity"
-    tools:showIn="@layout/activity_add_new_item"
-    android:orientation="vertical"
-    android:weightSum="1">
+    tools:context="mecca.meccurator.EditUserActivity"
+    tools:showIn="@layout/activity_edit_user"
+    android:orientation="vertical">
 
     <include layout="@layout/app_bar"/>
 
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/username"
+            android:id="@+id/viewUsername"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/hardcoded_username"
+            android:layout_weight="1" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -20,83 +41,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/title"
-            android:id="@+id/viewTitle"
+            android:text="@string/name"
+            android:id="@+id/viewName"
             android:layout_weight="1" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
-            android:id="@+id/enterTitle"
+            android:id="@+id/enterName"
             android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/artist"
-            android:id="@+id/viewArtist"
-            android:layout_weight="1" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/enterArtist"
-            android:layout_weight="1"
-            android:inputType="text"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/dimensions"
-            android:id="@+id/viewDimensions"
-            android:layout_weight="1" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/enterDimensions"
-            android:layout_weight="1"
-            android:hint="@string/dimensionHint"
-            android:inputType="numberDecimal"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/minprice"
-            android:id="@+id/viewMinPrice"
-            android:layout_weight="1" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="70dp"
-            android:id="@+id/enterMinPrice"
-            android:layout_weight="1"
-            android:inputType="numberDecimal"/>
 
     </LinearLayout>
 
@@ -110,15 +64,16 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/description"
-            android:id="@+id/viewDescription"
+            android:text="@string/phone_number"
+            android:id="@+id/viewPhoneNumber"
             android:layout_weight="1" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/enterDescription"
+            android:id="@+id/enterPhoneNumber"
             android:layout_weight="1"
+            android:hint="@string/phone_number_hint"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -126,13 +81,11 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save_item"
-        android:id="@+id/save"
-        android:onClick="saveEntry"
+        android:text="@string/save_user"
+        android:id="@+id/saveUser"
         android:layout_marginTop="10dp"
         android:background="#47d8ca"
         android:layout_margin="10dp"
         android:layout_gravity="center_horizontal" />
-
 
 </LinearLayout>

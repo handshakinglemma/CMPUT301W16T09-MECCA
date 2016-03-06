@@ -45,7 +45,6 @@
                 android:value="mecca.meccurator.ViewMyListingsActivity" />
         </activity>
         <activity
-
             android:name=".EditItemActivity"
             android:label="@string/title_activity_edit_item"
             android:parentActivityName=".ViewMyListingsActivity"
@@ -54,6 +53,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.ViewMyListingsActivity" />
         </activity>
+        <activity
+            android:name=".ViewUserActivity"
+            android:label="@string/title_activity_view_user"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".EditUserActivity"
+            android:label="@string/title_activity_edit_user"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

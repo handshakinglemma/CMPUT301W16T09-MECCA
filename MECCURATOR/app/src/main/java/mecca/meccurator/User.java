@@ -12,6 +12,14 @@ public class User {
     private String phoneNumber;
     private Blob photo;
 
+    // TODO pass parameter photo
+    public User(String username, String name, String phoneNumber) {
+        this.username = username;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        //this.photo = photo;
+    }
+
     public String getUsername() {
         return username;
     }
@@ -21,7 +29,7 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -29,7 +37,7 @@ public class User {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -37,11 +45,16 @@ public class User {
     }
 
     public Blob getPhoto() {
-        return photo;
+        return this.photo;
     }
 
     public void setPhoto(Blob photo) {
         this.photo = photo;
+    }
+
+    @Override
+    public String toString(){
+        return this.username;
     }
 
 }
