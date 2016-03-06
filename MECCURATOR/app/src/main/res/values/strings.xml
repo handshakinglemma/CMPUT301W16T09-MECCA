@@ -1,20 +1,27 @@
 <resources>
     <string name="app_name">MECCURATOR</string>
     <string name="action_settings">Settings</string>
+    
     <string name="title_activity_view_art_listings">My Listing</string>
     <string name="viewListings">My Listings</string>
     <string name="title_activity_view_item_bids">Bids</string>
+    
     <string name="title_activity_view_item">Item</string>
-    <string name="new_item"> + </string>
+    <string name="new_item"> + Add a New Item </string>
     <string name="view_bids"> View Bids </string>
     <string name="title"> Title </string>
     <string name="save_item"> Save </string>
-    <string name="artist"> Name of Artist </string>
+    <string name="artist"> Enter Artists Name </string>
+    <string name="Title"> Enter Artwork Title </string>
+    
     <string name="title_activity_add_new_item">AddNewItemActivity</string>
     <string name="dimensions">Dimensions</string>
     <string name="dimensionHint">Length x Width</string>
     <string name="minprice">Minimum Bidding Price</string>
-    <string name="description">Description</string>
+    <string name="description">Description </string>
+    <string name="Status"> Status</string>
+    <string name="newItemStatus">Available</string>
+    
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="delete_item">DELETE</string>
     <string name="homeDescription">Rent fascinating pieces of art locally\u0021</string>

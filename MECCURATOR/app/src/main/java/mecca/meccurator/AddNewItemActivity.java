@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -30,14 +31,13 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputDescription;
     private EditText inputDimensions;
     private EditText inputMinPrice;
+    private TextView inputStatus;
     /* also need an input field for photos but idk anything yet so */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_item);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         /* declare all input fields
            maybe can move it out of the onCreate w/e
@@ -48,6 +48,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputDescription = (EditText) findViewById(R.id.enterDescription);
         inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
         inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        inputStatus = (TextView) findViewById(R.id.enterStatus);
 
     }
 
@@ -60,7 +61,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         String artist = inputArtist.getText().toString();
         String description = inputDescription.getText().toString();
         String dimensions = inputDimensions.getText().toString();
-        String status = "available";
+        String status = inputStatus.getText().toString();
         String owner = "who?";
         String borrower = "";
 

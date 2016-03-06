@@ -38,8 +38,6 @@ public class ViewMyListingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_my_listings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
