@@ -7,17 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-// View bids on a particular item
-// Only owner is able to get to this point since the "View Item Bids" is only visible when
-// owner is editing their item?
-public class ViewItemBidsActivity extends AppCompatActivity {
+import java.sql.Blob;
+
+// Only accessible by owner of account
+public class EditUserActivity extends AppCompatActivity {
+
+    private String username;
+    private String name;
+    private String phoneNumber;
+    private Blob photo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_item_bids);
+        setContentView(R.layout.activity_edit_user);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
     }
 
 }

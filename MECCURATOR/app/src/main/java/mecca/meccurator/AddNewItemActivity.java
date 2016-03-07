@@ -2,12 +2,11 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -18,15 +17,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
+
 import java.sql.Blob;
 import java.util.ArrayList;
 
 public class AddNewItemActivity extends AppCompatActivity {
 
-
     protected static final String ARTFILE = "artfile.sav";
-   // public static ArrayList<Art> artwork;
-
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -34,19 +31,13 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputDescription;
     private EditText inputDimensions;
     private EditText inputMinPrice;
-
+    private TextView inputStatus;
     /* also need an input field for photos but idk anything yet so */
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_item);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 
         /* declare all input fields
            maybe can move it out of the onCreate w/e
@@ -57,29 +48,26 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputDescription = (EditText) findViewById(R.id.enterDescription);
         inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
         inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        inputStatus = (TextView) findViewById(R.id.enterStatus);
 
     }
 
     public void saveEntry(View view){
 
-
-        BigDecimal minprice;
-
+        float minprice;
 
         /* get text from EditText */
         String title = inputTitle.getText().toString();
         String artist = inputArtist.getText().toString();
         String description = inputDescription.getText().toString();
         String dimensions = inputDimensions.getText().toString();
-        String status = "available";
+        String status = inputStatus.getText().toString();
         String owner = "who?";
         String borrower = "";
 
-
-
         /* check for valid input FIX THIS */
         try {
-            minprice = BigDecimal.valueOf(Long.parseLong(inputMinPrice.getText().toString()));
+            minprice = Float.parseFloat(inputMinPrice.getText().toString());
         } catch(NumberFormatException wrong){
             inputMinPrice.setError("Invalid Input...");
             return;
@@ -90,13 +78,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-<<<<<<< HEAD
-        ArtList.artwork = new ArrayList<Art>();
-        ArtList.artwork.add(newestArt);
-=======
-        ArtList artwork = null;
-        artwork.addItem(newestArt);
->>>>>>> dcdd937c509c227d9db7c4ac63de3d3cc089b7bd
+        //ArtList.allArt = new ArrayList<Art>();
+        ArtList.allArt.add(newestArt);
+
 
         /* toast message */
         // new func: displayToast or something?
@@ -108,10 +92,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         /* end add activity */
         saveInFile();
         finish();
-
-
     }
-
 
     protected void saveInFile() {
         try {
@@ -119,7 +100,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson = new Gson();
-            gson.toJson(ArtList.artwork, out);
+            gson.toJson(ArtList.allArt, out);
             out.flush();
             fos.close();
 
@@ -131,9 +112,4 @@ public class AddNewItemActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
-
-
-
-
-
 }

@@ -16,12 +16,10 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       // setSupportActionBar(toolbar);
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,10 +43,15 @@ public class HomeActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-
     // Click to view art listings
     public void ViewListingsButton(View view) {
         Intent intent = new Intent(this, ViewMyListingsActivity.class);
+        startActivity(intent);
+    }
+
+    // Click to view my profile
+    public void ViewMyProfileButton(View view) {
+        Intent intent = new Intent(this, EditUserActivity.class);
         startActivity(intent);
     }
 }

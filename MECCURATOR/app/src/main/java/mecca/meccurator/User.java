@@ -11,6 +11,16 @@ public class User {
     private String name;
     private String phoneNumber;
     private Blob photo;
+    private String email;
+
+    // TODO pass parameter photo
+    public User(String username, String name, String phoneNumber, String email) {
+        this.username = username;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        //this.photo = photo;
+        this.email = email;
+    }
 
     public String getUsername() {
         return username;
@@ -21,7 +31,7 @@ public class User {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -29,7 +39,7 @@ public class User {
     }
 
     public String getPhoneNumber() {
-        return phoneNumber;
+        return this.phoneNumber;
     }
 
     public void setPhoneNumber(String phoneNumber) {
@@ -37,11 +47,24 @@ public class User {
     }
 
     public Blob getPhoto() {
-        return photo;
+        return this.photo;
     }
 
     public void setPhoto(Blob photo) {
         this.photo = photo;
+    }
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public String toString(){
+        return this.username;
     }
 
 }
