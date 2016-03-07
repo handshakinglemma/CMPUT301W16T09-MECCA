@@ -54,15 +54,16 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
         EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
         EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
+        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
 
         /* append data into EditText box */
         inputArtist.append(ArtList.allArt.get(pos).getArtist());
         inputDescription.append(ArtList.allArt.get(pos).getDescription());
         inputTitle.append(ArtList.allArt.get(pos).getTitle());
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
-        inputDimensions.append(ArtList.allArt.get(pos).getDimensions());
-
+        inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
+        inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
     }
 
     protected void saveInFile() {
@@ -93,13 +94,16 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
         EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
         EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
+        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
 
         /* get text from EditText */
         String title = inputTitle.getText().toString();
         String artist = inputArtist.getText().toString();
         String description = inputDescription.getText().toString();
-        String dimensions = inputDimensions.getText().toString();
+        String dimensionsLength = inputLengthDimensions.getText().toString();
+        String dimensionsWidth = inputWidthDimensions.getText().toString();
+        String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = "available";
         String owner = "who?";
         String borrower = "";
