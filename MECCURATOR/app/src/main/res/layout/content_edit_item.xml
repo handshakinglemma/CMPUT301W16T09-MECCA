@@ -3,21 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mecca.meccurator.AddNewItemActivity"
-    tools:showIn="@layout/activity_add_new_item"
-    android:orientation="vertical"
-    android:weightSum="1">
+    tools:context="mecca.meccurator.EditItemActivity"
+    tools:showIn="@layout/activity_edit_item"
+    android:orientation="vertical">
 
 
     <EditText
+        android:id="@+id/enterTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:id="@+id/enterTitle"
-        android:hint="@string/Title"
+        android:layout_weight="0.09"
         android:gravity="center"
-        android:textSize="30dp"
-        android:layout_weight="0.09" />
+        android:hint="@string/Title"
+        android:inputType="text"
+        android:textSize="30dp" />
 
     <EditText
         android:layout_width="fill_parent"
@@ -121,18 +120,46 @@
             android:id="@+id/enterStatus"
             android:layout_weight="0.19" />
 
-
     </LinearLayout>
-    <Button
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/save_item"
-        android:id="@+id/save"
-        android:onClick="saveEntry"
-        android:layout_marginTop="10dp"
-        android:background="#47d8ca"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal" />
+        android:orientation="horizontal">
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save_item"
+            android:id="@+id/save"
+            android:onClick="saveEntry"
+            android:layout_marginTop="10dp"
+            android:background="#47d8ca"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_item"
+            android:id="@+id/delete"
+            android:onClick="deleteEntry"
+            android:layout_marginTop="10dp"
+            android:background="#47d8ca"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/item_bids"
+            android:id="@+id/item_bids"
+            android:onClick="ViewItemBidsButton"
+            android:layout_marginTop="10dp"
+            android:background="#47d8ca"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
 
 </LinearLayout>

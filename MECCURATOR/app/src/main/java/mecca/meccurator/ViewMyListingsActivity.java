@@ -30,39 +30,32 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
 
     private static final String FILENAME = "file.sav";
-    //public static ArrayList<Art> artwork = new ArrayList<Art>();
 
-    protected ListView oldListings;
-    //private ArrayList<Art> itemlistinglist = new ArrayList<Art>();
-    public ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
-
+    private ListView oldArtListings;
+    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_my_listings);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        oldListings = (ListView) findViewById(R.id.oldMyListings);
 
+        oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
-        oldListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+        oldArtListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
 
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent edit = new Intent(getApplicationContext(), EditMyItemActivity.class);
+                Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
+
                 int pos = position;
                 edit.putExtra("position", pos);
                 startActivity(edit);
                 return true;
-
-
             }
 
 
         });
-
     }
 
     // Click to create a new listing
@@ -78,8 +71,11 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-        adapter = new ArrayAdapter<Art>(this, R.layout.list_item, ArtList.artwork);
-        oldListings.setAdapter(adapter);
+
+        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                R.layout.list_item, ArtList.allArt);
+        oldArtListings.setAdapter(adapter);
+
     }
 
     @Override
@@ -97,39 +93,20 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
             Gson gson = new Gson();
             // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
-            Type listType = new TypeToken<ArrayList<Art>>() {}.getType();
-            ArtList.artwork = gson.fromJson(in, listType);
+
+            Type listType = new TypeToken<ArrayList<Art>>() {
+            }.getType();
+            ArtList.allArt = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
-            ArtList.artwork = new ArrayList<Art>();
+            ArtList.allArt = new ArrayList<Art>();
+
         } catch (IOException e) {
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
-
-    /*
-    // Code from https://github.com/joshua2ua/lonelyTwitter
-    private void saveInFile() {
-        try {
-            adapter.notifyDataSetChanged();
-            FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE,
-                    0); // This file can be accessed by this application only, file will be filled with new stuff
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-            Gson gson = new Gson();
-            gson.toJson(artwork, out);
-            out.flush();
-            fos.close();
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-    } */
-
 
     public void seeListingItem() {
 
@@ -142,7 +119,5 @@ public class ViewMyListingsActivity extends AppCompatActivity {
     public void viewBidOnItemsOnly() {
 
     }
-
-
 
 }

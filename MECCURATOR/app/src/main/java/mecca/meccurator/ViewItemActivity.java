@@ -11,6 +11,9 @@ import android.view.View;
 import java.math.BigDecimal;
 import java.sql.Blob;
 
+// This activity is what a non-owner of the item will see?
+// If user != owner then start this activity
+// Else start EditItemActivity
 public class ViewItemActivity extends AppCompatActivity {
 
     private BigDecimal bid;
@@ -25,7 +28,6 @@ public class ViewItemActivity extends AppCompatActivity {
     private BigDecimal minimumprice;
     private String artist;
     private String title;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +136,7 @@ public class ViewItemActivity extends AppCompatActivity {
     }
 
     //public String getTitle() {
-    //    return title;
+    //    return this.title;
     //}
 
     public void setTitle(String title) {

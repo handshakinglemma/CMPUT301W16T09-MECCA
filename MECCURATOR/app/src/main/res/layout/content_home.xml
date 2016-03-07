@@ -14,6 +14,18 @@
     android:weightSum="1"
     android:orientation="vertical">
 
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:hint="Search text"
+        android:id="@+id/editText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="15dp"
+        android:drawablePadding="10dp"
+        android:drawableLeft="@android:drawable/ic_search_category_default" />
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
@@ -31,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello,"
-            android:textColor="#0026ff"
+            android:textColor="#9500ff"
             android:textSize="30dp" />
 
         <Button
@@ -41,6 +53,7 @@
             android:text="User1"
             android:textSize="30dp"
             android:background="#0083d1ef"
+            android:onClick="ViewMyProfileButton"
             android:layout_weight="0.32" />
 
     </LinearLayout>
@@ -49,11 +62,11 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="79dp"
+        android:layout_height="50dp"
         android:id="@+id/homeDescription"
         android:text="@string/homeDescription"
         android:textStyle="bold"
-        android:textColor="#0026ff" />
+        android:textColor="#9500ff" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -64,7 +77,7 @@
         <Button
             android:layout_width="70dp"
             android:layout_height="50dp"
-            android:text="My Notifications"
+            android:text="Notifications"
             android:textSize="10dp"
             android:background="#83d1ef"
             android:layout_margin="10dp"
@@ -81,7 +94,7 @@
             android:layout_gravity="right" />
 
         <Button
-            android:layout_width="88dp"
+            android:layout_width="62dp"
             android:layout_height="50dp"
             android:textSize="10dp"
             android:text="My Borrowed Items"
