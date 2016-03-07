@@ -15,6 +15,7 @@ public class Art {
     private String title;
     private Blob photo;
     private String dimensions;
+
     private float minprice;
 
 
@@ -95,6 +96,16 @@ public class Art {
 
     public String getDimensions() {
         return dimensions;
+    }
+
+    //add a get length method
+
+    public String getLength(){
+        return getDimensions().substring(0, getDimensions().indexOf("x"));
+    }
+
+    public String getWidth(){
+        return getDimensions().substring(getDimensions().indexOf("x"));
     }
 
     public void setDimensions(String dimensions) {

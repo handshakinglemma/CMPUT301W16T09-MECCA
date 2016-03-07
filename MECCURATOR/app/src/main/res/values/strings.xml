@@ -16,7 +16,8 @@
 
     <string name="title_activity_add_new_item">AddNewItemActivity</string>
     <string name="dimensions">Dimensions</string>
-    <string name="dimensionHint">Length x Width</string>
+    <string name="dimensionLength">Length</string>
+    <string name="dimensionWidth">Width</string>
     <string name="minprice">Minimum Bidding Price</string>
     <string name="description">Description </string>
     <string name="Status"> Status</string>
