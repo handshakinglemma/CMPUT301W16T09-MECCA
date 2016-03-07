@@ -7,6 +7,7 @@
     <string name="title_activity_view_item_bids">Bids</string>
     
     <string name="title_activity_view_item">Item</string>
+
     <string name="new_item"> + Add a New Item </string>
     <string name="view_bids"> View Bids </string>
     <string name="title"> Title </string>
@@ -36,6 +37,9 @@
     <string name="phone_number">User1</string>
     <string name="phone_number_hint">### ### ####</string>
     <string name="save_user">Save</string>
+    <string name="title_activity_add_new_bid">AddNewBidActivity</string>
+    <string name="save_bid">Place Bid</string>
+    <string name="place_bid">Enter Bid:</string>
 
 
 </resources>
