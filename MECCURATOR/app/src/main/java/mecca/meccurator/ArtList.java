@@ -15,6 +15,11 @@ public class ArtList {
 
     public void addItem(Art artwork) {
 
+        if(allArt == null){
+
+            ArtList allArt = new ArtList();
+
+        }
         allArt.add(artwork);
     }
 
@@ -32,10 +37,9 @@ public class ArtList {
         
     }
 
-    public Art getItem(int index){
-        return allArt.get(index);
+    public ArrayList<Art> getArtwork(){
+        return allArt;
     }
-
 
     public void remove(int pos) {
         allArt.remove(pos);
