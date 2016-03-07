@@ -15,7 +15,9 @@ public class Art {
     private String title;
     private Blob photo;
     private String dimensions;
+
     private float minprice;
+    protected BidList bids;
 
 
     public Art(String status, String owner, String borrower, String description,
@@ -97,6 +99,16 @@ public class Art {
         return dimensions;
     }
 
+    //add a get length method
+
+    public String getLength(){
+        return getDimensions().substring(0, getDimensions().indexOf("x"));
+    }
+
+    public String getWidth(){
+        return getDimensions().substring(getDimensions().indexOf("x"));
+    }
+
     public void setDimensions(String dimensions) {
         this.dimensions = dimensions;
     }
@@ -107,6 +119,20 @@ public class Art {
 
     public void setMinprice(float minprice) {
         this.minprice = minprice;
+    }
+
+    public void addBid(BidList bid){
+        this.bids = bid;
+    }
+
+    public BidList getBids(){
+
+        if(bids == null) {
+            bids = new BidList();
+        }
+
+        return bids;
+
     }
 
     @Override

@@ -7,18 +7,39 @@ import java.util.ArrayList;
  */
 public class BidList {
 
-    private int numberBidders;
-    private ArrayList<Bid> bids = new ArrayList<Bid>();
+    private ArrayList<Bid> allBids = new ArrayList<Bid>();
 
-    public void addBid(){
+
+
+    public void addBid(Bid bid){
+        allBids.add(bid);
+    }
+
+    public boolean hasBid(Bid bid){
+        return allBids.contains(bid);
+    }
+
+    public void declineBid(int index){
+        allBids.remove(index);
 
     }
 
-    public void deleteBid(){
+    public void declineAllBids(){
+        allBids.removeAll(allBids);
 
     }
 
-    public void acceptBid(){
-        
+    public Bid getBid(int index){
+        return allBids.get(index);
     }
+
+    public ArrayList<Bid> getAllBids(){
+        return allBids;
+    }
+
+    public int getBidCount(){
+        return allBids.size();
+    }
+
+
 }
