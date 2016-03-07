@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
 
+import java.sql.Array;
 import java.sql.Blob;
 import java.util.ArrayList;
 
@@ -29,7 +30,8 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputTitle;
     private EditText inputArtist;
     private EditText inputDescription;
-    private EditText inputDimensions;
+    private EditText inputLengthDimensions;
+    private EditText inputWidthDimensions;
     private EditText inputMinPrice;
     private TextView inputStatus;
     /* also need an input field for photos but idk anything yet so */
@@ -47,7 +49,8 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputArtist = (EditText) findViewById(R.id.enterArtist);
         inputDescription = (EditText) findViewById(R.id.enterDescription);
         inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
+        inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
         inputStatus = (TextView) findViewById(R.id.enterStatus);
 
     }
@@ -60,7 +63,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         String title = inputTitle.getText().toString();
         String artist = inputArtist.getText().toString();
         String description = inputDescription.getText().toString();
-        String dimensions = inputDimensions.getText().toString();
+        String dimensionsLength = inputLengthDimensions.getText().toString();
+        String dimensionsWidth = inputWidthDimensions.getText().toString();
+        String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = inputStatus.getText().toString();
         String owner = "who?";
         String borrower = "";

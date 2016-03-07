@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:id="@+id/enterTitle"
-        android:text="@string/Title"
+        android:hint="@string/Title"
         android:gravity="center"
         android:textSize="30dp"
         android:layout_weight="0.09" />
@@ -23,7 +23,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/enterArtist"
-        android:text="@string/artist"
+        android:hint="@string/artist"
         android:gravity="center"
         android:inputType="text"/>
 
@@ -52,9 +52,17 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/enterDimensions"
+            android:id="@+id/enterLengthDimensions"
             android:layout_weight="1"
-            android:hint="@string/dimensionHint"
+            android:hint="@string/dimensionLength"
+            android:inputType="numberDecimal"/>
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/enterWidthDimensions"
+            android:layout_weight="1"
+            android:hint="@string/dimensionWidth"
             android:inputType="numberDecimal"/>
 
     </LinearLayout>
