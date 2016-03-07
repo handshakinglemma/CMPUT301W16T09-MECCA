@@ -37,6 +37,9 @@
     <string name="phone_number">User1</string>
     <string name="phone_number_hint">### ### ####</string>
     <string name="save_user">Save</string>
+    <string name="title_activity_add_new_bid">AddNewBidActivity</string>
+    <string name="save_bid">Place Bid</string>
+    <string name="place_bid">Enter Bid:</string>
 
 
 </resources>

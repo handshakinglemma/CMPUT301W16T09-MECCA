@@ -49,7 +49,7 @@ public class EditItemActivity extends AppCompatActivity {
 
     protected void loadValues() {
 
-        /* get values to be edited and fill boxes */
+        // get values to be edited and fill boxes
         EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
         EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
         EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
@@ -57,7 +57,7 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
         EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
 
-        /* append data into EditText box */
+        // append data into EditText box
         inputArtist.append(ArtList.allArt.get(pos).getArtist());
         inputDescription.append(ArtList.allArt.get(pos).getDescription());
         inputTitle.append(ArtList.allArt.get(pos).getTitle());
@@ -121,7 +121,8 @@ public class EditItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        ArtList.allArt.add(newestArt);
+        ArtList.allArt.remove(pos);
+        ArtList.allArt.add(pos, newestArt);
 
         /* toast message */
         // new func: displayToast or something?
@@ -141,80 +142,5 @@ public class EditItemActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewItemBidsActivity.class);
         startActivity(intent);
     }
-
-    /*
-
-    protected void loadValues() {
-
-        get values to be edited and fill boxes
-        EditText title = (EditText) findViewById(R.id.enterTitle);
-        EditText artist = (EditText) findViewById(R.id.editStation);
-        EditText grade = (EditText) findViewById(R.id.editGrade);
-        EditText odometer = (EditText) findViewById(R.id.editOdometer);
-        EditText amount = (EditText) findViewById(R.id.editAmount);
-        EditText unit = (EditText) findViewById(R.id.editUnitCost);
-
-        date.append(FuelTrackActivity.fills.get(pos).getDate());
-        station.append(FuelTrackActivity.fills.get(pos).getStation());
-        grade.append(FuelTrackActivity.fills.get(pos).getGrade());
-        odometer.append(Float.toString(FuelTrackActivity.fills.get(pos).getOdometer()));
-        amount.append(Float.toString(FuelTrackActivity.fills.get(pos).getAmount()));
-        unit.append(Float.toString(FuelTrackActivity.fills.get(pos).getUnit()));
-
-    }
-
-    public void saveEntry(View view) {
-
-        float odometer;
-        float amount;
-        float cost;
-        float unit;
-
-        EditText entryStation = (EditText) findViewById(R.id.editStation);
-        EditText entryGrade = (EditText) findViewById(R.id.editGrade);
-        EditText entryOdometer = (EditText) findViewById(R.id.editOdometer);
-        EditText entryAmount = (EditText) findViewById(R.id.editAmount);
-        EditText entryUnit = (EditText) findViewById(R.id.editUnitCost);
-
-        String date = entryDate.getText().toString();
-        String station = entryStation.getText().toString();
-        String grade = entryGrade.getText().toString();
-
-        try {
-            odometer = Float.valueOf(entryOdometer.getText().toString());
-        } catch(NumberFormatException wrong){
-            entryOdometer.setError("Invalid Input...");
-            return;
-        }
-
-        try {
-            amount = Float.valueOf(entryAmount.getText().toString());
-        } catch(NumberFormatException wrong){
-            entryAmount.setError("Invalid Input...");
-            return;
-        }
-
-        try {
-            unit = Float.valueOf(entryUnit.getText().toString());
-        } catch(NumberFormatException wrong){
-            entryUnit.setError("Invalid Input...");
-            return;
-        }
-
-        cost = (amount * unit)/100;
-
-        FillUp newestLog = new LogItem(date, station, grade, odometer, amount, cost, unit);
-        FuelTrackActivity.fills.remove(pos);
-        FuelTrackActivity.fills.add(pos, newestLog);
-
-        Context context = getApplicationContext();
-        CharSequence text = "Log Saved!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(context, text, duration).show();
-
-        saveInFile();
-        finish();
-
-    } */
 
 }
