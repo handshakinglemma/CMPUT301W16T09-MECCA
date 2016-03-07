@@ -16,6 +16,7 @@ public class Art {
     private Blob photo;
     private String dimensions;
     private float minprice;
+    protected BidList bids;
 
 
     public Art(String status, String owner, String borrower, String description,
@@ -107,6 +108,20 @@ public class Art {
 
     public void setMinprice(float minprice) {
         this.minprice = minprice;
+    }
+
+    public void addBid(BidList bid){
+        this.bids = bid;
+    }
+
+    public BidList getBids(){
+
+        if(bids == null) {
+            bids = new BidList();
+        }
+
+        return bids;
+
     }
 
     @Override
