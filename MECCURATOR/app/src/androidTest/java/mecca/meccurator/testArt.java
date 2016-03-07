@@ -133,19 +133,19 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     public void testSetPhoto() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
                 "Mercy", "Taste the Rainbow", "8x11 in", 1);
-        assertEquals("", art.get());
+        assertEquals("", art.getPhoto());
 
-        art.set();
-        assertEquals("", art.get());
+        art.setPhoto();
+        assertEquals("", art.getPhoto());
     }
 
     public void testGetPhoto() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
                 "Mercy", "Taste the Rainbow", "8x11 in", 1);
-        assertEquals("", art.get());
+        assertEquals("", art.getPhoto());
 
-        String  = art.get();
-        assertEquals(, art.get());
+        Blob photo = art.getPhoto();
+        assertEquals(photo, art.getPhoto());
     }
 */
     public void testSetDimensions() {

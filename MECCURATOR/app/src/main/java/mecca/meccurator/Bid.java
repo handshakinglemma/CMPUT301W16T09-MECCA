@@ -7,15 +7,13 @@ import java.math.BigDecimal;
  */
 public class Bid {
 
-    private BigDecimal amount;
-    private String bidder;
+    protected String bidder;
+    protected float rate;
 
-    public BigDecimal getAmount() {
-        return amount;
-    }
 
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
+    public Bid(String bidder, float rate) {
+        this.bidder = bidder;
+        this.rate = rate;
     }
 
     public String getBidder() {
@@ -24,5 +22,13 @@ public class Bid {
 
     public void setBidder(String bidder) {
         this.bidder = bidder;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
     }
 }
