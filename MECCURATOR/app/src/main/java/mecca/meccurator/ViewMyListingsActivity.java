@@ -2,30 +2,23 @@ package mecca.meccurator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewMyListingsActivity extends AppCompatActivity {
 
@@ -34,7 +27,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
     private ListView oldArtListings;
 
-    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
+    protected ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +35,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_my_listings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        ArtList.allArt = new ArrayList<Art>();
 
         oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
@@ -75,6 +69,7 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
+
 
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
                 R.layout.list_item, ArtList.allArt);
