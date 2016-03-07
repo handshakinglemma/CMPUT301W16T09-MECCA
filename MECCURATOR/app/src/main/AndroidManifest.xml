@@ -60,10 +60,6 @@
         <activity
             android:name=".EditUserActivity"
             android:label="@string/title_activity_edit_user"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".AddNewBidActivity"
-            android:label="@string/title_activity_add_new_bid"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
