@@ -7,33 +7,52 @@
     tools:showIn="@layout/activity_edit_item"
     android:orientation="vertical">
 
+    <include layout="@layout/app_bar"/>
 
-    <EditText
-        android:id="@+id/enterTitle"
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/title"
+            android:id="@+id/viewTitle"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:id="@+id/enterTitle"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.09"
-        android:gravity="center"
-        android:hint="@string/Title"
-        android:inputType="text"
-        android:textSize="30dp" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/enterArtist"
-        android:hint="@string/artist"
-        android:gravity="center"
-        android:inputType="text"/>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/artist"
+            android:id="@+id/viewArtist"
+            android:layout_weight="1" />
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="241dp"
-        android:layout_height="125dp"
-        android:gravity="center"
-        android:layout_margin="5dp"
-        android:background="#58b96ed2"
-        android:layout_gravity="center_horizontal" />
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/enterArtist"
+            android:layout_weight="1"
+            android:inputType="text"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -51,33 +70,12 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/enterLengthDimensions"
+            android:id="@+id/enterDimensions"
             android:layout_weight="1"
-            android:hint="@string/dimensionLength"
-            android:inputType="numberDecimal"/>
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/enterWidthDimensions"
-            android:layout_weight="1"
-            android:hint="@string/dimensionWidth"
+            android:hint="@string/dimensionHint"
             android:inputType="numberDecimal"/>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/viewDescription"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/enterDescription"
-        android:layout_width="fill_parent"
-        android:layout_height="95dp"
-        android:inputType="text" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -85,11 +83,12 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="260dp"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/minprice"
-            android:id="@+id/viewMinPrice" />
+            android:id="@+id/viewMinPrice"
+            android:layout_weight="1" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -100,66 +99,62 @@
 
     </LinearLayout>
 
+
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/Status"
-            android:id="@+id/viewStatus"
+            android:text="@string/description"
+            android:id="@+id/viewDescription"
             android:layout_weight="1" />
 
-        <TextView
-            android:layout_width="wrap_content"
+        <EditText
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/newItemStatus"
-            android:id="@+id/enterStatus"
-            android:layout_weight="0.19" />
+            android:id="@+id/enterDescription"
+            android:layout_weight="1"
+            android:inputType="text"/>
 
     </LinearLayout>
 
 
-    <LinearLayout
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:text="@string/item_bids"
+        android:id="@+id/item_bids"
+        android:onClick="ViewItemBidsButton"
+        android:layout_marginTop="10dp"
+        android:background="#47d8ca"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save_item"
-            android:id="@+id/save"
-            android:onClick="saveEntry"
-            android:layout_marginTop="10dp"
-            android:background="#47d8ca"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal" />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/save_item"
+        android:id="@+id/save"
+        android:onClick="saveEntry"
+        android:layout_marginTop="10dp"
+        android:background="#47d8ca"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_item"
-            android:id="@+id/delete"
-            android:onClick="deleteEntry"
-            android:layout_marginTop="10dp"
-            android:background="#47d8ca"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/item_bids"
-            android:id="@+id/item_bids"
-            android:onClick="ViewItemBidsButton"
-            android:layout_marginTop="10dp"
-            android:background="#47d8ca"
-            android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_item"
+        android:id="@+id/delete"
+        android:onClick="deleteEntry"
+        android:layout_marginTop="10dp"
+        android:background="#47d8ca"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
