@@ -49,20 +49,21 @@ public class EditItemActivity extends AppCompatActivity {
 
     protected void loadValues() {
 
-        // get values to be edited and fill boxes
+        /* get values to be edited and fill boxes */
         EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
         EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
         EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
         EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
+        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
 
-        // append data into EditText box
+        /* append data into EditText box */
         inputArtist.append(ArtList.allArt.get(pos).getArtist());
         inputDescription.append(ArtList.allArt.get(pos).getDescription());
         inputTitle.append(ArtList.allArt.get(pos).getTitle());
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
-        inputDimensions.append(ArtList.allArt.get(pos).getDimensions());
-
+        inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
+        inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
     }
 
     protected void saveInFile() {
@@ -93,13 +94,16 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
         EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
         EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputDimensions = (EditText) findViewById(R.id.enterDimensions);
+        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
+        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
 
         /* get text from EditText */
         String title = inputTitle.getText().toString();
         String artist = inputArtist.getText().toString();
         String description = inputDescription.getText().toString();
-        String dimensions = inputDimensions.getText().toString();
+        String dimensionsLength = inputLengthDimensions.getText().toString();
+        String dimensionsWidth = inputWidthDimensions.getText().toString();
+        String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = "available";
         String owner = "who?";
         String borrower = "";
@@ -137,5 +141,80 @@ public class EditItemActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewItemBidsActivity.class);
         startActivity(intent);
     }
+
+    /*
+
+    protected void loadValues() {
+
+        get values to be edited and fill boxes
+        EditText title = (EditText) findViewById(R.id.enterTitle);
+        EditText artist = (EditText) findViewById(R.id.editStation);
+        EditText grade = (EditText) findViewById(R.id.editGrade);
+        EditText odometer = (EditText) findViewById(R.id.editOdometer);
+        EditText amount = (EditText) findViewById(R.id.editAmount);
+        EditText unit = (EditText) findViewById(R.id.editUnitCost);
+
+        date.append(FuelTrackActivity.fills.get(pos).getDate());
+        station.append(FuelTrackActivity.fills.get(pos).getStation());
+        grade.append(FuelTrackActivity.fills.get(pos).getGrade());
+        odometer.append(Float.toString(FuelTrackActivity.fills.get(pos).getOdometer()));
+        amount.append(Float.toString(FuelTrackActivity.fills.get(pos).getAmount()));
+        unit.append(Float.toString(FuelTrackActivity.fills.get(pos).getUnit()));
+
+    }
+
+    public void saveEntry(View view) {
+
+        float odometer;
+        float amount;
+        float cost;
+        float unit;
+
+        EditText entryStation = (EditText) findViewById(R.id.editStation);
+        EditText entryGrade = (EditText) findViewById(R.id.editGrade);
+        EditText entryOdometer = (EditText) findViewById(R.id.editOdometer);
+        EditText entryAmount = (EditText) findViewById(R.id.editAmount);
+        EditText entryUnit = (EditText) findViewById(R.id.editUnitCost);
+
+        String date = entryDate.getText().toString();
+        String station = entryStation.getText().toString();
+        String grade = entryGrade.getText().toString();
+
+        try {
+            odometer = Float.valueOf(entryOdometer.getText().toString());
+        } catch(NumberFormatException wrong){
+            entryOdometer.setError("Invalid Input...");
+            return;
+        }
+
+        try {
+            amount = Float.valueOf(entryAmount.getText().toString());
+        } catch(NumberFormatException wrong){
+            entryAmount.setError("Invalid Input...");
+            return;
+        }
+
+        try {
+            unit = Float.valueOf(entryUnit.getText().toString());
+        } catch(NumberFormatException wrong){
+            entryUnit.setError("Invalid Input...");
+            return;
+        }
+
+        cost = (amount * unit)/100;
+
+        FillUp newestLog = new LogItem(date, station, grade, odometer, amount, cost, unit);
+        FuelTrackActivity.fills.remove(pos);
+        FuelTrackActivity.fills.add(pos, newestLog);
+
+        Context context = getApplicationContext();
+        CharSequence text = "Log Saved!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, text, duration).show();
+
+        saveInFile();
+        finish();
+
+    } */
 
 }

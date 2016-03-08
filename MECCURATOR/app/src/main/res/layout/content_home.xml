@@ -14,15 +14,6 @@
     android:weightSum="1"
     android:orientation="vertical">
 
-<<<<<<< HEAD
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:layout_margin="5dp"
-        android:background="@drawable/background"/>
-
-=======
     <EditText
         android:layout_width="match_parent"
         android:layout_height="55dp"
@@ -42,7 +33,6 @@
         android:layout_margin="5dp"
         android:background="@drawable/background"/>
 
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -53,11 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hello,"
-<<<<<<< HEAD
-            android:textColor="#0026ff"
-=======
             android:textColor="#9500ff"
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022
             android:textSize="30dp" />
 
         <Button
@@ -67,10 +53,7 @@
             android:text="User1"
             android:textSize="30dp"
             android:background="#0083d1ef"
-<<<<<<< HEAD
-=======
             android:onClick="ViewMyProfileButton"
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022
             android:layout_weight="0.32" />
 
     </LinearLayout>
@@ -79,19 +62,11 @@
 
     <TextView
         android:layout_width="fill_parent"
-<<<<<<< HEAD
-        android:layout_height="79dp"
-        android:id="@+id/homeDescription"
-        android:text="@string/homeDescription"
-        android:textStyle="bold"
-        android:textColor="#0026ff" />
-=======
         android:layout_height="50dp"
         android:id="@+id/homeDescription"
         android:text="@string/homeDescription"
         android:textStyle="bold"
         android:textColor="#9500ff" />
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -102,11 +77,7 @@
         <Button
             android:layout_width="70dp"
             android:layout_height="50dp"
-<<<<<<< HEAD
-            android:text="My Notifications"
-=======
             android:text="Notifications"
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022
             android:textSize="10dp"
             android:background="#83d1ef"
             android:layout_margin="10dp"
@@ -123,11 +94,7 @@
             android:layout_gravity="right" />
 
         <Button
-<<<<<<< HEAD
-            android:layout_width="88dp"
-=======
             android:layout_width="62dp"
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022
             android:layout_height="50dp"
             android:textSize="10dp"
             android:text="My Borrowed Items"
@@ -145,8 +112,4 @@
 
     </LinearLayout>
 
-<<<<<<< HEAD
 </LinearLayout>
-=======
-</LinearLayout>
->>>>>>> bb930caf3fb4f74114375ed771340fa2cb784022

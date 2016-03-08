@@ -25,7 +25,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewMyListingsActivity extends AppCompatActivity {
 
@@ -33,7 +32,6 @@ public class ViewMyListingsActivity extends AppCompatActivity {
     private static final String FILENAME = "file.sav";
 
     private ListView oldArtListings;
-
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
     @Override
