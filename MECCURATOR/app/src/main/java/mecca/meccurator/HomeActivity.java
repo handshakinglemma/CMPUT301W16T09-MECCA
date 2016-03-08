@@ -7,8 +7,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class HomeActivity extends AppCompatActivity {
+
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,6 +19,17 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
        // setSupportActionBar(toolbar);
+
+        // Get username from ViewLoginActivity
+        Intent intentRcvEdit = getIntent();
+        username = intentRcvEdit.getStringExtra("username");
+
+        // Idea of how to have button with changing text from here:
+        // https://stackoverflow.com/questions/16806376/how-to-change-the-text-of-button-using-a-variable-or-return-value-from-function
+        Button button = (Button)findViewById(R.id.username2);
+        button.setText(username);
+
+
 
     }
 
@@ -50,6 +64,7 @@ public class HomeActivity extends AppCompatActivity {
     // Click to view my profile
     public void ViewMyProfileButton(View view) {
         Intent intent = new Intent(this, EditUserActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }
