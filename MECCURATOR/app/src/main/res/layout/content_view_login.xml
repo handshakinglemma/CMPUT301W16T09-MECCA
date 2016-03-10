@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="mecca.meccurator.EditUserActivity"
+    tools:showIn="@layout/activity_edit_user"
+    android:orientation="vertical">
+
+    <include layout="@layout/app_bar"/>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/enter_username"
+            android:id="@+id/viewEnteredUsername"
+            android:layout_weight="1" />
+
+        <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:inputType="text"
+            android:id="@+id/username"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        android:id="@+id/login"
+        android:layout_marginTop="10dp"
+        android:background="#47d8ca"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="ViewHomeActivity"/>
+
+</LinearLayout>
+

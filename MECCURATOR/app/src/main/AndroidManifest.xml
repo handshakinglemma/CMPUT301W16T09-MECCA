@@ -9,6 +9,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".ViewLoginActivity"
+            android:label="@string/title_activity_view_login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".EditUserActivity"
+            android:label="@string/title_activity_edit_user"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
@@ -58,9 +72,14 @@
             android:label="@string/title_activity_view_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EditUserActivity"
-            android:label="@string/title_activity_edit_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".AddNewBidActivity"
+            android:label="@string/title_activity_add_new_bid"
+            android:parentActivityName=".ViewItemActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mecca.meccurator.ViewItemActivity" />
+        </activity>
     </application>
 
 </manifest>
