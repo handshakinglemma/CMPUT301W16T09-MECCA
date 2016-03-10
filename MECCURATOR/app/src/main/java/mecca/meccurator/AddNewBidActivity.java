@@ -6,8 +6,19 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.EditText;
+
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 public class AddNewBidActivity extends AppCompatActivity {
+
+    int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -15,16 +26,77 @@ public class AddNewBidActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_bid2);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadValues();
+    }
+
+    protected void loadValues() {
+
+        /* get values to be edited and fill boxes */
+        EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
+        EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
+        EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
+        EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
+        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
+        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
+
+        /* append data into EditText box */
+        inputArtist.append(ArtList.allArt.get(pos).getArtist());
+        inputDescription.append(ArtList.allArt.get(pos).getDescription());
+        inputTitle.append(ArtList.allArt.get(pos).getTitle());
+        inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
+        inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
+        inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
+    }
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(ArtList.allArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
+
+    protected void saveBidButton(){
+
+        //instantiate pls
+        BidList bids = new BidList();
+        //// pull in current user and inputted rate
+        String username = "555";
+        float rate;
+        rate = 10;
+        Bid bid = new Bid(username, rate);
+        bids.addBid(bid);
+
+        ArtList.allArt.get(pos).addBids(bids);
+
+        //after this SAVE to ur own bids
+        //and send a notif to the owner
+        //and change item status to bidded if not already done
+
+        ArtList.allArt.get(pos).setStatus("bidded");
+
+
+        //also add bid to myBids
+        //ArtList myBids = new ArtList();
+        //Art myBid = randomAccount.getListing().getItem(pos);
+        //myBids.addItem(myBid);
+        //myAccount.myBidsPlaced(myBids, randomAccount.getUsername());
+
+    }
 }

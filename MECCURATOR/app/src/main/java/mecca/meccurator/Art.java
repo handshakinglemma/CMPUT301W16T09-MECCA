@@ -15,7 +15,7 @@ public class Art {
     private String title;
     private Blob photo;
     private String dimensions;
-
+    protected BidList bids;
     private float minprice;
 
 
@@ -123,6 +123,20 @@ public class Art {
     @Override
     public String toString(){
         return title;
+    }
+
+    public void addBids(BidList bid){
+        this.bids = bid;
+    }
+
+    public BidList getBids(){
+
+        if(bids == null) {
+            bids = new BidList();
+        }
+
+        return bids;
+
     }
 
 }
