@@ -10,11 +10,56 @@ public class testBid extends ActivityInstrumentationTestCase2{
         super(HomeActivity.class);
     }
 
-    public void testGetAmount () {}
+    /*public void testSetMinprice() {
+        Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
+                "Mercy", "Taste the Rainbow", "8x11 in", 1);
+        Float minprice1 = new Float(1);
+        assertEquals(minprice1,art.getMinprice());
 
-    public void testSetAmount() {}
+        art.setMinprice(2);
+        Float minprice2 = new Float(2);
+        assertEquals(minprice2,art.getMinprice());
+    }*/
 
-    public void testGetBidder() {}
+    public void testGetRate () {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(rate, bid.getRate());
 
-    public void testSetBidder() {}
+        float returned = bid.getRate();
+        assertEquals(rate, returned);
+    }
+
+    public void testSetRate() {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(bidder, bid.getRate());
+
+        String newbidder = "emma";
+        bid.setBidder(newbidder);
+        assertEquals(newbidder,bid.getBidder());
+    }
+
+    public void testGetBidder() {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(bidder, bid.getBidder());
+
+        String returned = bid.getBidder();
+        assertEquals(bidder, returned);
+    }
+
+    public void testSetBidder() {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(rate, bid.getRate());
+
+        float newrate = 15;
+        bid.setRate(newrate);
+        assertEquals(newrate,bid.getRate());
+    }
 }
