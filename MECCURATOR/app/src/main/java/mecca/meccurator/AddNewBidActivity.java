@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -19,6 +21,7 @@ import java.io.OutputStreamWriter;
 public class AddNewBidActivity extends AppCompatActivity {
 
     int pos;
+    String currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,13 @@ public class AddNewBidActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         loadValues();
+
+        if(ArtList.allArt.get(pos).getOwner() == currentUser){
+            //preettyyyyy much check this all the time
+            //to switch between intents
+            //so if one do one and if another do another one
+
+        }
     }
 
     protected void loadValues() {
@@ -79,7 +89,17 @@ public class AddNewBidActivity extends AppCompatActivity {
         //// pull in current user and inputted rate
         String username = "555";
         float rate;
-        rate = 10;
+
+        EditText inputRate = (EditText) findViewById(R.id.enterRate);
+
+        try {
+            rate = Float.parseFloat(inputRate.getText().toString());
+        } catch(NumberFormatException wrong){
+            inputRate.setError("Invalid Input...");
+            return;
+        }
+
+
         Bid bid = new Bid(username, rate);
         bids.addBid(bid);
 
@@ -92,11 +112,21 @@ public class AddNewBidActivity extends AppCompatActivity {
         ArtList.allArt.get(pos).setStatus("bidded");
 
 
-        //also add bid to myBids
+        //also add bid to myBids eg. the borrowers
         //ArtList myBids = new ArtList();
         //Art myBid = randomAccount.getListing().getItem(pos);
         //myBids.addItem(myBid);
         //myAccount.myBidsPlaced(myBids, randomAccount.getUsername());
 
+        /* toast message */
+        // new func: displayToast or something?
+        Context context = getApplicationContext();
+        CharSequence saved = "Artwork Saved!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, saved, duration).show();
+
+        /* end add activity */
+        saveInFile();
+        finish();
     }
 }

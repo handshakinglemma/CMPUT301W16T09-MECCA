@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/enterArtist"
         android:hint="@string/artist"
+        android:focusable="false"
         android:gravity="center"
         android:inputType="text"/>
 
@@ -131,7 +132,7 @@
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/enterNewBid"
+            android:id="@+id/enterRate"
             android:hint="Enter Bidding Price"
             android:layout_weight="1"
             android:inputType="numberDecimal"/>
