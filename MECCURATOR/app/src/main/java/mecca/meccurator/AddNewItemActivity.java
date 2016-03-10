@@ -83,7 +83,6 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        ArtList.allArt = new ArrayList<Art>();
 
         try{
             ArtList.allArt.add(newestArt);

@@ -22,6 +22,13 @@
         android:textColor="#9500ff"
         android:gravity="center"/>
 
+    <Spinner
+        android:id="@+id/listingTypesSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="30dp"
+        android:entries="@array/listingChoices"
+        android:textColor="#9500ff" />
+
     <ListView
         android:id="@+id/oldArtListings"
         android:layout_width="fill_parent"
