@@ -47,7 +47,7 @@
             android:textSize="30dp" />
 
         <Button
-            android:id="@+id/username"
+            android:id="@+id/username2"
             android:layout_width="68dp"
             android:layout_height="wrap_content"
             android:text="User1"

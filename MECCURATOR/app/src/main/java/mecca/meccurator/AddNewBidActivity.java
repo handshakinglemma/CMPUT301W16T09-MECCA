@@ -1,7 +1,6 @@
 package mecca.meccurator;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,33 +17,31 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.math.BigDecimal;
 
-public class EditItemActivity extends AppCompatActivity {
+public class AddNewBidActivity extends AppCompatActivity {
 
     int pos;
+    String currentUser; //get from the log in screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_item);
+        setContentView(R.layout.activity_add_new_bid2);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         loadValues();
-    }
 
-    //make button for this
-    public void deleteEntry(View view) {
-        Context context = getApplicationContext();
-        CharSequence text = "Art Deleted!";
-        int duration = Toast.LENGTH_SHORT;
-        ArtList.allArt.remove(pos);
-        Toast.makeText(context, text, duration).show();
-        saveInFile();
-        finish();
+        if(ArtList.allArt.get(pos).getOwner() == currentUser){
+            //preettyyyyy much check this all the time
+            //to switch between intents
+            //so if one do one and if another do another one
+
+        }
     }
 
     protected void loadValues() {
@@ -85,44 +82,44 @@ public class EditItemActivity extends AppCompatActivity {
         }
     }
 
-    public void saveEntry(View view){
+    protected void saveBidButton(){
 
+        //instantiate pls
+        BidList bids = new BidList();
+        //// pull in current user and inputted rate
+        String username = "555";
+        float rate;
+        //USE CURREnT USER
 
-        float minprice;
+        EditText inputRate = (EditText) findViewById(R.id.enterRate);
 
-        EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
-        EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
-        EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
-        EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
-        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
-
-        /* get text from EditText */
-        String title = inputTitle.getText().toString();
-        String artist = inputArtist.getText().toString();
-        String description = inputDescription.getText().toString();
-        String dimensionsLength = inputLengthDimensions.getText().toString();
-        String dimensionsWidth = inputWidthDimensions.getText().toString();
-        String dimensions = dimensionsLength + "x" + dimensionsWidth;
-        String status = "available";
-        String owner = "who?";
-        String borrower = "";
-
-        /* check for valid input FIX THIS */
         try {
-            minprice = Float.parseFloat(inputMinPrice.getText().toString());
+            rate = Float.parseFloat(inputRate.getText().toString());
         } catch(NumberFormatException wrong){
-            inputMinPrice.setError("Invalid Input...");
+            inputRate.setError("Invalid Input...");
             return;
         }
 
-        /* add new entry to list of items */
-        //TODO: add owner and other attributes by pulling from lists also PHOTO
-        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
-        //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        ArtList.allArt.remove(pos);
-        ArtList.allArt.add(pos, newestArt);
+        Bid bid = new Bid(username, rate);
+        bids.addBid(bid);
+
+        ArtList.allArt.get(pos).addBids(bids);
+
+        //after this SAVE to ur own bids
+        //and send a notif to the owner
+        //and change item status to bidded if not already done
+
+        ArtList.allArt.get(pos).setStatus("bidded");
+        //also change the minimum bidding price
+        ArtList.allArt.get(pos).setMinprice(rate);
+
+
+        //also add bid to myBids eg. the borrowers
+        //ArtList myBids = new ArtList();
+        //Art myBid = randomAccount.getListing().getItem(pos);
+        //myBids.addItem(myBid);
+        //myAccount.myBidsPlaced(myBids, randomAccount.getUsername());
 
         /* toast message */
         // new func: displayToast or something?
@@ -134,14 +131,5 @@ public class EditItemActivity extends AppCompatActivity {
         /* end add activity */
         saveInFile();
         finish();
-
     }
-
-    // Click to view bids on this item
-    public void ViewItemBidsButton(View view) {
-        Intent intent = new Intent(this, ViewItemBidsActivity.class);
-        startActivity(intent);
-    }
-
-
 }
