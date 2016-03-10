@@ -5,7 +5,18 @@
     <string name="title_activity_view_art_listings">My Listing</string>
     <string name="viewListings">My Listings</string>
     <string name="title_activity_view_item_bids">Bids</string>
+<<<<<<< HEAD
+    <string-array name="listingChoices">
+        <item>All Items</item>
+        <item>Available Items</item>
+        <item>Bidded Items</item>
+        <item>Borrowed Items</item>
+    </string-array>
 
+    
+=======
+
+>>>>>>> 954140ae013e1942f64afa43dbce864fb75e15dd
     <string name="title_activity_view_item">Item</string>
     <string name="new_item"> + Add a New Item </string>
     <string name="view_bids"> View Bids </string>

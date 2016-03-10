@@ -9,8 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filter;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -26,13 +30,13 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class ViewMyListingsActivity extends AppCompatActivity {
+public class ViewMyListingsActivity extends AppCompatActivity implements OnItemSelectedListener {
 
 
     private static final String FILENAME = "file.sav";
-
     private ListView oldArtListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
+    private ArrayList<Art> selectedArt = new ArrayList<Art>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +60,46 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
 
         });
+        Spinner listingsSpinner = (Spinner) findViewById(R.id.listingTypesSpinner);
+        //listingsSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
+        ArrayAdapter adapterSpinner = ArrayAdapter.createFromResource(this,
+                R.array.listingChoices, android.R.layout.simple_spinner_item);
+        ///// don't do the activity thing again just use for loop maybe and change adapter
+        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        listingsSpinner.setAdapter(adapterSpinner);
+        //String choiceSelected = listingsSpinner.getSelectedItem().toString().split(" ")[0];
+        listingsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                // On selecting a spinner item
+                String choiceSelected = parent.getItemAtPosition(position).toString().split(" ")[0];
+                //if (choiceSelected = "Available" ) {
+                if (choiceSelected == "All") {
+                    // Do Nothing
+                    adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                            R.layout.list_item, ArtList.allArt);
+                    oldArtListings.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+
+                } else {
+                    for (Art a : ArtList.allArt) {
+                        if (a.getStatus() == choiceSelected) {
+                            selectedArt.add(a);
+                            adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                                    R.layout.list_item, selectedArt);
+                            oldArtListings.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                }
+                // Showing selected spinner item
+                Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //Do Nothing
+            }
+        });
     }
 
     // Click to create a new listing
@@ -63,7 +107,6 @@ public class ViewMyListingsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, AddNewItemActivity.class);
         startActivity(intent);
     }
-
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
     @Override
@@ -120,4 +163,13 @@ public class ViewMyListingsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
