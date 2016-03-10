@@ -21,7 +21,7 @@ import java.io.OutputStreamWriter;
 public class AddNewBidActivity extends AppCompatActivity {
 
     int pos;
-    String currentUser;
+    String currentUser; //get from the log in screen
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +89,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         //// pull in current user and inputted rate
         String username = "555";
         float rate;
+        //USE CURREnT USER
 
         EditText inputRate = (EditText) findViewById(R.id.enterRate);
 
@@ -110,6 +111,8 @@ public class AddNewBidActivity extends AppCompatActivity {
         //and change item status to bidded if not already done
 
         ArtList.allArt.get(pos).setStatus("bidded");
+        //also change the minimum bidding price
+        ArtList.allArt.get(pos).setMinprice(rate);
 
 
         //also add bid to myBids eg. the borrowers
