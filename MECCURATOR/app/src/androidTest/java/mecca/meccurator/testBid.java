@@ -10,17 +10,6 @@ public class testBid extends ActivityInstrumentationTestCase2{
         super(HomeActivity.class);
     }
 
-    /*public void testSetMinprice() {
-        Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1);
-        Float minprice1 = new Float(1);
-        assertEquals(minprice1,art.getMinprice());
-
-        art.setMinprice(2);
-        Float minprice2 = new Float(2);
-        assertEquals(minprice2,art.getMinprice());
-    }*/
-
     public void testGetRate () {
         String bidder = "venhuis";
         float rate = 9;
