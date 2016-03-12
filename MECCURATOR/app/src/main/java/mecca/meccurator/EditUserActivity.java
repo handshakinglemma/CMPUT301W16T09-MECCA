@@ -14,7 +14,6 @@ import java.sql.Blob;
 // Only accessible by owner of account
 // "View my Profile"
 public class EditUserActivity extends AppCompatActivity {
-
     public String username;
     private String name;
     private String phoneNumber;

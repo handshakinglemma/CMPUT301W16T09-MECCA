@@ -44,5 +44,4 @@ public class UserList {
     public Integer getSize() {
         return size;
     }
-
 }

@@ -11,20 +11,20 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ViewItemBidsActivity"
-    tools:showIn="@layout/activity_view_item_bids">
+    tools:context=".ViewMyBidsActivity"
+    tools:showIn="@layout/activity_view_my_bids">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:textSize="30dp"
-        android:text="Bids on Item"
+        android:text="My Bids Placed"
         android:textColor="#9500ff"
         android:gravity="center"/>
 
 
     <ListView
-        android:id="@+id/itemBidListings"
+        android:id="@+id/oldBidsPlaced"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

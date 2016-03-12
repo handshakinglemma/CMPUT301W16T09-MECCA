@@ -44,5 +44,15 @@
         android:layout_gravity="center_horizontal"
         android:onClick="ViewHomeActivity"/>
 
-</LinearLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SignUp"
+        android:id="@+id/newUser"
+        android:layout_marginTop="10dp"
+        android:background="#47d8ca"
+        android:layout_margin="10dp"
+        android:layout_gravity="center_horizontal"
+        android:onClick="CreateNewUserButton"/>
 
+</LinearLayout>

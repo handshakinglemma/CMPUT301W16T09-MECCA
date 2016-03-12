@@ -10,11 +10,45 @@ public class testBid extends ActivityInstrumentationTestCase2{
         super(HomeActivity.class);
     }
 
-    public void testGetAmount () {}
+    public void testGetRate () {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(rate, bid.getRate());
 
-    public void testSetAmount() {}
+        float returned = bid.getRate();
+        assertEquals(rate, returned);
+    }
 
-    public void testGetBidder() {}
+    public void testSetRate() {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(bidder, bid.getRate());
 
-    public void testSetBidder() {}
+        String newbidder = "emma";
+        bid.setBidder(newbidder);
+        assertEquals(newbidder,bid.getBidder());
+    }
+
+    public void testGetBidder() {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(bidder, bid.getBidder());
+
+        String returned = bid.getBidder();
+        assertEquals(bidder, returned);
+    }
+
+    public void testSetBidder() {
+        String bidder = "venhuis";
+        float rate = 9;
+        Bid bid = new Bid("venhuis", rate);
+        assertEquals(rate, bid.getRate());
+
+        float newrate = 15;
+        bid.setRate(newrate);
+        assertEquals(newrate,bid.getRate());
+    }
 }

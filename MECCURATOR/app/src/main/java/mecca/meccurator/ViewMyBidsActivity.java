@@ -19,26 +19,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
-// View bids on a particular item
-// Only owner is able to get to this point since the "View Item Bids" is only visible when
-// owner is editing their item?
-public class ViewItemBidsActivity extends AppCompatActivity {
+public class ViewMyBidsActivity extends AppCompatActivity {
 
-    private ListView itemBidListings;
-    private ArrayAdapter<Bid> adapter;
-    private ArrayList<Bid> oldItemBids = new ArrayList<>();
+    private ListView oldBidsPlaced;
+    private ArrayAdapter<Art> adapter;
+    private ArrayList<Art> oldBids = new ArrayList<>();
     public User Default;
     int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_item_bids);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_view_my_bids);
 
-        itemBidListings = (ListView) findViewById(R.id.itemBidListings);
+        oldBidsPlaced = (ListView) findViewById(R.id.oldBidsPlaced);
+
     }
 
     @Override
@@ -57,11 +54,11 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         myBids.addItem(myBid);
         Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
 
-        oldItemBids = ArtList.allArt.get(0).getBids();
+        oldBids = Default.getMyBidsPlaced();
 
-        adapter = new ArrayAdapter<Bid>(ViewItemBidsActivity.this,
-                R.layout.list_item, oldItemBids);
-        itemBidListings.setAdapter(adapter);
+        adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
+                R.layout.list_item, oldBids);
+        oldBidsPlaced.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
     }
@@ -96,6 +93,6 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         }
     }
 
-    
+
 
 }

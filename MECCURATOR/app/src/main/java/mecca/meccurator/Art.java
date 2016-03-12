@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 
 /**
  * Created by chaitali on 16-02-27.
@@ -122,20 +123,20 @@ public class Art {
 
     @Override
     public String toString(){
-        return title;
+        return title + " " + artist + " " + owner;
     }
 
-    public void addBids(BidList bid){
-        this.bids = bid;
+    public void addBids(BidList bids){
+        this.bids = bids;
     }
 
-    public BidList getBids(){
+    public ArrayList<Bid> getBids(){
 
         if(bids == null) {
             bids = new BidList();
         }
 
-        return bids;
+        return bids.getAllBids();
 
     }
 

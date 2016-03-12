@@ -22,6 +22,7 @@ public class AddNewBidActivity extends AppCompatActivity {
 
     int pos;
     String currentUser; //get from the log in screen
+    public static User Default;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         //// pull in current user and inputted rate
         String username = "555";
         float rate;
-        //USE CURREnT USER
+        //USE CURRENT USER
 
         EditText inputRate = (EditText) findViewById(R.id.enterRate);
 
@@ -114,12 +115,13 @@ public class AddNewBidActivity extends AppCompatActivity {
         //also change the minimum bidding price
         ArtList.allArt.get(pos).setMinprice(rate);
 
+        Default = new User("default", "carl", "88");
 
         //also add bid to myBids eg. the borrowers
-        //ArtList myBids = new ArtList();
-        //Art myBid = randomAccount.getListing().getItem(pos);
-        //myBids.addItem(myBid);
-        //myAccount.myBidsPlaced(myBids, randomAccount.getUsername());
+        ArtList myBids = new ArtList();
+        Art myBid = ArtList.allArt.get(pos);
+        myBids.addItem(myBid);
+        Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
 
         /* toast message */
         // new func: displayToast or something?
