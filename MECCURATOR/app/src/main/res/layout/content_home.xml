@@ -106,6 +106,7 @@
             android:layout_height="50dp"
             android:textSize="10dp"
             android:text="My Bids"
+            android:onClick="ViewMyBidsButton"
             android:background="#83d1ef"
             android:layout_margin="10dp"
             android:layout_gravity="right" />

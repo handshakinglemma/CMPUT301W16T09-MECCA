@@ -11,6 +11,7 @@ public class User {
     private String name;
     private String phoneNumber;
     private Blob photo;
+    protected ArtList myBids;
 
     // TODO pass parameter photo
     public User(String username, String name, String phoneNumber) {
@@ -19,6 +20,8 @@ public class User {
         this.phoneNumber = phoneNumber;
         //this.photo = photo;
     }
+
+
 
     public String getUsername() {
         return username;
@@ -55,6 +58,23 @@ public class User {
     @Override
     public String toString(){
         return this.username;
+    }
+
+    public void myBidsPlaced(ArtList myBids, String username){
+
+        this.myBids = myBids;
+        this.username = username;
+    }
+
+
+    public ArtList getMyBidsPlaced(){
+
+        if(myBids == null) {
+            myBids = new ArtList();
+        }
+
+        return myBids;
+
     }
 
 }

@@ -48,6 +48,7 @@
     <string name="enter_username">Enter Username</string>
     <string name="login">Login</string>
     <string name="title_activity_add_new_bid">AddNewBidActivity</string>
+    <string name="title_activity_view_my_bids">ViewMyBidsActivity</string>
 
 
 </resources>

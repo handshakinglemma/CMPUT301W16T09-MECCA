@@ -23,6 +23,10 @@ public class ArtList {
         allArt.add(artwork);
     }
 
+    public Art getItem(int index){
+        return allArt.get(index);
+    }
+
     public boolean hasItem(Art art) {
         return allArt.contains(art);
     }

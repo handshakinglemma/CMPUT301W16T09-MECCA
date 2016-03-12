@@ -125,8 +125,8 @@ public class Art {
         return title;
     }
 
-    public void addBids(BidList bid){
-        this.bids = bid;
+    public void addBids(BidList bids){
+        this.bids = bids;
     }
 
     public BidList getBids(){

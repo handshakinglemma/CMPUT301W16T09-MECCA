@@ -20,4 +20,6 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
     }
 
+    
+
 }
