@@ -38,6 +38,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,12 +55,14 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
                 int pos = position;
                 edit.putExtra("position", pos);
+                Toast.makeText(parent.getContext(), "Selected: if" + pos, Toast.LENGTH_LONG).show();
                 startActivity(edit);
                 return true;
             }
 
 
         });
+
         Spinner listingsSpinner = (Spinner) findViewById(R.id.listingTypesSpinner);
         //listingsSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
         ArrayAdapter adapterSpinner = ArrayAdapter.createFromResource(this,
@@ -76,7 +79,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 //if (choiceSelected = "Available" ) {
                 if (choiceSelected.equals("All")) {
                     // Do Nothing
-                    Toast.makeText(parent.getContext(), "Selected: if" + choiceSelected, Toast.LENGTH_LONG).show();
+                    //Toast.makeText(parent.getContext(), "Selected: if" + choiceSelected, Toast.LENGTH_LONG).show();
                     adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
                             R.layout.list_item, ArtList.allArt);
                     oldArtListings.setAdapter(adapter);
@@ -89,7 +92,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                     for (Art a : ArtList.allArt) {
                         //Toast.makeText(parent.getContext(), a.getTitle().toLowerCase(), Toast.LENGTH_SHORT).show();
                         if (a.getStatus().toLowerCase().trim().equals(choiceSelected.toLowerCase().trim())) {
-                            Toast.makeText(parent.getContext(), "Selected: else" + choiceSelected, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(parent.getContext(), "Selected: else" + choiceSelected, Toast.LENGTH_LONG).show();
                             selectedArt.add(a);
                             //Toast.makeText(parent.getContext(), selectedArt.size(), Toast.LENGTH_SHORT).show();
 
@@ -103,7 +106,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                     adapter.notifyDataSetChanged();
                 }
                 // Showing selected spinner item
-                Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
+                //Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -136,7 +139,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     protected void onResume() {
         super.onResume();
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.list_item, ArtList.allArt);
+               R.layout.list_item, ArtList.allArt);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
