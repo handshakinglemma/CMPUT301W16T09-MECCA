@@ -48,7 +48,7 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         loadFromFile();
 
         // just a test
-        Default = new User("default", "carl", "88");
+        Default = new User("default", "88");
         pos = 1;
 
         //also add bid to myBids eg. the borrowers

@@ -24,7 +24,6 @@ public class AddNewUserActivity extends AppCompatActivity {
 
     /* initialize all input fields */
     private EditText inputUsername;
-    private EditText inputName;
     private EditText inputEmail;
 
 
@@ -34,7 +33,6 @@ public class AddNewUserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_new_user);
 
         inputUsername = (EditText) findViewById(R.id.enterUsername);
-        inputName = (EditText) findViewById(R.id.enterName);
         inputEmail = (EditText) findViewById(R.id.enterEmail);
 
     }
@@ -43,12 +41,11 @@ public class AddNewUserActivity extends AppCompatActivity {
 
         /* get text from EditText */
         String username = inputUsername.getText().toString();
-        String name = inputName.getText().toString();
         String email = inputEmail.getText().toString();
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
-        User newestUser = new User(username, name, email);
+        User newestUser = new User(username, email);
 
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
         UserList.users = new ArrayList<User>();

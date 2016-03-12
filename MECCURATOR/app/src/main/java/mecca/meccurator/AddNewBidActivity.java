@@ -115,7 +115,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         //also change the minimum bidding price
         ArtList.allArt.get(pos).setMinprice(rate);
 
-        Default = new User("default", "carl", "88");
+        Default = new User("default", "88");
 
         //also add bid to myBids eg. the borrowers
         ArtList myBids = new ArtList();
