@@ -98,6 +98,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.HomeActivity" />
         </activity>
+        <activity
+            android:name=".AddNewUserActivity"
+            android:label="@string/title_activity_add_new_user"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
