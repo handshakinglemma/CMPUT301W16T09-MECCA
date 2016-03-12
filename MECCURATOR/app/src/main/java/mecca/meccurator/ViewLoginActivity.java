@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -31,15 +32,11 @@ public class ViewLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_login);
-
-        //username = (EditText)findViewById(R.id.username);
-        //username_text = username.getText().toString();
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
     @Override
     protected void onStart() {
-        // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
     }
@@ -47,9 +44,6 @@ public class ViewLoginActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //username = (EditText)findViewById(R.id.username);
-        //username_text = username.getText().toString();
-
         loadFromFile(); /// Need to update
 
     }
@@ -68,18 +62,15 @@ public class ViewLoginActivity extends AppCompatActivity {
             UserList.users = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             UserList.users = new ArrayList<User>();
 
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             throw new RuntimeException();
         }
     }
 
     // Click to create a new listing
     public void CreateNewUserButton(View view) {
-
         Intent intent = new Intent(this, AddNewUserActivity.class);
         startActivity(intent);
     }
@@ -87,6 +78,7 @@ public class ViewLoginActivity extends AppCompatActivity {
     // Click to view my profile
     public void ViewHomeActivity(View view) {
 
+        // Save username input as username_text
         username = (EditText)findViewById(R.id.username);
         username_text = username.getText().toString();
 
@@ -94,13 +86,6 @@ public class ViewLoginActivity extends AppCompatActivity {
 
 
         for(User user: UserList.users){
-
-            Context context = getApplicationContext();
-            //CharSequence saved = user.getUsername();
-            CharSequence saved = username_text;
-            int duration = Toast.LENGTH_SHORT;
-            Toast.makeText(context, saved, duration).show();
-
             if (username_text.equals(user.getUsername())){
 
                 match = true;
@@ -111,11 +96,14 @@ public class ViewLoginActivity extends AppCompatActivity {
         }
 
         if (match == false){
-            // TODO Incorrect username, relaunch activity
+            // If username is incorrect display error message then clear the input
+            Context context = getApplicationContext();
+            CharSequence saved = "Invalid Username!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+
+            username = (EditText)findViewById(R.id.username);
+            username.setText("", EditText.BufferType.EDITABLE);
         }
-
-
     }
-
-
 }
