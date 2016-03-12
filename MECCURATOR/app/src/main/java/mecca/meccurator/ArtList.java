@@ -11,24 +11,27 @@ public class ArtList {
     //TODO: singleton
     public static ArrayList<Art> allArt = new ArrayList<Art>();
 
+
+    private ArrayList<Art> AllArt = new ArrayList<Art>();
+
     private int size;
 
     public void addItem(Art artwork) {
 
-        if(allArt == null){
+        if(AllArt == null){
 
-            ArtList allArt = new ArtList();
+            ArtList AllArt = new ArtList();
 
         }
-        allArt.add(artwork);
+        AllArt.add(artwork);
     }
 
     public Art getItem(int index){
-        return allArt.get(index);
+        return AllArt.get(index);
     }
 
     public boolean hasItem(Art art) {
-        return allArt.contains(art);
+        return AllArt.contains(art);
     }
 
 
@@ -37,15 +40,15 @@ public class ArtList {
     }
 
     public void deleteItem(Art art) {
-        allArt.remove(art);
+        AllArt.remove(art);
         
     }
 
     public ArrayList<Art> getArtwork(){
-        return allArt;
+        return AllArt;
     }
 
     public void remove(int pos) {
-        allArt.remove(pos);
+        AllArt.remove(pos);
     }
 }

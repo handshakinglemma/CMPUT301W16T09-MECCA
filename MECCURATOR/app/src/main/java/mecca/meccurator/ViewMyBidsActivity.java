@@ -58,7 +58,7 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         myBids.addItem(myBid);
         Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
 
-        oldBids.add(Default.getMyBidsPlaced().getItem(pos));
+        oldBids = Default.getMyBidsPlaced();
 
         adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
                 R.layout.list_item, oldBids);

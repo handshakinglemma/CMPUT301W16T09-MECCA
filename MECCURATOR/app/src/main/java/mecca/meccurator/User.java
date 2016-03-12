@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import java.sql.Blob;
+import java.util.ArrayList;
 
 /**
  * Created by svetlanna on 16-02-27.
@@ -67,13 +68,13 @@ public class User {
     }
 
 
-    public ArtList getMyBidsPlaced(){
+    public ArrayList<Art> getMyBidsPlaced(){
 
         if(myBids == null) {
             myBids = new ArtList();
         }
 
-        return myBids;
+        return myBids.getArtwork();
 
     }
 
