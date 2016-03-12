@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="mecca.meccurator.ViewItemBidsActivity"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ViewItemBidsActivity"
     tools:showIn="@layout/activity_view_item_bids">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:textSize="30dp"
+        android:text="Bids on Item"
+        android:textColor="#9500ff"
+        android:gravity="center"/>
 
-</RelativeLayout>
+
+    <ListView
+        android:id="@+id/itemBidListings"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        tools:listitem="@android:layout/simple_expandable_list_item_2">
+
+    </ListView>
+
+
+</LinearLayout>

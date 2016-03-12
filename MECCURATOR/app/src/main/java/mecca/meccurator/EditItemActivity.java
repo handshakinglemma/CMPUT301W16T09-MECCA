@@ -28,12 +28,19 @@ public class EditItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
+
+        Intent edit = getIntent();
+        pos = edit.getIntExtra("position", 0);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         loadValues();
+        Context context = getApplicationContext();
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, "help" + pos, duration).show();
+
     }
 
     //make button for this
