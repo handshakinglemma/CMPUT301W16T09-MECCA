@@ -45,7 +45,6 @@ public class ViewLoginActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         loadFromFile(); /// Need to update
-
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -69,13 +68,13 @@ public class ViewLoginActivity extends AppCompatActivity {
         }
     }
 
-    // Click to create a new listing
+    // Create a new user
     public void CreateNewUserButton(View view) {
         Intent intent = new Intent(this, AddNewUserActivity.class);
         startActivity(intent);
     }
 
-    // Click to view my profile
+    // View my home activity
     public void ViewHomeActivity(View view) {
 
         // Save username input as username_text
@@ -83,7 +82,6 @@ public class ViewLoginActivity extends AppCompatActivity {
         username_text = username.getText().toString();
 
         boolean match = false;
-
 
         for(User user: UserList.users){
             if (username_text.equals(user.getUsername())){

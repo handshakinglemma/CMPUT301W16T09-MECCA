@@ -40,7 +40,6 @@ public class EditItemActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(context, "help" + pos, duration).show();
-
     }
 
     //make button for this
