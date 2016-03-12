@@ -89,6 +89,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.ViewMyListingsActivity" />
         </activity>
+        <activity
+            android:name=".ViewNotificationsActivity"
+            android:label="@string/title_activity_view_notifications"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mecca.meccurator.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

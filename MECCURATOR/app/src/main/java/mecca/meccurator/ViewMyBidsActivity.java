@@ -33,14 +33,8 @@ public class ViewMyBidsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_my_bids);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         oldBidsPlaced = (ListView) findViewById(R.id.oldBidsPlaced);
-
-
-
-
 
     }
 
@@ -49,6 +43,8 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
+
+        // just a test
         Default = new User("default", "carl", "88");
         pos = 1;
 

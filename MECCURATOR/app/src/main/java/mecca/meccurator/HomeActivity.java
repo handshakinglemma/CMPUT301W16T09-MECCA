@@ -75,4 +75,10 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void ViewMyNotificationsButton(View view){
+        Intent intent = new Intent(this, ViewNotificationsActivity.class);
+        startActivity(intent);
+
+    }
 }

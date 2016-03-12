@@ -79,6 +79,7 @@
             android:layout_height="50dp"
             android:text="Notifications"
             android:textSize="10dp"
+            android:onClick="ViewMyNotificationsButton"
             android:background="#83d1ef"
             android:layout_margin="10dp"
             android:layout_gravity="right" />

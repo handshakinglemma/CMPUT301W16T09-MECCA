@@ -122,7 +122,7 @@ public class Art {
 
     @Override
     public String toString(){
-        return title;
+        return title + " " + artist + " " + owner;
     }
 
     public void addBids(BidList bids){
