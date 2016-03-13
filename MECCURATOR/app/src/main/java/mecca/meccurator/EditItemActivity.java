@@ -148,6 +148,9 @@ public class EditItemActivity extends AppCompatActivity {
     // Click to view bids on this item
     public void ViewItemBidsButton(View view) {
         Intent intent = new Intent(this, ViewItemBidsActivity.class);
+        intent.putExtra("current_user", current_user);
+        intent.putExtra("position", pos);
+
         startActivity(intent);
     }
 

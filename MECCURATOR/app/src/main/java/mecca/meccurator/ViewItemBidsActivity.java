@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,17 +29,20 @@ public class ViewItemBidsActivity extends AppCompatActivity {
     private ListView itemBidListings;
     private ArrayAdapter<Bid> adapter;
     private ArrayList<Bid> oldItemBids = new ArrayList<>();
-    public User Default;
+    private String current_user;
     int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item_bids);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
 
         itemBidListings = (ListView) findViewById(R.id.itemBidListings);
+
+        Intent intent = getIntent();
+        pos = intent.getIntExtra("position", 0);
+        current_user = intent.getStringExtra("current_user");
     }
 
     @Override
@@ -47,7 +51,7 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         super.onStart();
         loadFromFile();
 
-        // just a test
+        /* just a test
         Default = new User("default", "88");
         pos = 1;
 
@@ -57,7 +61,10 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         myBids.addItem(myBid);
         Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
 
-        oldItemBids = ArtList.allArt.get(0).getBids();
+        oldItemBids = ArtList.allArt.get(0).getBids(); */
+
+
+        oldItemBids = ArtList.allArt.get(pos).getBids();
 
         adapter = new ArrayAdapter<Bid>(ViewItemBidsActivity.this,
                 R.layout.list_item, oldItemBids);
