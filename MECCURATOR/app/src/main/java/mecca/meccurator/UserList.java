@@ -4,7 +4,7 @@ package mecca.meccurator;
 import java.util.ArrayList;
 
 /**
- * Created by svetlanna on 16-02-27.
+ * UserList keeps track of all users signed up in the system
  */
 public class UserList {
 

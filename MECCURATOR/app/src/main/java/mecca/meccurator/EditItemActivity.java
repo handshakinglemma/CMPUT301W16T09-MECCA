@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
 
+/**
+ * Displays editable form for user to update their item listing
+ * The list of bids place on the item may be view from this page
+ */
 public class EditItemActivity extends AppCompatActivity {
 
     int pos;

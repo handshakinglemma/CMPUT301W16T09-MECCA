@@ -24,6 +24,10 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * Displays a form for the user to fill out to create a new account
+ * Saves new user to users
+ */
 public class AddNewUserActivity extends AppCompatActivity {
     protected static final String USERFILE = "userfile.sav";
 

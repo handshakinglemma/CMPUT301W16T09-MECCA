@@ -3,7 +3,7 @@ package mecca.meccurator;
 import java.util.ArrayList;
 
 /**
- * Created by chaitali on 16-02-27.
+ * A Bidlist object keeps track of all bids placed on a single art item.
  */
 public class BidList {
 

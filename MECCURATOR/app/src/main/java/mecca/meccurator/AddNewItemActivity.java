@@ -23,6 +23,10 @@ import java.sql.Array;
 import java.sql.Blob;
 import java.util.ArrayList;
 
+/**
+ * Displays a form for the user to fill out to create a new item listing
+ * Saves new item to allArt.
+ */
 public class AddNewItemActivity extends AppCompatActivity {
 
     protected static final String ARTFILE = "artfile.sav";

@@ -7,6 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+/**
+ * Displays a list of user notifications such as:
+ * user item has recieved a new bid, and
+ * user's bid on an item has been accepted
+ */
 public class ViewNotificationsActivity extends AppCompatActivity {
 
     @Override

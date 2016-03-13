@@ -27,8 +27,9 @@ import java.lang.reflect.Type;
 import java.sql.Blob;
 import java.util.ArrayList;
 
-// Only accessible by owner of account
-// "View my Profile"
+/**
+ * Displays editable form for user to update their profile
+ */
 public class EditUserActivity extends AppCompatActivity {
 
     public String current_user;

@@ -9,6 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+/**
+ * Displays user's home page.
+ * From home, user may access search,their own listings, their notifications, the items they have
+ * borrowed, the items they have place bids on, or they can view/edit their profile
+ */
 public class HomeActivity extends AppCompatActivity {
 
     public String current_user;
@@ -17,8 +22,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-       // setSupportActionBar(toolbar);
 
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();

@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+/**
+ * Displays a list of all items currently being borrowed by the user
+ */
 public class BorrowedItemsActivity extends AppCompatActivity {
 
     @Override

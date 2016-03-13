@@ -11,9 +11,10 @@ import android.view.View;
 import java.math.BigDecimal;
 import java.sql.Blob;
 
-// This activity is what a non-owner of the item will see?
-// If user != owner then start this activity
-// Else start EditItemActivity
+/**
+ * NOT SURE IF WE NEED THIS ANYMORE. SEE AddNewBidActivity
+ * Displays what a non-owner of an item will see.
+ */
 public class ViewItemActivity extends AppCompatActivity {
 
     private BigDecimal bid;
@@ -33,8 +34,6 @@ public class ViewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
     }
 
     // Click to view bids on this item

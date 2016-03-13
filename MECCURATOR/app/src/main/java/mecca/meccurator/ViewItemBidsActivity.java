@@ -21,9 +21,9 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-// View bids on a particular item
-// Only owner is able to get to this point since the "View Item Bids" is only visible when
-// owner is editing their item?
+/**
+ * Displays bids place on the item. Note: if no bids have been placed, nothing is displayed.
+ */
 public class ViewItemBidsActivity extends AppCompatActivity {
 
     private ListView itemBidListings;
@@ -102,7 +102,4 @@ public class ViewItemBidsActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
-
-    
-
 }

@@ -3,7 +3,7 @@ package mecca.meccurator;
 import java.math.BigDecimal;
 
 /**
- * Created by chaitali on 16-02-27.
+ * Each bid is associated with a bid list and this bid list is associated with one art item
  */
 public class Bid {
 

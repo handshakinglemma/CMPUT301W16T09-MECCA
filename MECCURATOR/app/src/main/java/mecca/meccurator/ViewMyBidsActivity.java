@@ -21,6 +21,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Displays the items that the user has placed bids on
+ */
 public class ViewMyBidsActivity extends AppCompatActivity {
 
     private ListView oldBidsPlaced;

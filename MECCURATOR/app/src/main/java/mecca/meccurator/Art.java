@@ -6,7 +6,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 
 /**
- * Created by chaitali on 16-02-27.
+ * Each art object has it's own bid list attribute to keep track of the bids that have been
+ * placed on it
  */
 public class Art {
 

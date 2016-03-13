@@ -3,8 +3,7 @@ package mecca.meccurator;
 import java.util.ArrayList;
 
 /**
- * Created by chaitali on 16-02-27.
- * 
+ * ArtList object keeps track of all art listings entered into the system
  */
 public class ArtList {
 

@@ -4,7 +4,8 @@ import java.sql.Blob;
 import java.util.ArrayList;
 
 /**
- * Created by svetlanna on 16-02-27.
+ * To use the app each user must have a user object associated with them. The username of the user
+ * must be unique
  */
 public class User {
 
