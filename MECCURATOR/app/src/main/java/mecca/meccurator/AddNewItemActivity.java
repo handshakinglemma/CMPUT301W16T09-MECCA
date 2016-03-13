@@ -67,7 +67,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = inputStatus.getText().toString();
-        String owner = "who?";
+        String owner = "";
         String borrower = "";
 
         /* check for valid input FIX THIS */

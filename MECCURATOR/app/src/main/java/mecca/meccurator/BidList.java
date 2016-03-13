@@ -21,12 +21,10 @@ public class BidList {
 
     public void declineBid(int index){
         allBids.remove(index);
-
     }
 
     public void declineAllBids(){
         allBids.removeAll(allBids);
-
     }
 
     public Bid getBid(int index){

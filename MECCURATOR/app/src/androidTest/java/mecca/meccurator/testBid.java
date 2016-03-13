@@ -10,7 +10,7 @@ public class testBid extends ActivityInstrumentationTestCase2{
         super(HomeActivity.class);
     }
 
-    public void testGetRate () {
+    public void testGetRate() {
         String bidder = "venhuis";
         float rate = 9;
         Bid bid = new Bid("venhuis", rate);
@@ -24,7 +24,7 @@ public class testBid extends ActivityInstrumentationTestCase2{
         String bidder = "venhuis";
         float rate = 9;
         Bid bid = new Bid("venhuis", rate);
-        assertEquals(bidder, bid.getRate());
+        assertEquals(rate, bid.getRate());
 
         String newbidder = "emma";
         bid.setBidder(newbidder);
