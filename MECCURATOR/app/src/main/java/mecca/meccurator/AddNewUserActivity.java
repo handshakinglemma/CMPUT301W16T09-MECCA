@@ -95,7 +95,7 @@ public class AddNewUserActivity extends AppCompatActivity {
             inputEmail.setText("", EditText.BufferType.EDITABLE);
             saveInFile();
         }
-
+        
         // If user does not already exist in users
         if (user_bool == false) {
             try {
