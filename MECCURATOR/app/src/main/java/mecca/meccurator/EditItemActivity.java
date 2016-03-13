@@ -33,15 +33,8 @@ public class EditItemActivity extends AppCompatActivity {
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         loadValues();
-        //Context context = getApplicationContext();
-        //int duration = Toast.LENGTH_SHORT;
-        //Toast.makeText(context, "help" + pos, duration).show();
     }
 
     //make button for this
@@ -116,7 +109,33 @@ public class EditItemActivity extends AppCompatActivity {
         String owner = current_user;
         String borrower = "";
 
-        /* check for valid input FIX THIS */
+        // check for valid input
+
+        if(title.equals("")){
+            inputTitle.setError("Empty Field!");
+            return;
+        }
+
+        if(artist.equals("")){
+            inputArtist.setError("Empty Field!");
+            return;
+        }
+
+        if(dimensionsLength.equals("")){
+            inputLengthDimensions.setError("Empty Field!");
+            return;
+        }
+
+        if(dimensionsWidth.equals("")){
+            inputWidthDimensions.setError("Empty Field!");
+            return;
+        }
+
+        if(description.equals("")){
+            inputDescription.setError("Empty Field!");
+            return;
+        }
+
         try {
             minprice = Float.parseFloat(inputMinPrice.getText().toString());
         } catch(NumberFormatException wrong){
@@ -148,6 +167,9 @@ public class EditItemActivity extends AppCompatActivity {
     // Click to view bids on this item
     public void ViewItemBidsButton(View view) {
         Intent intent = new Intent(this, ViewItemBidsActivity.class);
+        intent.putExtra("current_user", current_user);
+        intent.putExtra("position", pos);
+
         startActivity(intent);
     }
 
