@@ -41,29 +41,6 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/name"
-            android:id="@+id/viewName"
-            android:layout_weight="1" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:id="@+id/enterName"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
 
@@ -71,16 +48,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/phone_number"
-            android:id="@+id/viewPhoneNumber"
+            android:text="@string/email"
+            android:id="@+id/viewEmail"
             android:layout_weight="1" />
 
         <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/enterPhoneNumber"
+            android:id="@+id/enterEmail"
             android:layout_weight="1"
-            android:hint="@string/phone_number_hint"
             android:inputType="text"/>
 
     </LinearLayout>
@@ -93,6 +69,7 @@
         android:layout_marginTop="10dp"
         android:background="#47d8ca"
         android:layout_margin="10dp"
+        android:onClick="saveUser"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

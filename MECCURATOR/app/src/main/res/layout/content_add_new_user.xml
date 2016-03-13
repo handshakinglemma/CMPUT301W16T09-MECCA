@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
+<<<<<<< HEAD
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -62,6 +63,15 @@
             android:layout_weight="1"
             android:hint="@string/name"
             android:inputType="text"/>
+=======
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/email"
+        android:id="@+id/promptEmail"
+        android:layout_weight="1" />
+>>>>>>> 44424717f0003502102f31661df21fed96997c16
 
     </LinearLayout>
 

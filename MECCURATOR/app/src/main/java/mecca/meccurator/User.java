@@ -10,18 +10,12 @@ public class User {
 
 
     private String username;
-    private String name;
-    private String phoneNumber;
-    private Blob photo;
     private String email;
     protected ArtList myBids;
 
     // TODO pass parameter photo
-    public User(String username, String name, String email) {
+    public User(String username, String email) {
         this.username = username;
-        this.name = name;
-        //this.phoneNumber = phoneNumber;
-        //this.photo = photo;
         this.email = email;
     }
 
@@ -31,30 +25,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhoneNumber() {
-        return this.phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public Blob getPhoto() {
-        return this.photo;
-    }
-
-    public void setPhoto(Blob photo) {
-        this.photo = photo;
     }
 
     public String getEmail() {
@@ -81,9 +51,7 @@ public class User {
         if(myBids == null) {
             myBids = new ArtList();
         }
-
         return myBids.getArtwork();
-
     }
 
 }
