@@ -37,21 +37,25 @@
     <string name="item_bids"> View Bids On Item </string>
 
     <string name="title_activity_edit_user">EditUserActivity</string>
-    <string name="name">Name</string>
-    <string name="username">Username</string>
-    <string name="phone_number">User1</string>
+    <string name="name">Name:</string>
+    <string name="username">Username:</string>
+    <string name="phone_number">Phone Number:</string>
     <string name="phone_number_hint">### ### ####</string>
     <string name="save_user">Save</string>
 
     <string name="title_activity_add_new_bid">AddNewBidActivity</string>
     <string name="title_activity_view_my_bids">ViewMyBidsActivity</string>
-    <string name="title_activity_view_notifications">ViewNotificationsActivity</string>
+    <string name="title_activity_view_notifications">My Notifications</string>
 
     <string name="title_activity_view_login">ViewLoginActivity</string>
-    <string name="enter_username">Enter Username</string>
+    <string name="slogan">Discover new art!</string>
+    <string name="enter_username">Enter Username:</string>
     <string name="login">Login</string>
     <string name="title_activity_add_new_user">AddNewUserActivity</string>
-    <string name="email">Email</string>
-    <string name="SignUp">SignUp</string>
+    <string name="email">Email:</string>
+    <string name="SignUp">Sign Up</string>
+
+    <string name="title_activity_borrowed_items">My Borrowed Items</string>
+    <string name="AppTitle">MECCA ART</string>
 
 </resources>

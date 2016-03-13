@@ -79,6 +79,10 @@ public class HomeActivity extends AppCompatActivity {
     public void ViewMyNotificationsButton(View view){
         Intent intent = new Intent(this, ViewNotificationsActivity.class);
         startActivity(intent);
+    }
 
+    public void ViewMyBorrowedItemsButton(View view){
+        Intent intent = new Intent(this, BorrowedItemsActivity.class);
+        startActivity(intent);
     }
 }
