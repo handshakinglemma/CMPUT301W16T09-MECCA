@@ -11,12 +11,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class AddNewUserActivity extends AppCompatActivity {
@@ -26,7 +31,6 @@ public class AddNewUserActivity extends AppCompatActivity {
     private EditText inputUsername;
     private EditText inputEmail;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,49 +39,62 @@ public class AddNewUserActivity extends AppCompatActivity {
         inputUsername = (EditText) findViewById(R.id.enterUsername);
         inputEmail = (EditText) findViewById(R.id.enterEmail);
 
+        loadFromFile();
     }
 
     public void saveUser(View view) {
+
+        inputUsername = (EditText) findViewById(R.id.enterUsername);
+        inputEmail = (EditText) findViewById(R.id.enterEmail);
 
         /* get text from EditText */
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
 
-        /* add new entry to list of items */
-        //TODO: add owner and other attributes by pulling from lists also PHOTO
+        /* add new user to list of users */
         User newestUser = new User(username, email);
 
-        //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        UserList.users = new ArrayList<User>();
+        // The following commented out code is for for testing only
+        // You can use it to see how many users exist inside users (the user list)
+        //String usernames = "";
+        //for(User user: UserList.users) {
+        //    usernames = usernames + " : " + user.getUsername();
+        //}
 
-        try {
-            UserList.users.add(newestUser);
-        } catch (NullPointerException e) {
-            UserList users = new UserList();
-            UserList.users.add(newestUser);
+        //Context testcontext = getApplicationContext();
+        //CharSequence testsaved = usernames;
+        //int testduration = Toast.LENGTH_LONG;
+        //Toast.makeText(testcontext, testsaved, testduration).show();
+
+        boolean user_bool = false;
+
+        for(User user: UserList.users) {
+
+            // If user alread exists in users
+            if (username.equals(user.getUsername())) {
+                user_bool = true;
+                Context context = getApplicationContext();
+                CharSequence saved = "Username already exists";
+                int duration = Toast.LENGTH_SHORT;
+                Toast.makeText(context, saved, duration).show();
+                // Clear input boxes
+                inputUsername.setText("", EditText.BufferType.EDITABLE);
+                inputEmail.setText("", EditText.BufferType.EDITABLE);
+                saveInFile();
+            }
         }
 
-                /* toast message */
-        // new func: displayToast or something?
-        //Context context = getApplicationContext();
-        //CharSequence saved = "User Saved!";
-        //int duration = Toast.LENGTH_SHORT;
-        //Toast.makeText(context, saved, duration).show();
-
-        boolean boool = UserList.users.contains(newestUser);
-        String bool_str = "False";
-        if (boool == true){
-            bool_str = "True";
+        // If user does not already exist in users
+        if (user_bool == false) {
+            try {
+                UserList.users.add(newestUser);
+            } catch (NullPointerException e) {
+                UserList users = new UserList();
+                UserList.users.add(newestUser);
+            }
+            saveInFile();
+            finish();
         }
-
-        Context context = getApplicationContext();
-        CharSequence saved = bool_str;
-        int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(context, saved, duration).show();
-
-        /* end add activity */
-        saveInFile();
-        finish();
     }
 
     protected void saveInFile() {
@@ -99,4 +116,24 @@ public class AddNewUserActivity extends AppCompatActivity {
         }
     }
 
+    // Code from https://github.com/joshua2ua/lonelyTwitter
+    private void loadFromFile() {
+        try {
+            FileInputStream fis = openFileInput(AddNewUserActivity.USERFILE);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+            // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
+
+            Type listType = new TypeToken<ArrayList<User>>() {
+            }.getType();
+            UserList.users = gson.fromJson(in, listType);
+
+        } catch (FileNotFoundException e) {
+            UserList.users = new ArrayList<User>();
+
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
+    }
 }
