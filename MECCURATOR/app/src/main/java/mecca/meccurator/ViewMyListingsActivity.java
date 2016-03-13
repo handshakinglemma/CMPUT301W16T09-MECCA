@@ -37,12 +37,17 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ListView oldArtListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
+    public String current_user;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_my_listings);
+
+        // Get username from ViewLoginActivity
+        Intent intentRcvEdit = getIntent();
+        current_user = intentRcvEdit.getStringExtra("current_user");
 
         oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
@@ -55,6 +60,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
                 int pos = position;
                 edit.putExtra("position", pos);
+                edit.putExtra("current_user", current_user);
                 Toast.makeText(parent.getContext(), "Selected: if" + pos, Toast.LENGTH_LONG).show();
                 startActivity(edit);
                 return true;
@@ -75,28 +81,32 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String choiceSelected = parent.getItemAtPosition(position).toString().split(" ")[0];
+                selectedArt = new ArrayList<Art>();
 
                 if (choiceSelected.equals("All")) {
-                    adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                            R.layout.list_item, ArtList.allArt);
-                    oldArtListings.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
-
-
-                } else {
-                    selectedArt = new ArrayList<Art>();
-
-                    for (Art a : ArtList.allArt) {
-                        if (a.getStatus().toLowerCase().trim().equals(choiceSelected.toLowerCase().trim())) {
+                    for (Art a: ArtList.allArt) {
+                        if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
                             selectedArt.add(a);
                         }
                     }
 
-                    adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                            R.layout.list_item, selectedArt);
-                    oldArtListings.setAdapter(adapter);
-                    adapter.notifyDataSetChanged();
+
+                } else {
+
+                    for (Art a : ArtList.allArt) {
+                        if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
+                            if (a.getStatus().toLowerCase().trim().equals(choiceSelected.toLowerCase().trim())) {
+                                selectedArt.add(a);
+                            }
+                        }
+
+                    }
                 }
+
+                adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this, R.layout.list_item, selectedArt);
+                oldArtListings.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+                Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -108,6 +118,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     // Click to create a new listing
     public void CreateNewListingButton(View view) {
         Intent intent = new Intent(this, AddNewItemActivity.class);
+        intent.putExtra("current_user", current_user);
         startActivity(intent);
     }
 
