@@ -84,6 +84,18 @@ public class AddNewUserActivity extends AppCompatActivity {
             }
         }
 
+        if (username.equals("")) {
+            user_bool = true;
+            Context context = getApplicationContext();
+            CharSequence blank_mssg = "Username cannot be blank";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, blank_mssg, duration).show();
+            // Clear input boxes
+            inputUsername.setText("", EditText.BufferType.EDITABLE);
+            inputEmail.setText("", EditText.BufferType.EDITABLE);
+            saveInFile();
+        }
+
         // If user does not already exist in users
         if (user_bool == false) {
             try {
