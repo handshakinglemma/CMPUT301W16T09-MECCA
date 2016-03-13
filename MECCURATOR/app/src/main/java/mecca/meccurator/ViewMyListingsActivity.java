@@ -37,7 +37,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ListView oldArtListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
-    public String username;
+    public String current_user;
 
 
     @Override
@@ -47,7 +47,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
-        username = intentRcvEdit.getStringExtra("username");
+        current_user = intentRcvEdit.getStringExtra("current_user");
 
         oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
@@ -60,7 +60,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
                 int pos = position;
                 edit.putExtra("position", pos);
-                edit.putExtra("username", username);
+                edit.putExtra("current_user", current_user);
                 Toast.makeText(parent.getContext(), "Selected: if" + pos, Toast.LENGTH_LONG).show();
                 startActivity(edit);
                 return true;
@@ -114,7 +114,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     // Click to create a new listing
     public void CreateNewListingButton(View view) {
         Intent intent = new Intent(this, AddNewItemActivity.class);
-        intent.putExtra("username", username);
+        intent.putExtra("current_user", current_user);
         startActivity(intent);
     }
 

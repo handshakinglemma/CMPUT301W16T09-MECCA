@@ -88,7 +88,7 @@ public class ViewLoginActivity extends AppCompatActivity {
 
                 match = true;
                 Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("username", username.getText().toString());
+                intent.putExtra("current_user", username.getText().toString());
                 startActivity(intent);
             }
         }

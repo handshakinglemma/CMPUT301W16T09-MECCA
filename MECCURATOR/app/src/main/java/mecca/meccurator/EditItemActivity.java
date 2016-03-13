@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 public class EditItemActivity extends AppCompatActivity {
 
     int pos;
-    public String username;
+    public String current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
-        username = edit.getStringExtra("username");
+        current_user = edit.getStringExtra("current_user");
     }
 
     @Override
@@ -113,7 +113,7 @@ public class EditItemActivity extends AppCompatActivity {
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = "available";
-        String owner = username;
+        String owner = current_user;
         String borrower = "";
 
         /* check for valid input FIX THIS */

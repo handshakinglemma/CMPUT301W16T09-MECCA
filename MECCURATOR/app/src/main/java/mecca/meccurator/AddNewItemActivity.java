@@ -36,7 +36,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputMinPrice;
     private TextView inputStatus;
     /* also need an input field for photos but idk anything yet so */
-    public String username;
+    public String current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
-        username = intentRcvEdit.getStringExtra("username");
+        current_user = intentRcvEdit.getStringExtra("current_user");
     }
 
     public void saveEntry(View view){
@@ -72,7 +72,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = inputStatus.getText().toString();
-        String owner = username;
+        String owner = current_user;
         String borrower = "";
 
         /* check for valid input FIX THIS */

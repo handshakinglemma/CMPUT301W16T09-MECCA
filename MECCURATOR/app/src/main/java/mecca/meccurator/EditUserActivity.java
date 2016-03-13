@@ -31,7 +31,7 @@ import java.util.ArrayList;
 // "View my Profile"
 public class EditUserActivity extends AppCompatActivity {
 
-    public String username;
+    public String current_user;
     private String email;
     private static final String USEREDITFILE = "userfile.sav";
     private int pos;
@@ -43,17 +43,17 @@ public class EditUserActivity extends AppCompatActivity {
 
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
-        username = intentRcvEdit.getStringExtra("username");
+        current_user = intentRcvEdit.getStringExtra("current_user");
 
         TextView textview = (TextView) findViewById(R.id.username_my_profile);
-        textview.setText(username);
+        textview.setText(current_user);
 
         loadFromFile();
 
         pos = 0;
 
         for(User user: UserList.users){
-            if (username.equals(user.getUsername())){
+            if (current_user.equals(user.getUsername())){
                 break;
             }
             ++pos;
@@ -135,7 +135,7 @@ public class EditUserActivity extends AppCompatActivity {
 
 
         /* add new entry to list of items */
-        User newestUser = new User(username, email);
+        User newestUser = new User(current_user, email);
 
         UserList.users.remove(pos);
         UserList.users.add(pos, newestUser);
