@@ -1,5 +1,7 @@
 package mecca.meccurator;
 
+import android.widget.Toast;
+import android.content.Context;
 import java.sql.Blob;
 import java.util.ArrayList;
 
@@ -123,7 +125,7 @@ public class Art {
 
     @Override
     public String toString(){
-        return title + " " + artist + " " + owner;
+        return title + "            " + description + " " + status;
     }
 
     public void addBids(BidList bids){
