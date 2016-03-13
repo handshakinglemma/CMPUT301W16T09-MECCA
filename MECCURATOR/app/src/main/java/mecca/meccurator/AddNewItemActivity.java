@@ -79,13 +79,44 @@ public class AddNewItemActivity extends AppCompatActivity {
         String owner = current_user;
         String borrower = "";
 
-        /* check for valid input FIX THIS */
+        // check for valid input
+
+        if(title.equals("")){
+            inputTitle.setError("Empty Field!");
+            return;
+        }
+
+        if(artist.equals("")){
+            inputArtist.setError("Empty Field!");
+            return;
+        }
+
+
+        if(dimensionsLength.equals("")){
+            inputLengthDimensions.setError("Empty Field!");
+            return;
+        }
+
+        if(dimensionsWidth.equals("")){
+            inputWidthDimensions.setError("Empty Field!");
+            return;
+        }
+
+        if(description.equals("")){
+            inputDescription.setError("Empty Field!");
+            return;
+        }
+
         try {
             minprice = Float.parseFloat(inputMinPrice.getText().toString());
         } catch(NumberFormatException wrong){
             inputMinPrice.setError("Invalid Input...");
             return;
         }
+
+
+
+
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
