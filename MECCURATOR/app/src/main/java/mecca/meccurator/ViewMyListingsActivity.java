@@ -139,8 +139,14 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     @Override
     protected void onResume() {
         super.onResume();
+        selectedArt = new ArrayList<>();
+        for (Art a: ArtList.allArt) {
+            if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
+                selectedArt.add(a);
+            }
+        }
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.list_item, ArtList.allArt);
+                R.layout.list_item, selectedArt);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
