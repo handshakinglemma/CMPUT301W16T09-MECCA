@@ -7,12 +7,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
-public class ViewNotificationsActivity extends AppCompatActivity {
+public class BorrowedItemsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_notifications);
+        setContentView(R.layout.activity_borrowed_items);
     }
 
 }

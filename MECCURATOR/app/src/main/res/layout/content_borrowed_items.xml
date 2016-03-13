@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ViewItemBidsActivity"
-    tools:showIn="@layout/activity_view_item_bids">
+    tools:context="mecca.meccurator.BorrowedItemsActivity"
+    tools:showIn="@layout/activity_borrowed_items">
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:textSize="30dp"
-        android:text="Bids Placed"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/title_activity_borrowed_items"
+        android:textSize="35sp"
         android:textColor="#9500ff"
-        android:gravity="center"/>
-
+        android:gravity="center" />
 
     <ListView
-        android:id="@+id/itemBidListings"
+        android:id="@+id/BorrowedItems"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -28,6 +27,5 @@
         tools:listitem="@android:layout/simple_expandable_list_item_2">
 
     </ListView>
-
 
 </LinearLayout>

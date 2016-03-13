@@ -26,6 +26,7 @@
         android:drawablePadding="10dp"
         android:drawableLeft="@android:drawable/ic_search_category_default" />
 
+    <!--Image is from http://becauseimaddicted.net/2013/07/how-to-mix-and-match-art-wall-video-gray-malin-giveaway-2.html-->
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"

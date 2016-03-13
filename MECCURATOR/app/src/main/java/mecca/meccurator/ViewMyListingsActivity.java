@@ -63,23 +63,20 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
         });
 
+        //Setting up the spinner and the adapter. I followed the guidelines from http://www.survivingwithandroid.com/2012/10/android-listview-custom-filter-and.html
         Spinner listingsSpinner = (Spinner) findViewById(R.id.listingTypesSpinner);
-        //listingsSpinner.setOnItemClickListener((AdapterView.OnItemClickListener) this);
         ArrayAdapter adapterSpinner = ArrayAdapter.createFromResource(this,
                 R.array.listingChoices, android.R.layout.simple_spinner_item);
-        ///// don't do the activity thing again just use for loop maybe and change adapter
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         listingsSpinner.setAdapter(adapterSpinner);
-        //String choiceSelected = listingsSpinner.getSelectedItem().toString().split(" ")[0];
+
+        //This sets up what will be down on the option picked with the spinner.
         listingsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                // On selecting a spinner item
                 String choiceSelected = parent.getItemAtPosition(position).toString().split(" ")[0];
-                //if (choiceSelected = "Available" ) {
+
                 if (choiceSelected.equals("All")) {
-                    // Do Nothing
-                    //Toast.makeText(parent.getContext(), "Selected: if" + choiceSelected, Toast.LENGTH_LONG).show();
                     adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
                             R.layout.list_item, ArtList.allArt);
                     oldArtListings.setAdapter(adapter);
@@ -90,13 +87,8 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                     selectedArt = new ArrayList<Art>();
 
                     for (Art a : ArtList.allArt) {
-                        //Toast.makeText(parent.getContext(), a.getTitle().toLowerCase(), Toast.LENGTH_SHORT).show();
                         if (a.getStatus().toLowerCase().trim().equals(choiceSelected.toLowerCase().trim())) {
-                            //Toast.makeText(parent.getContext(), "Selected: else" + choiceSelected, Toast.LENGTH_LONG).show();
                             selectedArt.add(a);
-                            //Toast.makeText(parent.getContext(), selectedArt.size(), Toast.LENGTH_SHORT).show();
-
-
                         }
                     }
 
@@ -105,8 +97,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                     oldArtListings.setAdapter(adapter);
                     adapter.notifyDataSetChanged();
                 }
-                // Showing selected spinner item
-                //Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -139,7 +129,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     protected void onResume() {
         super.onResume();
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-               R.layout.list_item, ArtList.allArt);
+                R.layout.list_item, ArtList.allArt);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

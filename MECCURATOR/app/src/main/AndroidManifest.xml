@@ -101,7 +101,16 @@
         <activity
             android:name=".AddNewUserActivity"
             android:label="@string/title_activity_add_new_user"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BorrowedItemsActivity"
+            android:label="@string/title_activity_borrowed_items"
+            android:parentActivityName=".HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mecca.meccurator.HomeActivity" />
+        </activity>
     </application>
 
 </manifest>

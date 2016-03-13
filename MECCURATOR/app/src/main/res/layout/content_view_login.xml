@@ -3,25 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mecca.meccurator.EditUserActivity"
-    tools:showIn="@layout/activity_edit_user"
+    tools:context="mecca.meccurator.ViewLoginActivity"
+    tools:showIn="@layout/activity_view_login"
     android:orientation="vertical">
 
-    <include layout="@layout/app_bar"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/AppTitle"
+        android:textSize="50sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center"
+        android:textColor="#9500ff"
+        />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/slogan"
+        android:textSize="30sp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_gravity="center"
+        android:textColor="#9500ff"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp">
 
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="179dp"
+            android:layout_height="64dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/enter_username"
-            android:id="@+id/viewEnteredUsername"
-            android:layout_weight="1" />
+            android:id="@+id/viewEnteredUsername" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -34,25 +51,25 @@
     </LinearLayout>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="298dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/login"
         android:id="@+id/login"
         android:layout_marginTop="10dp"
         android:background="#47d8ca"
         android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
         android:onClick="ViewHomeActivity"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="301dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:text="@string/SignUp"
         android:id="@+id/newUser"
         android:layout_marginTop="10dp"
         android:background="#47d8ca"
         android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal"
         android:onClick="CreateNewUserButton"/>
 
 </LinearLayout>
