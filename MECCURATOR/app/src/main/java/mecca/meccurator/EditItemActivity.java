@@ -33,15 +33,8 @@ public class EditItemActivity extends AppCompatActivity {
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         loadValues();
-        //Context context = getApplicationContext();
-        //int duration = Toast.LENGTH_SHORT;
-        //Toast.makeText(context, "help" + pos, duration).show();
     }
 
     //make button for this
