@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 public class EditItemActivity extends AppCompatActivity {
 
     int pos;
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,15 +32,16 @@ public class EditItemActivity extends AppCompatActivity {
 
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
+        username = edit.getStringExtra("username");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         loadValues();
-        Context context = getApplicationContext();
-        int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(context, "help" + pos, duration).show();
+        //Context context = getApplicationContext();
+        //int duration = Toast.LENGTH_SHORT;
+        //Toast.makeText(context, "help" + pos, duration).show();
     }
 
     //make button for this
@@ -111,7 +113,7 @@ public class EditItemActivity extends AppCompatActivity {
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = "available";
-        String owner = "who?";
+        String owner = username;
         String borrower = "";
 
         /* check for valid input FIX THIS */

@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -35,6 +36,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputMinPrice;
     private TextView inputStatus;
     /* also need an input field for photos but idk anything yet so */
+    public String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
         inputStatus = (TextView) findViewById(R.id.enterStatus);
 
+        // Get username from ViewLoginActivity
+        Intent intentRcvEdit = getIntent();
+        username = intentRcvEdit.getStringExtra("username");
     }
 
     public void saveEntry(View view){
@@ -67,7 +72,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = inputStatus.getText().toString();
-        String owner = "who?";
+        String owner = username;
         String borrower = "";
 
         /* check for valid input FIX THIS */

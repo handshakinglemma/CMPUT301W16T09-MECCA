@@ -60,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     // Click to view art listings
     public void ViewListingsButton(View view) {
         Intent intent = new Intent(this, ViewMyListingsActivity.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
