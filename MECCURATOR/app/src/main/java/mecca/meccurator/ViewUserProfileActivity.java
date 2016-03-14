@@ -16,10 +16,7 @@ import java.sql.Blob;
  */
 public class ViewUserProfileActivity extends AppCompatActivity {
 
-    private String username;
-    private String name;
-    private String phoneNumber;
-    private Blob photo;
+    // TODO need to make this activity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

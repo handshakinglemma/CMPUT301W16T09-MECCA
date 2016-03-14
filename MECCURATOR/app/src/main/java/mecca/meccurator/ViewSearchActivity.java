@@ -23,6 +23,11 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * This shows the user all art items that are not borrowed and that are not
+ * owned by the current user
+ */
+// TODO need to make the search results filterable by keyword(s)
 public class ViewSearchActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
@@ -42,9 +47,6 @@ public class ViewSearchActivity extends AppCompatActivity {
 
         oldAllArtListings = (ListView) findViewById(R.id.oldAllArtListings);
 
-        // Update this!!!!
-        // Want when item is clicked to see the view item page where you can add a bid.
-        // I think this is the AddNewBidActivity
         oldAllArtListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
 
             @Override
@@ -78,7 +80,7 @@ public class ViewSearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         selectedArt = new ArrayList<>();
-        // Selected art is only those items that are not owner by current user and that have
+        // Selected art is only those items that are not owned by current user and that have
         // status == "available"
         try{
             for (Art a: ArtList.allArt) {
