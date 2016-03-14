@@ -16,7 +16,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetStatus() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                           "Mercy", "Taste the Rainbow", "8x11 in", 1);
+                "Mercy", "Taste the Rainbow", "8x11 in", 1);
 
         // test that it is unavailable
         assertEquals("unavailable", art.getStatus());
@@ -24,11 +24,6 @@ public class testArt extends ActivityInstrumentationTestCase2 {
         // test that it can be set to something else
         art.setStatus("available");
         assertEquals("available", art.getStatus());
-
-        // test that it can be nothing else
-        //art.setStatus("Nope");
-        // Unnecessary because it shouldn't be possible to set it to
-        // anything else.
     }
 
     public void testGetStatus() {

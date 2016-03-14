@@ -42,13 +42,7 @@ public class Art {
     }
 
     public void setStatus(String status) {
-        if( status.equals("available") ) {
-            this.status = status;
-        } else if ( status.equals("bidded") ) {
-            this.status = status;
-        } else {
-            this.status = "borrowed";
-        }
+        this.status = status;
     }
 
     public String getOwner() {
@@ -176,7 +170,4 @@ public class Art {
         return bids;
 
     }
-
-
-
 }
