@@ -2,6 +2,8 @@ package mecca.meccurator;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import java.util.ArrayList;
+
 /**
  * Created by cjvenhuis on 2016-02-27.
  */
@@ -183,14 +185,57 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSetBids() {
+        Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
+                "Mercy", "Taste the Rainbow", "8x11 in", 1);
+        Bid bid1 = new Bid("Mercy", 5);
+        Bid bid2 = new Bid("Emma", 6);
+        BidList bidList = new BidList();
+        bidList.addBid(bid1);
+        bidList.addBid(bid2);
 
+        ArrayList<Bid> expected = new ArrayList();
+
+        // assert that bids are empty
+        assertEquals(art.getBids(), expected);
+        // add bids to bidList and expected
+        expected.add(bid1);
+        expected.add(bid2);
+        art.setBids(bidList);
+        // assert that they are equal
+        assertEquals(art.getBids(), expected);
     }
 
     public void testGetBids() {
-
+        Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
+                "Mercy", "Taste the Rainbow", "8x11 in", 1);
+        Bid bid1 = new Bid("Mercy", 5);
+        Bid bid2 = new Bid("Emma", 6);
+        BidList bidList = new BidList();
+        bidList.addBid(bid1);
+        bidList.addBid(bid2);
+        // set Bids to bidList
+        art.setBids(bidList);
+        // create a replica
+        ArrayList<Bid> expected = new ArrayList();
+        expected.add(bid1);
+        expected.add(bid2);
+        // check that it was gotten
+        assertEquals(art.getBids(), expected);
     }
 
     public void testGetBidLists() {
-
+        Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
+                "Mercy", "Taste the Rainbow", "8x11 in", 1);
+        Bid bid1 = new Bid("Mercy", 5);
+        Bid bid2 = new Bid("Emma", 6);
+        BidList bidList = new BidList();
+        bidList.addBid(bid1);
+        art.setBids(bidList);
+        // set a pointer to bids in art
+        BidList expected = art.getBidLists();
+        // add something to bids
+        bidList.addBid(bid2);
+        // make sure they're the same bidList
+        assertEquals(art.getBidLists(), expected);
     }
 }
