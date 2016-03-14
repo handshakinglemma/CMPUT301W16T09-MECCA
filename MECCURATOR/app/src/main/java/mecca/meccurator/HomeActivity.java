@@ -96,4 +96,10 @@ public class HomeActivity extends AppCompatActivity {
         intent.putExtra("current_user", current_user);
         startActivity(intent);
     }
+
+    public void logOut(View view){
+        Intent intent = new Intent(this, ViewLoginActivity.class);
+        startActivity(intent);
+        finish(); // This destroys the HomeActivity
+    }
 }

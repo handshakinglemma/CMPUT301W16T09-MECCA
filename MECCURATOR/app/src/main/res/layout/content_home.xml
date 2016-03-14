@@ -58,9 +58,17 @@
             android:onClick="ViewMyProfileButton"
             android:layout_weight="0.32" />
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:textSize="10dp"
+            android:text="Logout"
+            android:onClick="logOut"
+            android:background="#83d1ef"
+            android:layout_margin="10dp"
+            android:layout_gravity="right" />
+
     </LinearLayout>
-
-
 
     <TextView
         android:layout_width="fill_parent"
