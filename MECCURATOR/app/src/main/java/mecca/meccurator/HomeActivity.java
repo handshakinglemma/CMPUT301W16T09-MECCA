@@ -86,6 +86,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void ViewMyBorrowedItemsButton(View view){
         Intent intent = new Intent(this, BorrowedItemsActivity.class);
+        intent.putExtra("current_user", current_user);
         startActivity(intent);
     }
 

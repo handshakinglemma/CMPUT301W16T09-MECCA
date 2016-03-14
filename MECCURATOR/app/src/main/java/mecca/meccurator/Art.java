@@ -125,8 +125,31 @@ public class Art {
         this.minprice = minprice;
     }
 
+    // Can eventually use this to set SeachResultActivity's listview view?
+    public String seachResultString(){
+        return title + description + owner + status;
+    }
+
+    // Can eventually use this to set BorrowedItemsActivity's listview view?
+    public String borrowedString(){
+        return title + description + borrower;
+    }
+
+    // Can eventually use this to set MyListingsActivity's All listings listview view?
+    public String myListingsString(){
+        return title + description + status;
+    }
+
+    // Can eventually use this to set MyListingsActivity's My borrowed items listview view?
+    public String myborrowedString(){
+        return title + description + owner;
+    }
+
     @Override
     public String toString(){
+        // Right, now this is customized for the MyListingsActivity's All listings listview
+        //TODO customize this for the listview calling it
+        // ie. some listviews should show different attributes
         return title + "            " + description + " " + status;
     }
 
