@@ -46,10 +46,6 @@
             android:label="@string/title_activity_view_item_bids"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ViewItemActivity"
-            android:label="@string/title_activity_view_item"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".AddNewItemActivity"
             android:label="@string/title_activity_add_new_item"
             android:parentActivityName=".ViewMyListingsActivity"
@@ -74,11 +70,11 @@
         <activity
             android:name=".AddNewBidActivity"
             android:label="@string/title_activity_add_new_bid"
-            android:parentActivityName=".ViewItemActivity"
+            android:parentActivityName=".ViewSearchActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="mecca.meccurator.ViewItemActivity" />
+                android:value="mecca.meccurator.ViewSearchActivity" />
         </activity>
         <activity
             android:name=".ViewMyBidsActivity"
