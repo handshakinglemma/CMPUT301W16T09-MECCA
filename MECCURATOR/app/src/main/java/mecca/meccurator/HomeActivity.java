@@ -75,6 +75,7 @@ public class HomeActivity extends AppCompatActivity {
 
     public void ViewMyBidsButton(View view) {
         Intent intent = new Intent(this, ViewMyBidsActivity.class);
+        intent.putExtra("current_user", current_user);
         startActivity(intent);
 
     }

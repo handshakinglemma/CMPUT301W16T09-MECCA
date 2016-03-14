@@ -23,6 +23,7 @@ public class UserList {
         users.add(user);
     }
 
+
     public boolean hasUser(User user) {
         return users.contains(user);
     }

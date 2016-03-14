@@ -12,6 +12,10 @@ public class BidList {
 
 
     public void addBid(Bid bid){
+
+        if(allBids == null){
+            allBids = new ArrayList<>();
+        }
         allBids.add(bid);
     }
 

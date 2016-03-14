@@ -55,4 +55,11 @@ public class User {
         return myBids.getArtwork();
     }
 
+    public ArtList getMyBids(){
+        if(myBids == null) {
+            myBids = new ArtList();
+        }
+        return myBids;
+
+    }
 }

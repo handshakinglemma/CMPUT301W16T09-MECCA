@@ -31,4 +31,12 @@ public class Bid {
     public void setRate(float rate) {
         this.rate = rate;
     }
+
+    @Override
+    public String toString(){
+        // Right, now this is customized for the MyListingsActivity's All listings listview
+        //TODO customize this for the listview calling it
+        // ie. some listviews should show different attributes
+        return bidder + " " + "$" + rate;
+    }
 }

@@ -55,6 +55,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_my_listings);
 
+
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");

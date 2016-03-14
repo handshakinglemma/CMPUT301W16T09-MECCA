@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -29,8 +30,9 @@ public class ViewMyBidsActivity extends AppCompatActivity {
     private ListView oldBidsPlaced;
     private ArrayAdapter<Art> adapter;
     private ArrayList<Art> oldBids = new ArrayList<>();
-    public User Default;
     int pos;
+    int userpos;
+    String current_user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,22 @@ public class ViewMyBidsActivity extends AppCompatActivity {
 
         oldBidsPlaced = (ListView) findViewById(R.id.oldBidsPlaced);
 
+        Intent intent = getIntent();
+        current_user = intent.getStringExtra("current_user");
+
+        userpos = -1;
+
+        for(User user: UserList.users){
+            if (current_user.equals(user.getUsername())){
+                break;
+            }
+            else {
+                ++userpos;
+            }
+        }
+
+        oldBids = UserList.users.get(userpos).getMyBidsPlaced();
+
     }
 
     @Override
@@ -46,18 +64,11 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
+        loadUserFromFile();
 
-        // just a test
-        Default = new User("default", "88");
-        pos = 1;
 
-        //also add bid to myBids eg. the borrowers
-        ArtList myBids = new ArtList();
-        Art myBid = ArtList.allArt.get(pos);
-        myBids.addItem(myBid);
-        Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
 
-        oldBids = Default.getMyBidsPlaced();
+
 
         adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
                 R.layout.list_item, oldBids);
@@ -71,6 +82,26 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         super.onResume();
         adapter.notifyDataSetChanged();
 
+    }
+
+    private void loadUserFromFile() {
+        try {
+            FileInputStream fis = openFileInput(AddNewUserActivity.USERFILE);
+            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+
+            Gson gson = new Gson();
+            // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
+
+            Type listType = new TypeToken<ArrayList<User>>() {
+            }.getType();
+            UserList.users = gson.fromJson(in, listType);
+
+        } catch (FileNotFoundException e) {
+            UserList.users = new ArrayList<User>();
+
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter

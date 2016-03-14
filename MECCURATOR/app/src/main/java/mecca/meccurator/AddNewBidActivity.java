@@ -27,8 +27,10 @@ import java.io.OutputStreamWriter;
 public class AddNewBidActivity extends AppCompatActivity {
 
     int pos;
-    String current_user; //get from the log in screen
-    public static User Default;
+    String current_user;
+    BidList bids;
+    ArtList myBids; //= new ArtList();
+    int userpos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +87,11 @@ public class AddNewBidActivity extends AppCompatActivity {
         }
     }
 
-    protected void saveBidButton(){
+    public void saveBidButton(View view){
 
-        //instantiate pls
-        BidList bids = new BidList();
-        //// pull in current user and inputted rate
-        String username = "555";
+
         float rate;
+        String status;
         //USE CURRENT USER
 
         EditText inputRate = (EditText) findViewById(R.id.enterRate);
@@ -104,7 +104,12 @@ public class AddNewBidActivity extends AppCompatActivity {
         }
 
 
-        Bid bid = new Bid(username, rate);
+        Bid bid = new Bid(current_user, rate);
+
+        if(bids == null){
+            bids = new BidList();
+        }
+
         bids.addBid(bid);
 
         ArtList.allArt.get(pos).addBids(bids);
@@ -112,28 +117,61 @@ public class AddNewBidActivity extends AppCompatActivity {
         //after this SAVE to ur own bids
         //and send a notif to the owner
         //and change item status to bidded if not already done
+        status = "bidded";
 
-        ArtList.allArt.get(pos).setStatus("bidded");
+        ArtList.allArt.get(pos).setStatus(status);
         //also change the minimum bidding price
         ArtList.allArt.get(pos).setMinprice(rate);
 
-        Default = new User("default", "88");
 
         //also add bid to myBids eg. the borrowers
-        ArtList myBids = new ArtList();
+
+        userpos = 0;
+
+        for(User user: UserList.users){
+            if (current_user.equals(user.getUsername())){
+                break;
+            }
+            ++userpos;
+        }
+
         Art myBid = ArtList.allArt.get(pos);
+
+        myBids = UserList.users.get(userpos).getMyBids();
         myBids.addItem(myBid);
-        Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
+        UserList.users.get(userpos).myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
+
 
         /* toast message */
         // new func: displayToast or something?
         Context context = getApplicationContext();
-        CharSequence saved = "Artwork Saved!";
+        CharSequence saved = "Bid Placed!";
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(context, saved, duration).show();
 
         /* end add activity */
         saveInFile();
+        saveUserInFile();
         finish();
     }
+
+    protected void saveUserInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(AddNewUserActivity.USERFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(UserList.users, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
+
 }

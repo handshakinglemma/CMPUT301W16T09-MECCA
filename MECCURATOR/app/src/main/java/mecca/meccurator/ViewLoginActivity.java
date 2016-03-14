@@ -51,6 +51,7 @@ public class ViewLoginActivity extends AppCompatActivity {
         loadFromFile(); /// Need to update
     }
 
+
     // Code from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {
         try {

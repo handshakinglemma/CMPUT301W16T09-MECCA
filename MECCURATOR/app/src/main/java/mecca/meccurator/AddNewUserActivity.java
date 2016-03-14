@@ -29,6 +29,7 @@ import java.util.ArrayList;
  * Saves new user to users
  */
 public class AddNewUserActivity extends AppCompatActivity {
+
     protected static final String USERFILE = "userfile.sav";
 
     /* initialize all input fields */

@@ -43,6 +43,8 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         pos = intent.getIntExtra("position", 0);
         current_user = intent.getStringExtra("current_user");
+
+        oldItemBids = ArtList.allArt.get(pos).getBids();
     }
 
     @Override
@@ -64,7 +66,7 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         oldItemBids = ArtList.allArt.get(0).getBids(); */
 
 
-        oldItemBids = ArtList.allArt.get(pos).getBids();
+
 
         adapter = new ArrayAdapter<Bid>(ViewItemBidsActivity.this,
                 R.layout.list_item, oldItemBids);

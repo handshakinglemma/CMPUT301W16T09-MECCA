@@ -80,12 +80,17 @@ public class ViewSearchActivity extends AppCompatActivity {
         selectedArt = new ArrayList<>();
         // Selected art is only those items that are not owner by current user and that have
         // status == "available"
-        for (Art a: ArtList.allArt) {
-            if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
-                    (!(a.getStatus().toLowerCase().trim().equals("borrowed")))){
-                selectedArt.add(a);
+        try{
+            for (Art a: ArtList.allArt) {
+                if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
+                        (!(a.getStatus().toLowerCase().trim().equals("borrowed")))){
+                    selectedArt.add(a);
+                }
             }
+        }catch(NullPointerException e){
+            selectedArt = new ArrayList<>();
         }
+
         adapter = new ArrayAdapter<Art>(ViewSearchActivity.this,
                 R.layout.list_item, selectedArt);
         oldAllArtListings.setAdapter(adapter);
