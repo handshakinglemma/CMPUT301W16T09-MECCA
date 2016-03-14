@@ -5,6 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.util.ArrayList;
 
 /**
+ * Tests for BidList.
  * Created by cjvenhuis on 2016-02-27.
  */
 public class testBidList extends ActivityInstrumentationTestCase2 {

@@ -24,8 +24,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
-/*
-Displays the login bar. User can choose to login or signup. User must login to proceed to home
+/**
+ * Displays the login bar. User can choose to login or signup. User must login to proceed to home
  */
 public class ViewLoginActivity extends AppCompatActivity {
     private static final String USERFILENAME = "userfile.sav";

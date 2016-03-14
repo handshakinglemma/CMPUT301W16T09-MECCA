@@ -5,6 +5,7 @@ import android.test.ActivityInstrumentationTestCase2;
 import java.util.ArrayList;
 
 /**
+ * Tests for ArtList.
  * Created by cjvenhuis on 2016-02-27.
  */
 public class testArtList extends ActivityInstrumentationTestCase2 {
