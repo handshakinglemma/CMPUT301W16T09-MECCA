@@ -30,15 +30,16 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-/*
-Displays the items the user has listed. These items can be filtered by clicking an option from
-the dropdown menu. Filters include:
-view all my items,
-view only my items with bids,
-view only my borrowed items, and
-view only my available items
-User may edit one of their item descriptions by long clicking on the item
-User may add a new item listing by click the add new item button
+/** Displays the items the user has listed. These items can be filtered by clicking an option from
+ * the dropdown menu. Filters include:
+ * <ul>
+ *     <li>View all my items.</li>
+ *     <li>View only my itmes with bids.</li>
+ *     <li>View only my borrowed items.</li>
+ *     <li>View only my available items.</li>
+ * </ul>
+ * User may edit one of their item descriptions by long clicking on the item.
+ * User may add a new item listing by click the add new item button.
  */
 public class ViewMyListingsActivity extends AppCompatActivity implements OnItemSelectedListener {
 
