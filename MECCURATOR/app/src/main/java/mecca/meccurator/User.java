@@ -40,26 +40,4 @@ public class User {
     public String toString(){
         return this.username;
     }
-
-    public void myBidsPlaced(ArtList myBids, String username){
-
-        this.myBids = myBids;
-        this.username = username;
-    }
-
-    public ArrayList<Art> getMyBidsPlaced(){
-
-        if(myBids == null) {
-            myBids = new ArtList();
-        }
-        return myBids.getArtwork();
-    }
-
-    public ArtList getMyBids(){
-        if(myBids == null) {
-            myBids = new ArtList();
-        }
-        return myBids;
-
-    }
 }

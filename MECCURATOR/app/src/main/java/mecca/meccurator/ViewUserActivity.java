@@ -12,6 +12,7 @@ import java.sql.Blob;
 
 /** This activity is what someone will see when they view someone else's profile.
  * If user != username, then start this activity. Otherwise, start EditUserActivity.
+ * Has not been implemented yet. Is not called by anything yet.
  */
 public class ViewUserActivity extends AppCompatActivity {
 
