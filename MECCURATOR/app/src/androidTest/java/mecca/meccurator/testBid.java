@@ -3,6 +3,7 @@ package mecca.meccurator;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
+ * Tests for Bid.
  * Created by cjvenhuis on 2016-02-27.
  */
 public class testBid extends ActivityInstrumentationTestCase2{

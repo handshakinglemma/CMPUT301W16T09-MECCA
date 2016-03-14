@@ -3,6 +3,7 @@ package mecca.meccurator;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
+ * Test for User.
  * Created by cjvenhuis on 2016-02-27.
  */
 public class testUser extends ActivityInstrumentationTestCase2 {
