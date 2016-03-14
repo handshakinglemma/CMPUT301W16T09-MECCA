@@ -56,7 +56,7 @@
             android:textSize="30dp"
             android:background="#0083d1ef"
             android:onClick="ViewMyProfileButton"
-            android:layout_weight="0.32" />
+            android:layout_weight="1.09" />
 
         <Button
             android:layout_width="wrap_content"
