@@ -181,4 +181,16 @@ public class testArt extends ActivityInstrumentationTestCase2 {
         Float minprice2 = art.getMinprice();
         assertEquals(minprice2, art.getMinprice());
     }
+
+    public void testSetBids() {
+
+    }
+
+    public void testGetBids() {
+
+    }
+
+    public void testGetBidLists() {
+
+    }
 }
