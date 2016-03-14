@@ -6,12 +6,12 @@ import java.sql.Blob;
 import java.util.ArrayList;
 
 /**
- * Each art object has it's own bid list attribute to keep track of the bids that have been
- * placed on it
- * possible statuses: available, bidded or borrowed
+ * Each art object has its own bid list attribute to keep track of the bids that have been
+ * placed on it. Possible statuses are: available, bidded, or borrowed.
  */
 public class Art {
 
+    /* attributes for each art object */
     private String status;
     private String owner;
     private String borrower;
@@ -22,7 +22,6 @@ public class Art {
     private String dimensions;
     protected BidList bids;
     private float minprice;
-
 
     public Art(String status, String owner, String borrower, String description,
                String artist, String title, String dimensions, float minprice) {
@@ -36,6 +35,8 @@ public class Art {
         this.dimensions = dimensions;
         this.minprice = minprice;
     }
+
+    /* some standard getters and setters */
 
     public String getStatus() {
         return status;

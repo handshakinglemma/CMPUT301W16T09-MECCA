@@ -3,14 +3,14 @@ package mecca.meccurator;
 import java.math.BigDecimal;
 
 /**
- * Each bid is associated with a bid list and this bid list is associated with one art item
+ * Each bid is associated with a bid list and this bid list is associated with one art item.
  */
 public class Bid {
 
     protected String bidder;
     protected float rate;
 
-
+    /* each bid has a bidder who made the bid and a rate */
     public Bid(String bidder, float rate) {
         this.bidder = bidder;
         this.rate = rate;
