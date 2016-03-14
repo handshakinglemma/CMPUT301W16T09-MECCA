@@ -46,21 +46,6 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         current_user = intent.getStringExtra("current_user");
 
-        //userpos = -1;
-        //userpos = 0;
-
-        //for(User user: UserList.users){
-        //    if (current_user.equals(user.getUsername())){
-        //        break;
-        //    }
-        //    else {
-        //        ++userpos;
-        //    }
-        //}
-
-
-        //oldBids = UserList.users.get(userpos).getMyBidsPlaced();
-
     }
 
     @Override
