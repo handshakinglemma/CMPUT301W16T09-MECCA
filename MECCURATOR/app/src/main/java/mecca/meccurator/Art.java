@@ -8,6 +8,7 @@ import java.util.ArrayList;
 /**
  * Each art object has it's own bid list attribute to keep track of the bids that have been
  * placed on it
+ * possible statuses: available, bidded or borrowed
  */
 public class Art {
 

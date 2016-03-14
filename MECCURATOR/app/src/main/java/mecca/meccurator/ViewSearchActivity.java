@@ -84,7 +84,7 @@ public class ViewSearchActivity extends AppCompatActivity {
         // status == "available"
         for (Art a: ArtList.allArt) {
             if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
-                    (a.getStatus().toLowerCase().trim().equals("available"))){
+                    (!(a.getStatus().toLowerCase().trim().equals("borrowed")))){
                 selectedArt.add(a);
             }
         }
