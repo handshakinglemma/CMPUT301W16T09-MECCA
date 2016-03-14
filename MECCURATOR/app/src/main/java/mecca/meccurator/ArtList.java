@@ -33,11 +33,6 @@ public class ArtList {
         return AllArt.contains(art);
     }
 
-
-    public void updateItem() {
-
-    }
-
     public void deleteItem(Art art) {
         AllArt.remove(art);
         
