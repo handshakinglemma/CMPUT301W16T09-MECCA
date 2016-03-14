@@ -64,7 +64,7 @@
                 android:value="mecca.meccurator.ViewMyListingsActivity" />
         </activity>
         <activity
-            android:name=".ViewUserActivity"
+            android:name=".ViewUserProfileActivity"
             android:label="@string/title_activity_view_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
