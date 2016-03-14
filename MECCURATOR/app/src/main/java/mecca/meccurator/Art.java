@@ -44,10 +44,10 @@ public class Art {
     public void setStatus(String status) {
         if( status.equals("available") ) {
             this.status = status;
-        } else if ( status.equals("unavailable") ) {
+        } else if ( status.equals("bidded") ) {
             this.status = status;
         } else {
-            // throw an exception?
+            this.status = "borrowed";
         }
     }
 
