@@ -50,13 +50,11 @@ public class ViewSearchActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
-
+                Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
                 int pos = position;
-                edit.putExtra("position", pos);
-                edit.putExtra("current_user", current_user);
-                Toast.makeText(parent.getContext(), "Selected: if" + pos, Toast.LENGTH_LONG).show();
-                startActivity(edit);
+                newbid.putExtra("position", pos);
+                newbid.putExtra("current_user", current_user);
+                startActivity(newbid);
                 return true;
             }
         });

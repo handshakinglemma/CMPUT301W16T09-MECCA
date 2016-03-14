@@ -14,7 +14,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.09"
         android:gravity="center"
-        android:hint="@string/Title"
+        android:focusable="false"
+        android:hint="@string/title"
         android:inputType="text"
         android:textSize="30dp" />
 
@@ -54,6 +55,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/enterLengthDimensions"
             android:layout_weight="1"
+            android:focusable="false"
             android:hint="@string/dimensionLength"
             android:inputType="numberDecimal"/>
 
@@ -62,6 +64,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/enterWidthDimensions"
             android:layout_weight="1"
+            android:focusable="false"
             android:hint="@string/dimensionWidth"
             android:inputType="numberDecimal"/>
 
@@ -76,6 +79,7 @@
 
     <EditText
         android:id="@+id/enterDescription"
+        android:focusable="false"
         android:layout_width="fill_parent"
         android:layout_height="95dp"
         android:inputType="text" />
@@ -96,6 +100,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/enterMinPrice"
+            android:focusable="false"
             android:layout_weight="1"
             android:inputType="numberDecimal"/>
 
@@ -140,7 +145,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/item_bids"
+            android:text="@string/place_bid"
             android:id="@+id/item_bids"
             android:onClick="saveBidButton"
             android:layout_marginTop="10dp"

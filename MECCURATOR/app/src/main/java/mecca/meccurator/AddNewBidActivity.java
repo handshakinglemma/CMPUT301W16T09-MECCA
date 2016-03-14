@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -26,15 +27,17 @@ import java.io.OutputStreamWriter;
 public class AddNewBidActivity extends AppCompatActivity {
 
     int pos;
-    String currentUser; //get from the log in screen
+    String current_user; //get from the log in screen
     public static User Default;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_bid2);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        Intent newbid = getIntent();
+        pos = newbid.getIntExtra("position", 0);
+        current_user = newbid.getStringExtra("current_user");
+
     }
 
     @Override
@@ -42,12 +45,6 @@ public class AddNewBidActivity extends AppCompatActivity {
         super.onStart();
         loadValues();
 
-        if(ArtList.allArt.get(pos).getOwner() == currentUser){
-            //preettyyyyy much check this all the time
-            //to switch between intents
-            //so if one do one and if another do another one
-
-        }
     }
 
     protected void loadValues() {
