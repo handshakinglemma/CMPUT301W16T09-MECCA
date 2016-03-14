@@ -42,7 +42,7 @@ public class Art {
     }
 
     public void setStatus(String status) {
-            this.status = status;
+        this.status = status;
     }
 
     public String getOwner() {
@@ -170,7 +170,4 @@ public class Art {
         return bids;
 
     }
-
-
-
 }
