@@ -10,9 +10,9 @@ import android.view.View;
 import java.sql.Blob;
 
 
-// This activity is what a someone will see when they view someone else's profile?
-// If user != username then start this activity
-// Else start EditUserActivity
+/** This activity is what someone will see when they view someone else's profile.
+ * If user != username, then start this activity. Otherwise, start EditUserActivity.
+ */
 public class ViewUserActivity extends AppCompatActivity {
 
     private String username;
