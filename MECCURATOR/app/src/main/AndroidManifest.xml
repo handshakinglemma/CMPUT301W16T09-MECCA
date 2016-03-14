@@ -111,6 +111,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.HomeActivity" />
         </activity>
+        <activity
+            android:name=".ViewSearchActivity"
+            android:label="@string/title_activity_view_search"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

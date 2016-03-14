@@ -24,6 +24,7 @@
         android:layout_centerHorizontal="true"
         android:paddingLeft="15dp"
         android:drawablePadding="10dp"
+        android:onClick="ViewSearchActivity"
         android:drawableLeft="@android:drawable/ic_search_category_default" />
 
     <!--Image is from http://becauseimaddicted.net/2013/07/how-to-mix-and-match-art-wall-video-gray-malin-giveaway-2.html-->
@@ -101,6 +102,7 @@
             android:textSize="10dp"
             android:text="My Borrowed Items"
             android:background="#83d1ef"
+            android:onClick="ViewMyBorrowedItemsButton"
             android:layout_gravity="right"
             android:layout_margin="10dp" />
         <Button

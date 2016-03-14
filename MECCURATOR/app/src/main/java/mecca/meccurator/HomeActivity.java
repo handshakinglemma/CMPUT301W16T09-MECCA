@@ -88,4 +88,10 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BorrowedItemsActivity.class);
         startActivity(intent);
     }
+
+    public void ViewSearchActivity(View view){
+        Intent intent = new Intent(this, ViewSearchActivity.class);
+        intent.putExtra("current_user", current_user);
+        startActivity(intent);
+    }
 }

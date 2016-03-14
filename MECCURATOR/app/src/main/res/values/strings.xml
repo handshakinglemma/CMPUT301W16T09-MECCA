@@ -57,5 +57,8 @@
 
     <string name="title_activity_borrowed_items">My Borrowed Items</string>
     <string name="AppTitle">MECCA ART</string>
+    <string name="title_activity_view_search">ViewSearchActivity</string>
+
+    <string name="title_activity_search_results">Search Results</string>
 
 </resources>
