@@ -29,8 +29,8 @@ public class AddNewBidActivity extends AppCompatActivity {
     int pos;
     String current_user;
     BidList bids;
-    ArtList myBids; //= new ArtList();
-    int userpos;
+    //ArtList myBids; //= new ArtList();
+    //int userpos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,20 +124,20 @@ public class AddNewBidActivity extends AppCompatActivity {
 
         //also add bid to myBids eg. the borrowers
 
-        userpos = 0;
+        //userpos = 0;
 
-        for(User user: UserList.users){
-            if (current_user.equals(user.getUsername())){
-                break;
-            }
-            ++userpos;
-        }
+        //for(User user: UserList.users){
+        //    if (current_user.equals(user.getUsername())){
+        //        break;
+        //    }
+        //    ++userpos;
+        //}
 
-        Art myBid = ArtList.allArt.get(pos);
+        //Art myBid = ArtList.allArt.get(pos);
 
-        myBids = UserList.users.get(userpos).getMyBids();
-        myBids.addItem(myBid);
-        UserList.users.get(userpos).myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
+        //myBids = UserList.users.get(userpos).getMyBids();
+        //myBids.addItem(myBid);
+        //UserList.users.get(userpos).myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
 
 
         /* toast message */
@@ -149,7 +149,7 @@ public class AddNewBidActivity extends AppCompatActivity {
 
         /* end add activity */
         saveInFile();
-        saveUserInFile();
+        //saveUserInFile();
         finish();
     }
 
