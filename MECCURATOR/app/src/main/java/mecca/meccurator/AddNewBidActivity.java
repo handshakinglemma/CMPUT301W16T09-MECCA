@@ -20,8 +20,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
- * Displays the item description and allows user to place a bid on this item
- * Saves the bid to the item's bid list, notifies the item owner of the new bid, updates the item's
+ * Displays the item description and allows user to place a bid on this item.
+ * Saves the bid to the item's bid list. Notifies the item owner of the new bid. Updates the item's
  * status from available to bidded.
  */
 public class AddNewBidActivity extends AppCompatActivity {

@@ -25,11 +25,12 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 /**
- * Displays a form for the user to fill out to create a new account
- * Saves new user to users
+ * Displays a form for the user to fill out to create a new account.
+ * Saves new user to users.
  */
 public class AddNewUserActivity extends AppCompatActivity {
 
+    /* file that users are saved in */
     protected static final String USERFILE = "userfile.sav";
 
     /* initialize all input fields */
@@ -75,7 +76,7 @@ public class AddNewUserActivity extends AppCompatActivity {
 
         for(User user: UserList.users) {
 
-            // If user alread exists in users
+            /* check if username already exists; don't allow duplicate user names */
             if (username.equals(user.getUsername())) {
                 user_bool = true;
                 Context context = getApplicationContext();
@@ -89,6 +90,7 @@ public class AddNewUserActivity extends AppCompatActivity {
             }
         }
 
+        /* check is username is blank; don't allow blank username */
         if (username.equals("")) {
             user_bool = true;
             Context context = getApplicationContext();
@@ -101,7 +103,7 @@ public class AddNewUserActivity extends AppCompatActivity {
             saveInFile();
         }
         
-        // If user does not already exist in users
+        /* if user doesn't already exist in users and isn't blank, add to users */
         if (user_bool == false) {
             try {
                 UserList.users.add(newestUser);
@@ -133,14 +135,14 @@ public class AddNewUserActivity extends AppCompatActivity {
         }
     }
 
-    // Code from https://github.com/joshua2ua/lonelyTwitter
+    /* Code from https://github.com/joshua2ua/lonelyTwitter */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(AddNewUserActivity.USERFILE);
             BufferedReader in = new BufferedReader(new InputStreamReader(fis));
 
             Gson gson = new Gson();
-            // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
+            /* took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016 */
 
             Type listType = new TypeToken<ArrayList<User>>() {
             }.getType();

@@ -24,11 +24,12 @@ import java.sql.Blob;
 import java.util.ArrayList;
 
 /**
- * Displays a form for the user to fill out to create a new item listing
+ * Displays a form for the user to fill out to create a new item listing.
  * Saves new item to allArt.
  */
 public class AddNewItemActivity extends AppCompatActivity {
 
+    /* file that item listings are saved in */
     protected static final String ARTFILE = "artfile.sav";
 
     /* initialize all input fields */
@@ -47,8 +48,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_item);
 
-        /* declare all input fields
-           maybe can move it out of the onCreate w/e
+        /**
+         * declare all input fields
+         * maybe can move it out of the onCreate w/e
          */
 
         inputTitle = (EditText) findViewById(R.id.enterTitle);
