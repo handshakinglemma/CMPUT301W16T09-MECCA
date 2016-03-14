@@ -106,13 +106,11 @@ public class AddNewBidActivity extends AppCompatActivity {
 
         Bid bid = new Bid(current_user, rate);
 
-        if(bids == null){
-            bids = new BidList();
-        }
+        bids = ArtList.allArt.get(pos).getBidLists();
 
         bids.addBid(bid);
 
-        ArtList.allArt.get(pos).addBids(bids);
+        ArtList.allArt.get(pos).setBids(bids);
 
         //after this SAVE to ur own bids
         //and send a notif to the owner

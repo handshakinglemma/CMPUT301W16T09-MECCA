@@ -153,7 +153,7 @@ public class Art {
         return title + "            " + description + " " + status;
     }
 
-    public void addBids(BidList bids){
+    public void setBids(BidList bids){
         this.bids = bids;
     }
 
@@ -166,5 +166,17 @@ public class Art {
         return bids.getAllBids();
 
     }
+
+    public BidList getBidLists(){
+
+        if(bids == null) {
+            bids = new BidList();
+        }
+
+        return bids;
+
+    }
+
+
 
 }
