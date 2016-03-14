@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -44,18 +46,20 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         current_user = intent.getStringExtra("current_user");
 
-        userpos = -1;
+        //userpos = -1;
+        //userpos = 0;
 
-        for(User user: UserList.users){
-            if (current_user.equals(user.getUsername())){
-                break;
-            }
-            else {
-                ++userpos;
-            }
-        }
+        //for(User user: UserList.users){
+        //    if (current_user.equals(user.getUsername())){
+        //        break;
+        //    }
+        //    else {
+        //        ++userpos;
+        //    }
+        //}
 
-        oldBids = UserList.users.get(userpos).getMyBidsPlaced();
+
+        //oldBids = UserList.users.get(userpos).getMyBidsPlaced();
 
     }
 
@@ -65,10 +69,6 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         super.onStart();
         loadFromFile();
         loadUserFromFile();
-
-
-
-
 
         adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
                 R.layout.list_item, oldBids);
@@ -80,6 +80,32 @@ public class ViewMyBidsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        oldBids = new ArrayList<>();
+        ArrayList<Bid> artbids;
+
+        for(Art art: ArtList.allArt){
+            artbids = art.getBids();
+            for (Bid bid: artbids) {
+                if (current_user.equals(bid.getBidder())) {
+                    oldBids.add(art);
+                    Context context = getApplicationContext();
+                    CharSequence saved = bid.getBidder();
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, saved, duration).show();
+                    break;
+                } else {
+                    Context context = getApplicationContext();
+                    CharSequence saved = "Nothing!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, saved, duration).show();
+                }
+            }
+        }
+
+        adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
+                R.layout.list_item, oldBids);
+        oldBidsPlaced.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
     }
