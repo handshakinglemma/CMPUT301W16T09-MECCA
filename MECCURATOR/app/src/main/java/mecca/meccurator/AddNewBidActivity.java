@@ -87,6 +87,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         }
     }
 
+    // TODO set notification flag on item and add notification to owner's notification list
     public void saveBidButton(View view){
 
 
@@ -121,25 +122,6 @@ public class AddNewBidActivity extends AppCompatActivity {
         //also change the minimum bidding price
         ArtList.allArt.get(pos).setMinprice(rate);
 
-
-        //also add bid to myBids eg. the borrowers
-
-        //userpos = 0;
-
-        //for(User user: UserList.users){
-        //    if (current_user.equals(user.getUsername())){
-        //        break;
-        //    }
-        //    ++userpos;
-        //}
-
-        //Art myBid = ArtList.allArt.get(pos);
-
-        //myBids = UserList.users.get(userpos).getMyBids();
-        //myBids.addItem(myBid);
-        //UserList.users.get(userpos).myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
-
-
         /* toast message */
         // new func: displayToast or something?
         Context context = getApplicationContext();
@@ -149,27 +131,6 @@ public class AddNewBidActivity extends AppCompatActivity {
 
         /* end add activity */
         saveInFile();
-        //saveUserInFile();
         finish();
     }
-
-    protected void saveUserInFile() {
-        try {
-            FileOutputStream fos = openFileOutput(AddNewUserActivity.USERFILE, 0);
-
-            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
-            Gson gson = new Gson();
-            gson.toJson(UserList.users, out);
-            out.flush();
-            fos.close();
-
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
-        }
-    }
-
 }
