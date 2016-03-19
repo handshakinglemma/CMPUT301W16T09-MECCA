@@ -5,11 +5,25 @@ import android.content.Context;
 import java.sql.Blob;
 import java.util.ArrayList;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * Each art object has its own bid list attribute to keep track of the bids that have been
  * placed on it. Possible statuses are: available, bidded, or borrowed.
  */
 public class Art {
+
+
+    @JestId
+    protected String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     /* attributes for each art object */
     private String status;

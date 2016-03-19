@@ -29,6 +29,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /** Displays the items the user has listed. These items can be filtered by clicking an option from
  * the dropdown menu. Filters include:
@@ -139,7 +140,19 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+
         loadFromFile();
+
+        // Get the latest tweets from Elasticsearch
+        ElasticsearchArtController.GetArtListTask getTweetsTask = new ElasticsearchArtController.GetArtListTask();
+//        getTweetsTask.execute("test");
+        getTweetsTask.execute("");
+        try {
+            selectedArt = new ArrayList<Art>();
+            selectedArt.addAll(getTweetsTask.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
                 R.layout.list_item, selectedArt);

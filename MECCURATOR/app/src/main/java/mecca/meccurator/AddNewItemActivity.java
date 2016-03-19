@@ -133,6 +133,10 @@ public class AddNewItemActivity extends AppCompatActivity {
             ArtList.allArt.add(newestArt);
         }
 
+        // Add the tweet to Elasticsearch
+        ElasticsearchArtController.AddArtTask addTweetTask = new ElasticsearchArtController.AddArtTask();
+        addTweetTask.execute(newestArt);
+
         /* toast message */
         // new func: displayToast or something?
         Context context = getApplicationContext();
