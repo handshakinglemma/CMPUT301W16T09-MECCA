@@ -59,6 +59,7 @@ public class ElasticsearchArtController {
                 if(execute.isSucceeded()) {
                     List<Art> foundTweets = execute.getSourceAsObjectList(Art.class);
                     allArt.addAll(foundTweets);
+                    Log.i("TODO", "Search was SUCCESSFUL, do something!!!!");
                 } else {
                     Log.i("TODO", "Search was unsuccessful, do something!");
                 }
