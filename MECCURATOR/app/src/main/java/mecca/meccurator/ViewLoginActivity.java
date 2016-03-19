@@ -73,6 +73,14 @@ public class ViewLoginActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ViewLoginActivity.class);
+        startActivity(intent);
+        finish(); // This destroys the HomeActivity
+        //what it should do on back
+    }
+
     // Create a new user
     public void CreateNewUserButton(View view) {
         Intent intent = new Intent(this, AddNewUserActivity.class);
