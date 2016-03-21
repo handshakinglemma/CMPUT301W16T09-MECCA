@@ -113,6 +113,7 @@ public class ElasticsearchArtController {
         protected Void doInBackground(Art... params) {
             verifyConfig();
 
+            // https://stackoverflow.com/questions/13939202/how-to-use-asynctask-class-input-params
             Art art_to_delete = params[0];
 
                 try {

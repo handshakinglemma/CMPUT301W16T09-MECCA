@@ -1,11 +1,13 @@
 package mecca.meccurator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -49,7 +51,11 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ListView oldArtListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
+    private ArrayList<Art> allServerArt = new ArrayList<Art>();
     public String current_user;
+
+    // Use for return from AddNewItemActivity
+    Integer CODE;
 
 
     @Override
@@ -97,7 +103,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 selectedArt = new ArrayList<Art>();
 
                 if (choiceSelected.equals("All")) {
-                    for (Art a: ArtList.allArt) {
+                    for (Art a : allServerArt) {
                         if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
                             selectedArt.add(a);
                         }
@@ -106,7 +112,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
                 } else {
 
-                    for (Art a : ArtList.allArt) {
+                    for (Art a : allServerArt) {
                         if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
                             if (a.getStatus().toLowerCase().trim().equals(choiceSelected.toLowerCase().trim())) {
                                 selectedArt.add(a);
@@ -121,6 +127,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 adapter.notifyDataSetChanged();
                 Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 //Do Nothing
@@ -130,9 +137,21 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
     // Click to create a new listing
     public void CreateNewListingButton(View view) {
+        CODE = 1;
         Intent intent = new Intent(this, AddNewItemActivity.class);
         intent.putExtra("current_user", current_user);
-        startActivity(intent);
+        //startActivity(intent);
+        // This way we can do something upon return from the AddNewItemActivity
+        startActivityForResult(intent, CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // If the request went well (OK) and the request was CODE
+        if (resultCode == Activity.RESULT_OK && requestCode == CODE) {
+            onResume();
+        }
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -141,17 +160,26 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         // TODO Auto-generated method stub
         super.onStart();
 
-        loadFromFile();
+        //loadFromFile();
 
         // Get the latest tweets from Elasticsearch
         ElasticsearchArtController.GetArtListTask getTweetsTask = new ElasticsearchArtController.GetArtListTask();
 //        getTweetsTask.execute("test");
         getTweetsTask.execute("");
         try {
-            selectedArt = new ArrayList<Art>();
-            selectedArt.addAll(getTweetsTask.get());
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getTweetsTask.get());
+            int size = allServerArt.size();
+            Log.i("Server art size is", String.valueOf(size));
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
+        }
+
+        selectedArt = new ArrayList<>();
+        for (Art a: allServerArt) {
+            if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
+                selectedArt.add(a);
+            }
         }
 
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
@@ -164,8 +192,25 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     @Override
     protected void onResume() {
         super.onResume();
+
+        Log.i("TODO", "ON RESUME!!!!");
+
+        // Get the latest tweets from Elasticsearch
+        ElasticsearchArtController.GetArtListTask getTweetsTask = new ElasticsearchArtController.GetArtListTask();
+//        getTweetsTask.execute("test");
+        getTweetsTask.execute("");
+        try {
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getTweetsTask.get());
+            int size = allServerArt.size();
+            Log.i("Server art size is", String.valueOf(size));
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+
         selectedArt = new ArrayList<>();
-        for (Art a: ArtList.allArt) {
+        for (Art a: allServerArt) {
             if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
                 selectedArt.add(a);
             }
@@ -198,18 +243,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
-    }
-
-    public void seeListingItem() {
-
-    }
-
-    public void viewBorrowedItemsOnly() {
-
-    }
-
-    public void viewBidOnItemsOnly() {
-
     }
 
     @Override

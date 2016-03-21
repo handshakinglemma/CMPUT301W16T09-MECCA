@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -146,6 +147,11 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         /* end add activity */
         saveInFile();
+
+        // Let ViewMyListingActivity know to call onResume to update adapter
+        Intent intentPassEntry = new Intent (this, ViewMyListingsActivity.class);
+        setResult(Activity.RESULT_OK, intentPassEntry);
+
         finish();
     }
 
@@ -168,3 +174,5 @@ public class AddNewItemActivity extends AppCompatActivity {
         }
     }
 }
+
+
