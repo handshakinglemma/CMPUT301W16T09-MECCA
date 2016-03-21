@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
+import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -19,6 +22,10 @@ import io.searchbox.core.SearchResult;
 /**
  * Created by emcdonald on 19/03/16.
  */
+
+// Some queries : http://cmput301.softwareprocess.es:8080/testing/art/_search?q="owner"="Alanna"
+    // returns all art owned by Alanna
+
 public class ElasticsearchArtController {
     private static JestDroidClient client;
 
@@ -60,6 +67,8 @@ public class ElasticsearchArtController {
                     List<Art> foundTweets = execute.getSourceAsObjectList(Art.class);
                     allArt.addAll(foundTweets);
                     Log.i("TODO", "Search was SUCCESSFUL, do something!!!!");
+                    int size = allArt.size();
+                    Log.i("size is", String.valueOf(size));
                 } else {
                     Log.i("TODO", "Search was unsuccessful, do something!");
                 }
@@ -94,6 +103,51 @@ public class ElasticsearchArtController {
 
             return null;
         }
+    }
+
+    ///https://github.com/searchbox-io/Jest/blob/master/jest/README.md
+    public static class RemoveArtTask extends AsyncTask<Art,Void,Void> {
+        // #############
+        /// Attempt to delete all items
+        @Override
+        protected Void doInBackground(Art... params) {
+            verifyConfig();
+
+            final String query = "{\"from\":0,\"size\":10000}";
+
+            DeleteByQuery deleteByQuery = new DeleteByQuery.Builder(query).addIndex("testing").addType("art").build();
+
+            try {
+                DocumentResult execute = (DocumentResult) client.execute(deleteByQuery);
+                if (execute.isSucceeded()) {
+                    Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
+                } else {
+                    Log.e("TODO", "Art wasn't deleted oh no!");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        //###########
+        /// Attempt to delete one item.
+        //@Override
+        //protected Void doInBackground(Art... params) {
+        //    verifyConfig();
+
+        //    try {
+        //        DocumentResult execute = client.execute(new Delete.Builder("1").index("testing").type("art").build());
+        //        if (execute.isSucceeded()) {
+        //            Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
+        //        } else {
+        //            Log.e("TODO", "Art wasn't deleted oh no!");
+        //        }
+        //    } catch (IOException e) {
+        //        e.printStackTrace();
+        //    }
+
+        //return null;
+        //}
     }
 
     // If no client, add one

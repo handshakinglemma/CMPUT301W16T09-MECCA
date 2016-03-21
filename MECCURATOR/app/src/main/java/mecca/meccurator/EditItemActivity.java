@@ -46,8 +46,14 @@ public class EditItemActivity extends AppCompatActivity {
         Context context = getApplicationContext();
         CharSequence text = "Art Deleted!";
         int duration = Toast.LENGTH_SHORT;
+
+        ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
+        removeArtTask.execute(ArtList.allArt.get(pos));
+
         ArtList.allArt.remove(pos);
         Toast.makeText(context, text, duration).show();
+
+
         saveInFile();
         finish();
     }
