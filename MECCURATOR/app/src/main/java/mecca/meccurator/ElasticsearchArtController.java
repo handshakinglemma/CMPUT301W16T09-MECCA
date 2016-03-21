@@ -60,7 +60,7 @@ public class ElasticsearchArtController {
                 search_string = "{\"from\":0,\"size\":10000,\"query\":{\"match\":{\"message\":\"" + params[0] + "\"}}}";
             }
 
-            Search search = new Search.Builder(search_string).addIndex("testing").addType("art").build();
+            Search search = new Search.Builder(search_string).addIndex("cats").addType("art").build();
             try {
                 SearchResult execute = client.execute(search);
                 if(execute.isSucceeded()) {
@@ -87,7 +87,7 @@ public class ElasticsearchArtController {
             verifyConfig();
 
             for(Art art : params) {
-                Index index = new Index.Builder(art).index("testing").type("art").build();
+                Index index = new Index.Builder(art).index("cats").type("art").build();
 
                 try {
                     DocumentResult execute = client.execute(index);
@@ -105,49 +105,56 @@ public class ElasticsearchArtController {
         }
     }
 
+    // Code inspired by:
     ///https://github.com/searchbox-io/Jest/blob/master/jest/README.md
     public static class RemoveArtTask extends AsyncTask<Art,Void,Void> {
-        // #############
-        /// Attempt to delete all items
+
         @Override
         protected Void doInBackground(Art... params) {
             verifyConfig();
 
-            final String query = "{\"from\":0,\"size\":10000}";
+            Art art_to_delete = params[0];
 
-            DeleteByQuery deleteByQuery = new DeleteByQuery.Builder(query).addIndex("testing").addType("art").build();
-
-            try {
-                DocumentResult execute = (DocumentResult) client.execute(deleteByQuery);
-                if (execute.isSucceeded()) {
-                    Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
-                } else {
-                    Log.e("TODO", "Art wasn't deleted oh no!");
+                try {
+                    DocumentResult execute = client.execute(new Delete.Builder(art_to_delete.getId()).index("cats").type("art").build());;
+                    if(execute.isSucceeded()) {
+                        Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
+                    } else {
+                        Log.e("TODO", "Our insert of art failed, oh no!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            return null;
+        }
+
+    }
+
+    // Code inspired by:
+    ///https://github.com/searchbox-io/Jest/blob/master/jest/README.md
+    public static class RemoveAllArtTask extends AsyncTask<Art,Void,Void> {
+
+        @Override
+        protected Void doInBackground(Art... params) {
+            verifyConfig();
+
+            for(Art art : params) {
+
+                try {
+                    DocumentResult execute = client.execute(new Delete.Builder(art.getId()).index("cats").type("art").build());;
+                    if(execute.isSucceeded()) {
+                        Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
+                    } else {
+                        Log.e("TODO", "Our insert of art failed, oh no!");
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             return null;
         }
-        //###########
-        /// Attempt to delete one item.
-        //@Override
-        //protected Void doInBackground(Art... params) {
-        //    verifyConfig();
 
-        //    try {
-        //        DocumentResult execute = client.execute(new Delete.Builder("1").index("testing").type("art").build());
-        //        if (execute.isSucceeded()) {
-        //            Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
-        //        } else {
-        //            Log.e("TODO", "Art wasn't deleted oh no!");
-        //        }
-        //    } catch (IOException e) {
-        //        e.printStackTrace();
-        //    }
-
-        //return null;
-        //}
     }
 
     // If no client, add one

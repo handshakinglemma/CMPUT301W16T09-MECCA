@@ -41,18 +41,21 @@ public class EditItemActivity extends AppCompatActivity {
         loadValues();
     }
 
-    //make button for this
     public void deleteEntry(View view) {
-        Context context = getApplicationContext();
-        CharSequence text = "Art Deleted!";
-        int duration = Toast.LENGTH_SHORT;
 
+        // Delete item at index pos from elastic search server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
         removeArtTask.execute(ArtList.allArt.get(pos));
 
+        // TESTING: Delete ALL items from elastic search server
+        //ElasticsearchArtController.RemoveAllArtTask removeAllArtTask = new ElasticsearchArtController.RemoveAllArtTask();
+        //removeAllArtTask.execute();
+
+        Context context = getApplicationContext();
+        CharSequence text = "Art Deleted!";
+        int duration = Toast.LENGTH_SHORT;
         ArtList.allArt.remove(pos);
         Toast.makeText(context, text, duration).show();
-
 
         saveInFile();
         finish();
@@ -97,7 +100,6 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void saveEntry(View view){
-
 
         float minprice;
 
@@ -182,6 +184,5 @@ public class EditItemActivity extends AppCompatActivity {
 
         startActivity(intent);
     }
-
 
 }
