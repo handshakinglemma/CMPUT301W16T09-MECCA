@@ -117,15 +117,13 @@ public class AddNewItemActivity extends AppCompatActivity {
             return;
         }
 
-
-
-
-
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
-        //so this should be artwork.add(newestArt), when artwork is instantiated publicly
+        // Add the art to Elasticsearch
+        ElasticsearchArtController.AddArtTask addTweetTask = new ElasticsearchArtController.AddArtTask();
+        addTweetTask.execute(newestArt);
 
         try{
             ArtList.allArt.add(newestArt);
@@ -133,10 +131,6 @@ public class AddNewItemActivity extends AppCompatActivity {
             ArtList allArt = new ArtList();
             ArtList.allArt.add(newestArt);
         }
-
-        // Add the tweet to Elasticsearch
-        ElasticsearchArtController.AddArtTask addTweetTask = new ElasticsearchArtController.AddArtTask();
-        addTweetTask.execute(newestArt);
 
         /* toast message */
         // new func: displayToast or something?

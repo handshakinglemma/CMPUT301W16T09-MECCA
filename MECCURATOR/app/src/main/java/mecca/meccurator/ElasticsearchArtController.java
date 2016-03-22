@@ -121,7 +121,7 @@ public class ElasticsearchArtController {
                     if(execute.isSucceeded()) {
                         Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
                     } else {
-                        Log.e("TODO", "Our insert of art failed, oh no!");
+                        Log.e("TODO", "Deleting art failed, oh no!");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -134,6 +134,8 @@ public class ElasticsearchArtController {
 
     // Code inspired by:
     ///https://github.com/searchbox-io/Jest/blob/master/jest/README.md
+    // To delete all art
+    // Alternatively, use command: curl -XDELETE 'http://cmput301.softwareprocess.es:8080/cats/art'
     public static class RemoveAllArtTask extends AsyncTask<Art,Void,Void> {
 
         @Override
@@ -147,7 +149,7 @@ public class ElasticsearchArtController {
                     if(execute.isSucceeded()) {
                         Log.i("TODO", "Delete was SUCCESSFUL?, do something!!!!");
                     } else {
-                        Log.e("TODO", "Our insert of art failed, oh no!");
+                        Log.e("TODO", "Our delete of all art failed, oh no!");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
