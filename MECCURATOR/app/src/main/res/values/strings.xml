@@ -61,5 +61,6 @@
 
     <string name="title_activity_search_results">Search Results</string>
     <string name="place_bid">Place Bid</string>
+    <string name="title_activity_edit_bid_status">EditBidStatusActivity</string>
 
 </resources>

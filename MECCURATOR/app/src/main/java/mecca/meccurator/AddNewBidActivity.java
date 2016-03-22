@@ -30,7 +30,11 @@ public class AddNewBidActivity extends AppCompatActivity {
     String current_user;
     BidList bids;
     //ArtList myBids; //= new ArtList();
-    //int userpos;
+    //int userpos;]
+
+
+    //also make an add notification method
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
