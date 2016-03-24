@@ -74,20 +74,35 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
+
                 Log.i("clicked pos", String.valueOf(pos));
 
                 Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
                 Art art_clicked = adapter.getItem(pos);
                 Log.i("clicked art", art_clicked.toString());
-                Log.i("Contains?", String.valueOf(ArtList.allArt.contains(art_clicked)));
+                Log.i("ID of clicked art", art_clicked.getId());
 
-                Log.i("Local all art size is", String.valueOf(ArtList.allArt.size()));
+                int count_pos = 0;
+                for (Art a: ArtList.allArt) {
+                    if (a.getId().equals(art_clicked.getId())) {
+                        Log.i("art found at pos", String.valueOf(count_pos));
+                        Log.i("art yes found", a.getId());
+                        break;
+                    }else {
+                        count_pos ++;
+                        Log.i("art found", a.getId());
+                    }
+                }
 
-                int position = ArtList.allArt.indexOf(art_clicked);
+                //Log.i("Contains?", String.valueOf(ArtList.allArt.contains(art_clicked)));
 
-                Log.i("meta pos", String.valueOf(position));
+                //Log.i("Local all art size is", String.valueOf(ArtList.allArt.size()));
 
-                edit.putExtra("position", position);
+                //int position = ArtList.allArt.indexOf(art_clicked);
+
+                Log.i("meta pos", String.valueOf(count_pos));
+
+                edit.putExtra("position", count_pos);
                 edit.putExtra("current_user", current_user);
                 startActivity(edit);
 
@@ -170,6 +185,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         if (server_size < local_user_art_size) {
             Log.i("TODO", "Manual Adapter Update caused by ADD");
             adapter.add(local_users_art.get(local_user_art_size - 1));
+            Log.i("manual adds id",local_users_art.get(local_user_art_size - 1).getId() );
         }
         if (server_size > local_user_art_size){
             Log.i("TODO", "Manual Adapter Update caused by DELETE");
@@ -212,6 +228,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
                 R.layout.list_item, selectedArt);
         oldArtListings.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         manualAdapterUpdate();
 
@@ -265,5 +282,29 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     @Override
     protected void onResume() {
         super.onResume();
+        Log.i("TODO", "ON RESUME");
+        loadFromFile();
+
+        // Get ALL art from server
+        //ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        //getArtListTask.execute("");
+
+        //try {
+        //    allServerArt = new ArrayList<Art>();
+        //    allServerArt.addAll(getArtListTask.get());
+        //} catch (InterruptedException | ExecutionException e) {
+        //    e.printStackTrace();
+        //}
+
+        // Filter all art from server by owner
+        selectedArt = getUsersArt(ArtList.allArt);
+
+        // Update adapter
+        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                R.layout.list_item, selectedArt);
+        oldArtListings.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        manualAdapterUpdate();
     }
 }
