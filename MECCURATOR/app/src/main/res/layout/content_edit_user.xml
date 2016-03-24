@@ -7,11 +7,11 @@
     tools:showIn="@layout/activity_edit_user"
     android:orientation="vertical">
 
-
+    <!-- Fixed hardcoded string to use @string resource for user string. -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:text="@string/user"
         android:textColor="#9500ff"
         android:textSize="40sp"
         android:textAllCaps="true"

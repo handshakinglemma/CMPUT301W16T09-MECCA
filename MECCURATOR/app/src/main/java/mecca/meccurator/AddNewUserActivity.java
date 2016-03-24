@@ -104,7 +104,7 @@ public class AddNewUserActivity extends AppCompatActivity {
         }
         
         /* if user doesn't already exist in users and isn't blank, add to users */
-        if (user_bool == false) {
+        if (!user_bool) {
             try {
                 UserList.users.add(newestUser);
             } catch (NullPointerException e) {

@@ -53,8 +53,7 @@ public class ViewSearchActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
-                int pos = position;
-                newbid.putExtra("position", pos);
+                newbid.putExtra("position", position);
                 newbid.putExtra("current_user", current_user);
                 startActivity(newbid);
                 return true;

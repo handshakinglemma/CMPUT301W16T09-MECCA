@@ -24,6 +24,9 @@ import io.searchbox.core.SearchResult;
  */
 public class ElasticsearchArtController {
 
+    // Changed hardcoded strings to variables
+    private static final String serverIndex = "cats";
+    private static final String type = "art";
     private static JestDroidClient client;
 
 
@@ -49,7 +52,7 @@ public class ElasticsearchArtController {
                 search_string = "{\"from\":0,\"size\":10000,\"query\":{\"match\":{\"message\":\"" + params[0] + "\"}}}";
             }
 
-            Search search = new Search.Builder(search_string).addIndex("cats").addType("art").build();
+            Search search = new Search.Builder(search_string).addIndex(serverIndex).addType(type).build();
             try {
                 SearchResult execute = client.execute(search);
                 if (execute.isSucceeded()) {
@@ -78,7 +81,7 @@ public class ElasticsearchArtController {
             String art_id = ""; // Initialize
 
             for(Art art : params) {
-                Index index = new Index.Builder(art).index("cats").type("art").build();
+                Index index = new Index.Builder(art).index(serverIndex).type(type).build();
 
                 try {
                     DocumentResult execute = client.execute(index);
@@ -112,7 +115,7 @@ public class ElasticsearchArtController {
             Art art_to_delete = params[0];
 
                 try {
-                    DocumentResult execute = client.execute(new Delete.Builder(art_to_delete.getId()).index("cats").type("art").build());;
+                    DocumentResult execute = client.execute(new Delete.Builder(art_to_delete.getId()).index(serverIndex).type(type).build());
                     if(execute.isSucceeded()) {
                         Log.i("TODO", "Delete art was SUCCESSFUL");
                     } else {

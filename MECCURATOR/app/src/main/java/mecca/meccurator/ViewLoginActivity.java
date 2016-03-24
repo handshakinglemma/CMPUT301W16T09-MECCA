@@ -106,7 +106,7 @@ public class ViewLoginActivity extends AppCompatActivity {
             }
         }
 
-        if (match == false){
+        if (!match){  // Simplified boolean expression
             // If username is incorrect display error message then clear the input
             Context context = getApplicationContext();
             CharSequence saved = "Invalid Username!";

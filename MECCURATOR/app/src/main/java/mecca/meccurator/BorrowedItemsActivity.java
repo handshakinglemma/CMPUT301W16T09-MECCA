@@ -53,8 +53,7 @@ public class BorrowedItemsActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
-                int pos = position;
-                newbid.putExtra("position", pos);
+                newbid.putExtra("position", position);  // Got rid of redundant local variable.
                 newbid.putExtra("current_user", current_user);
                 startActivity(newbid);
                 return true;
