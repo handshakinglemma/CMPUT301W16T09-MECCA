@@ -163,12 +163,13 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 }
             }
 
+            // Update adapter
+            adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                    R.layout.list_item, selectedArt);
+            oldArtListings.setAdapter(adapter);
+
         }
 
-        // Update adapter
-        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.list_item, selectedArt);
-        oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
 
@@ -203,6 +204,11 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 selectedArt.add(a);
             }
         }
+
+        // Update adapter
+        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                R.layout.list_item, selectedArt);
+        oldArtListings.setAdapter(adapter);
 
         manualAdapterUpdate();
 
