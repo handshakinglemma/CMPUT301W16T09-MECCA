@@ -74,8 +74,20 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
+                Log.i("clicked pos", String.valueOf(pos));
+
                 Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
-                edit.putExtra("position", pos);
+                Art art_clicked = adapter.getItem(pos);
+                Log.i("clicked art", art_clicked.toString());
+                Log.i("Contains?", String.valueOf(ArtList.allArt.contains(art_clicked)));
+
+                Log.i("Local all art size is", String.valueOf(ArtList.allArt.size()));
+
+                int position = ArtList.allArt.indexOf(art_clicked);
+
+                Log.i("meta pos", String.valueOf(position));
+
+                edit.putExtra("position", position);
                 edit.putExtra("current_user", current_user);
                 startActivity(edit);
 
@@ -148,24 +160,23 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     // This only manually updates the adapter if there is a size discrepancy between
     // the server artlist and the local artlist (after art has been added or deleted)
     protected void manualAdapterUpdate (){
-        if (allServerArt.size() < ArtList.allArt.size()) {
-            Log.i("TODO", "Manual Adapter Update caused by ADD");
-            adapter.add(ArtList.allArt.get(ArtList.allArt.size() - 1));
-        }
-        if (allServerArt.size() > ArtList.allArt.size()){
-            Log.i("TODO", "Manual Adapter Update caused by DELETE");
 
-            // Filter all art by owner
-            selectedArt = new ArrayList<>();
-            for (Art a: ArtList.allArt) {
-                if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
-                    selectedArt.add(a);
-                }
-            }
+        int server_size = selectedArt.size();
+        Log.i("Server art size is", String.valueOf(server_size));
+        ArrayList<Art> local_users_art = getUsersArt(ArtList.allArt);
+        int local_user_art_size = local_users_art.size();
+        Log.i("Local art size is", String.valueOf(local_user_art_size));
+
+        if (server_size < local_user_art_size) {
+            Log.i("TODO", "Manual Adapter Update caused by ADD");
+            adapter.add(local_users_art.get(local_user_art_size - 1));
+        }
+        if (server_size > local_user_art_size){
+            Log.i("TODO", "Manual Adapter Update caused by DELETE");
 
             // Update adapter
             adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                    R.layout.list_item, selectedArt);
+                    R.layout.list_item, local_users_art);
             oldArtListings.setAdapter(adapter);
 
         }
@@ -190,20 +201,12 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         try {
             allServerArt = new ArrayList<Art>();
             allServerArt.addAll(getArtListTask.get());
-            int size = allServerArt.size();
-            Log.i("Server art size is", String.valueOf(size));
-            Log.i("Local art size is", String.valueOf(ArtList.allArt.size()));
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
-        // Filter all art by owner
-        selectedArt = new ArrayList<>();
-        for (Art a: allServerArt) {
-            if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
-                selectedArt.add(a);
-            }
-        }
+        // Filter all art from server by owner
+        selectedArt = getUsersArt(allServerArt);
 
         // Update adapter
         adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
@@ -234,6 +237,21 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         } catch (IOException e) {
             throw new RuntimeException();
         }
+    }
+
+    public ArrayList<Art> getUsersArt(ArrayList<Art> artlist) {
+
+        selectedArt = new ArrayList<Art>();
+        for (Art a: artlist) {
+            if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
+                selectedArt.add(a);
+            }
+        }
+        return selectedArt;
+    }
+
+    public int getSizeOfUsersArt(ArrayList<Art> artlist) {
+        return artlist.size();
     }
 
     @Override
