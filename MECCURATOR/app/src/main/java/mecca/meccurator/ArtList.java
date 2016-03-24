@@ -38,6 +38,11 @@ public class ArtList {
         
     }
 
+    // Use this to determine index of art item in AllArt
+    public int getArtIndex(Art art) {
+        return AllArt.indexOf(art);
+    }
+
     public ArrayList<Art> getArtwork(){
         return AllArt;
     }

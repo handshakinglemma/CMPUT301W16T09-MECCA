@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -19,6 +20,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.math.BigDecimal;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays editable form for user to update their item listing
@@ -43,18 +45,16 @@ public class EditItemActivity extends AppCompatActivity {
 
     public void deleteEntry(View view) {
 
-        // Delete item at index pos from elastic search server
+        // Delete item from server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
         removeArtTask.execute(ArtList.allArt.get(pos));
 
-        // TESTING: Delete ALL items from elastic search server
-        //ElasticsearchArtController.RemoveAllArtTask removeAllArtTask = new ElasticsearchArtController.RemoveAllArtTask();
-        //removeAllArtTask.execute();
+        // Delete item locally
+        ArtList.allArt.remove(pos);
 
         Context context = getApplicationContext();
         CharSequence text = "Art Deleted!";
         int duration = Toast.LENGTH_SHORT;
-        ArtList.allArt.remove(pos);
         Toast.makeText(context, text, duration).show();
 
         saveInFile();
@@ -100,6 +100,10 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void saveEntry(View view){
+
+        // Delete item from server
+        ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
+        removeArtTask.execute(ArtList.allArt.get(pos));
 
         float minprice;
 
@@ -159,8 +163,22 @@ public class EditItemActivity extends AppCompatActivity {
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
+        // Add the art to Elasticsearch
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(newestArt);
+
+        String art_id = ""; // Initialize
+        try {
+            art_id = addArtTask.get();
+            Log.i("adds art_id is", art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
         ArtList.allArt.remove(pos);
+
+        newestArt.setId(art_id);
         ArtList.allArt.add(pos, newestArt);
 
         /* toast message */
