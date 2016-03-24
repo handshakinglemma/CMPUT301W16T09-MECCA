@@ -280,6 +280,13 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     }
 
     @Override
+    protected  void onPause(){
+        super.onPause();
+        Log.i("TODO", "ON PAUSE");
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         Log.i("TODO", "ON RESUME");
