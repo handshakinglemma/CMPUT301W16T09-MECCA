@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -43,18 +44,16 @@ public class EditItemActivity extends AppCompatActivity {
 
     public void deleteEntry(View view) {
 
-        // Delete item at index pos from elastic search server
+        // Delete item from server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
         removeArtTask.execute(ArtList.allArt.get(pos));
 
-        // TESTING: Delete ALL items from elastic search server
-        //ElasticsearchArtController.RemoveAllArtTask removeAllArtTask = new ElasticsearchArtController.RemoveAllArtTask();
-        //removeAllArtTask.execute();
+        // Delete item locally
+        ArtList.allArt.remove(pos);
 
         Context context = getApplicationContext();
         CharSequence text = "Art Deleted!";
         int duration = Toast.LENGTH_SHORT;
-        ArtList.allArt.remove(pos);
         Toast.makeText(context, text, duration).show();
 
         saveInFile();

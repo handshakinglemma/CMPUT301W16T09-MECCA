@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import java.math.BigDecimal;
 import java.sql.Array;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays a form for the user to fill out to create a new item listing.
@@ -122,8 +124,16 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
 
         // Add the art to Elasticsearch
-        ElasticsearchArtController.AddArtTask addTweetTask = new ElasticsearchArtController.AddArtTask();
-        addTweetTask.execute(newestArt);
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(newestArt);
+
+        String art_id = ""; // Initialize
+        try {
+            art_id = addArtTask.get();
+            Log.i("adds art_id is", art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
 
         try{
             ArtList.allArt.add(newestArt);
@@ -131,6 +141,19 @@ public class AddNewItemActivity extends AppCompatActivity {
             ArtList allArt = new ArtList();
             ArtList.allArt.add(newestArt);
         }
+
+        //String id = ElasticsearchArtController.art_id;
+        ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
+        //Log.i("Id of newest:", id);
+        //Log.i("Id of newest:", ArtList.allArt.get(ArtList.allArt.size()-1).getId());
+        //if (id != null){
+        //    Log.i("Id of newest:", id);
+        //}
+        //else{
+        //    Log.i("TODO", "Id is null");
+        //}
+        //Log.e("newly added id", ArtList.allArt.get(ArtList.allArt.size()-1).getId());
+
 
         /* toast message */
         // new func: displayToast or something?
@@ -141,11 +164,6 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         /* end add activity */
         saveInFile();
-
-        // Let ViewMyListingActivity know to call onResume to update adapter
-        Intent intentPassEntry = new Intent (this, ViewMyListingsActivity.class);
-        setResult(Activity.RESULT_OK, intentPassEntry);
-
         finish();
     }
 

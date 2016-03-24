@@ -54,13 +54,14 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
     public String current_user;
-    Integer CODE; // Use for return from AddNewItemActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_my_listings);
 
+        Log.i("TODO", "ON CREATE");
+
+        setContentView(R.layout.activity_view_my_listings);
 
         // Get current_user from HomeActivity
         Intent intentRcvEdit = getIntent();
@@ -71,22 +72,22 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         oldArtListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
                 Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
-
-                int pos = position;
                 edit.putExtra("position", pos);
                 edit.putExtra("current_user", current_user);
-                Toast.makeText(parent.getContext(), "Selected: if" + pos, Toast.LENGTH_LONG).show();
                 startActivity(edit);
+
                 return true;
             }
 
 
         });
 
-        //Setting up the spinner and the adapter. I followed the guidelines from http://www.survivingwithandroid.com/2012/10/android-listview-custom-filter-and.html
+        // NOTE: Spinner uses local data only.
+        //Setting up the spinner and the adapter.
+        // I followed the guidelines from http://www.survivingwithandroid.com/2012/10/android-listview-custom-filter-and.html
         Spinner listingsSpinner = (Spinner) findViewById(R.id.listingTypesSpinner);
         ArrayAdapter adapterSpinner = ArrayAdapter.createFromResource(this,
                 R.array.listingChoices, android.R.layout.simple_spinner_item);
@@ -99,10 +100,11 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String choiceSelected = parent.getItemAtPosition(position).toString().split(" ")[0];
+
                 selectedArt = new ArrayList<Art>();
 
                 if (choiceSelected.equals("All")) {
-                    for (Art a : allServerArt) {
+                    for (Art a : ArtList.allArt) {
                         if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
                             selectedArt.add(a);
                         }
@@ -111,7 +113,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
                 } else {
 
-                    for (Art a : allServerArt) {
+                    for (Art a : ArtList.allArt) {
                         if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
                             if (a.getStatus().toLowerCase().trim().equals(choiceSelected.toLowerCase().trim())) {
                                 selectedArt.add(a);
@@ -125,6 +127,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this, R.layout.list_item, selectedArt);
                 oldArtListings.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
+
                 Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
             }
 
@@ -137,23 +140,37 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
     // Click to create a new listing
     public void CreateNewListingButton(View view) {
-        CODE = 1;
         Intent intent = new Intent(this, AddNewItemActivity.class);
         intent.putExtra("current_user", current_user);
-        //startActivity(intent);
-        startActivityForResult(intent, CODE); // This way we can do something upon return from the AddNewItemActivity
+        startActivity(intent);
     }
 
-    // onActivityResult calls onResume(). This way adapter is updated after new item is added
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        // If the request went well (OK) and the request was CODE
-        if (resultCode == Activity.RESULT_OK && requestCode == CODE) {
-            onResume();
+    // This only manually updates the adapter if there is a size discrepancy between
+    // the server artlist and the local artlist (after art has been added or deleted)
+    protected void manualAdapterUpdate (){
+        if (allServerArt.size() < ArtList.allArt.size()) {
+            Log.i("TODO", "Manual Adapter Update caused by ADD");
+            adapter.add(ArtList.allArt.get(ArtList.allArt.size() - 1));
         }
-    }
+        if (allServerArt.size() > ArtList.allArt.size()){
+            Log.i("TODO", "Manual Adapter Update caused by DELETE");
 
+            // Filter all art by owner
+            selectedArt = new ArrayList<>();
+            for (Art a: ArtList.allArt) {
+                if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
+                    selectedArt.add(a);
+                }
+            }
+
+        }
+
+        // Update adapter
+        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
+                R.layout.list_item, selectedArt);
+        oldArtListings.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
     @Override
@@ -161,20 +178,20 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         // TODO Auto-generated method stub
         super.onStart();
 
-        Log.i("TODO", "ON START!!!!");
-
+        Log.i("TODO", "ON START");
         // TODO implement offline behavior
-        //loadFromFile();
+        loadFromFile();
 
         // Get ALL art from server
-        ElasticsearchArtController.GetArtListTask getTweetsTask = new ElasticsearchArtController.GetArtListTask();
-        getTweetsTask.execute("");
+        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        getArtListTask.execute("");
 
         try {
             allServerArt = new ArrayList<Art>();
-            allServerArt.addAll(getTweetsTask.get());
+            allServerArt.addAll(getArtListTask.get());
             int size = allServerArt.size();
-            Log.i("SServer art size is", String.valueOf(size));
+            Log.i("Server art size is", String.valueOf(size));
+            Log.i("Local art size is", String.valueOf(ArtList.allArt.size()));
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
@@ -187,46 +204,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             }
         }
 
-        // Update adapter
-        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.list_item, selectedArt);
-        oldArtListings.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        Log.i("TODO", "ON RESUME!!!!");
-
-        // Get ALL art from server
-        ElasticsearchArtController.GetArtListTask getTweetsTask = new ElasticsearchArtController.GetArtListTask();
-        getTweetsTask.execute("");
-
-        try {
-            allServerArt = new ArrayList<Art>();
-            allServerArt.addAll(getTweetsTask.get());
-            int size = allServerArt.size();
-            Log.i("RServer art size is", String.valueOf(size));
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-//      // Filter all art by owner
-        selectedArt = new ArrayList<>();
-        for (Art a: allServerArt) {
-            if (a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim())) {
-                selectedArt.add(a);
-            }
-        }
-
-        // Update adapter
-        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.list_item, selectedArt);
-        oldArtListings.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        manualAdapterUpdate();
 
     }
 
@@ -258,5 +236,10 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 }

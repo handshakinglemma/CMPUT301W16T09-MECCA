@@ -13,19 +13,9 @@ import io.searchbox.annotations.JestId;
  */
 public class Art {
 
-
+    /* attributes for each art object */
     @JestId
     protected String id;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /* attributes for each art object */
     private String status;
     private String owner;
     private String borrower;
@@ -51,6 +41,15 @@ public class Art {
     }
 
     /* some standard getters and setters */
+
+    public String getId() {
+        return id;
+    }
+
+    // Set in AddNewItemActivity
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getStatus() {
         return status;
