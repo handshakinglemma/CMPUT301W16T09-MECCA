@@ -14,20 +14,31 @@
     android:weightSum="1"
     android:orientation="vertical">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:hint="Search text"
-        android:id="@+id/editText"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:paddingLeft="15dp"
-        android:drawablePadding="10dp"
-        android:onClick="ViewSearchActivity"
-        android:drawableLeft="@android:drawable/ic_search_category_default" />
-
     <!--Image is from http://becauseimaddicted.net/2013/07/how-to-mix-and-match-art-wall-video-gray-malin-giveaway-2.html-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="55dp"
+        android:weightSum="1">
+        <Button
+            android:layout_width="55dp"
+            android:layout_height="fill_parent"
+            android:drawableLeft="@android:drawable/ic_search_category_default"
+            android:padding="5dp"
+            android:onClick="ViewSearchActivity"
+            android:background="#0083d1ef" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:inputType="text"
+            android:hint="Search text"
+            android:id="@+id/editText2" />
+
+
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"

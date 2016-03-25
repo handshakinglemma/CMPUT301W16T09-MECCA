@@ -31,6 +31,7 @@ import java.util.ArrayList;
 public class ViewSearchActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
+    public String keyword;
     private ListView oldAllArtListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
@@ -44,6 +45,10 @@ public class ViewSearchActivity extends AppCompatActivity {
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
+
+        // Get keyword from HomeActivity
+        Intent intentRcvEdit2 = getIntent();
+        keyword = intentRcvEdit.getStringExtra("keyword");
 
         oldAllArtListings = (ListView) findViewById(R.id.oldAllArtListings);
 
