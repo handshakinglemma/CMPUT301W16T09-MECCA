@@ -6,6 +6,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,8 +21,11 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * This shows the user all art items that are not borrowed and that are not
@@ -48,7 +52,7 @@ public class ViewSearchActivity extends AppCompatActivity {
 
         // Get keyword from HomeActivity
         Intent intentRcvEdit2 = getIntent();
-        keyword = intentRcvEdit.getStringExtra("keyword");
+        keyword = intentRcvEdit.getStringExtra("keyword").toLowerCase();
 
         oldAllArtListings = (ListView) findViewById(R.id.oldAllArtListings);
 
@@ -84,18 +88,48 @@ public class ViewSearchActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         selectedArt = new ArrayList<>();
-        // Selected art is only those items that are not owned by current user and that have
-        // status == "available"
-        try{
-            for (Art a: ArtList.allArt) {
-                if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
-                        (!(a.getStatus().toLowerCase().trim().equals("borrowed")))){
-                    selectedArt.add(a);
+        // If no input, selected art is art not owned by current user and that
+        // do not have status == "borrowed"
+        if(keyword.equals("")) {
+            Log.i("TODO", "search all succeeded");
+            try {
+                for (Art a : ArtList.allArt) {
+                    if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
+                            (!(a.getStatus().toLowerCase().trim().equals("borrowed")))) {
+                        selectedArt.add(a);
+                    }
                 }
+            } catch (NullPointerException e) {
+                selectedArt = new ArrayList<>();
             }
-        }catch(NullPointerException e){
-            selectedArt = new ArrayList<>();
+        } else {
+            // Otherwise it also has keywords from the user input within the descritption.
+            ArrayList<String> keywords = new ArrayList(Arrays.asList(keyword.split("\\s*,\\s*")));
+            for (String k : keywords) {
+                Log.i("TODO", "*" + k + "*");
+            }
+            try {
+                for (Art a : ArtList.allArt) {
+                    if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
+                            (!(a.getStatus().toLowerCase().trim().equals("borrowed")))) {
+                        String desc = a.getDescription().toLowerCase();
+                        // TODO: Figure out why the split done above doesn't work here!!!
+                        ArrayList<String> compare = new ArrayList(Arrays.asList(desc.split(" ")));
+                        Log.i("TODO", "Split description:");
+                        for (String c : compare) {
+                            Log.i("TODO", "*" + c + "*");
+                            if (keywords.contains(c)) {
+                                selectedArt.add(a);
+                                Log.i("TODO", a.getTitle());
+                            }
+                        }
+                    }
+                }
+            }catch (NullPointerException e) {
+                selectedArt = new ArrayList<>();
+            }
         }
+
 
         adapter = new ArrayAdapter<Art>(ViewSearchActivity.this,
                 R.layout.list_item, selectedArt);
