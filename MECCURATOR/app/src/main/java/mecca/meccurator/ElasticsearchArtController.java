@@ -21,6 +21,7 @@ import io.searchbox.core.SearchResult;
  * ElasticsearchArtController
  * Used to facilitate interaction between the local artlist and the server artlist
  * NOTE: use command: curl -XDELETE 'http://cmput301.softwareprocess.es:8080/cats/art' to clear server
+ * TODO: Could implement a special return value that returns some error code ie. -1 when task Fails
  */
 public class ElasticsearchArtController {
 
