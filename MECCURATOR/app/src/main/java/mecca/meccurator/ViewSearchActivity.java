@@ -90,8 +90,16 @@ public class ViewSearchActivity extends AppCompatActivity {
         selectedArt = new ArrayList<>();
         // If no input, selected art is art not owned by current user and that
         // do not have status == "borrowed"
+        // Split wouldn't work, so we replace everything that is not a character or
+        // number with a space
+        keyword = keyword.replaceAll("\\W", " ");
+        ArrayList<String> keywords = new ArrayList(Arrays.asList(keyword.split(" ")));
+        for( String k: keywords) {
+            Log.i("TODO", "*" + k + "*");
+        }
+
+        // TODO: What do we do if somebody enters in a bunch of spaces or other characters?
         if(keyword.equals("")) {
-            Log.i("TODO", "search all succeeded");
             try {
                 for (Art a : ArtList.allArt) {
                     if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
@@ -104,18 +112,15 @@ public class ViewSearchActivity extends AppCompatActivity {
             }
         } else {
             // Otherwise it also has keywords from the user input within the descritption.
-            ArrayList<String> keywords = new ArrayList(Arrays.asList(keyword.split("\\s*,\\s*")));
-            for (String k : keywords) {
-                Log.i("TODO", "*" + k + "*");
-            }
             try {
                 for (Art a : ArtList.allArt) {
                     if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
                             (!(a.getStatus().toLowerCase().trim().equals("borrowed")))) {
-                        String desc = a.getDescription().toLowerCase();
-                        // TODO: Figure out why the split done above doesn't work here!!!
+
+                        String desc = a.getDescription().toLowerCase().trim().replaceAll("\\W", " ");
                         ArrayList<String> compare = new ArrayList(Arrays.asList(desc.split(" ")));
                         Log.i("TODO", "Split description:");
+
                         for (String c : compare) {
                             Log.i("TODO", "*" + c + "*");
                             if (keywords.contains(c)) {
