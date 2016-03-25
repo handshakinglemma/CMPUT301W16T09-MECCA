@@ -36,6 +36,14 @@
         android:background="#58b96ed2"
         android:layout_gravity="center_horizontal" />
 
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/pictureButton"
+        android:background="@android:drawable/ic_menu_camera" />
+
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"

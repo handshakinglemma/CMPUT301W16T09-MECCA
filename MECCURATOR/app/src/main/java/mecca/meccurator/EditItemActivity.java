@@ -2,14 +2,14 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,7 +19,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -31,6 +30,11 @@ public class EditItemActivity extends AppCompatActivity {
     int pos;
     public String current_user;
 
+    private ImageButton pictureButton;
+    private Bitmap thumbnail;
+
+    static final int REQUEST_CAPTURING_IMAGE = 1234;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +45,24 @@ public class EditItemActivity extends AppCompatActivity {
         current_user = edit.getStringExtra("current_user");
 
         loadValues();
+
+        // http://developer.android.com/training/camera/photobasics.html
+        pictureButton = (ImageButton) findViewById(R.id.pictureButton);
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_CAPTURING_IMAGE);
+                }
+            }
+        });
+
+        // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
+
+        pictureButton.setImageResource(android.R.color.transparent);
+        thumbnail = null;
+
+        setResult(RESULT_OK);
     }
 
     public void deleteEntry(View view) {
@@ -161,7 +183,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
-        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
+        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail );
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
@@ -203,4 +225,13 @@ public class EditItemActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    // http://developer.android.com/training/camera/photobasics.html
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
+            Bundle extras = intent.getExtras();
+            thumbnail = (Bitmap) extras.get("data");
+            pictureButton.setImageBitmap(thumbnail);
+        }
+    }
 }
