@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputWidthDimensions;
     private EditText inputMinPrice;
     private TextView inputStatus;
+    private ImageView inputImage;
     /* also need an input field for photos but idk anything yet so */
     public String current_user;
 
@@ -65,6 +67,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
         inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
         inputStatus = (TextView) findViewById(R.id.enterStatus);
+        inputImage = (ImageView) findViewById(R.id.imageView1);
 
         // http://developer.android.com/training/camera/photobasics.html
         pictureButton = (ImageButton) findViewById(R.id.pictureButton);
@@ -83,8 +86,8 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
 
-        pictureButton.setImageResource(android.R.color.transparent);
-        thumbnail = null;
+        //inputImage.setImageResource(android.R.color.transparent);
+        //thumbnail = null;
 
         setResult(RESULT_OK);
     }
@@ -139,9 +142,11 @@ public class AddNewItemActivity extends AppCompatActivity {
             return;
         }
 
+
+
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
-        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail );
+        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
@@ -212,7 +217,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
-            pictureButton.setImageBitmap(thumbnail);
+            //pictureButton.setImageBitmap(thumbnail);
+            inputImage.setImageBitmap(thumbnail);
+
         }
     }
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -32,6 +33,7 @@ public class EditItemActivity extends AppCompatActivity {
 
     private ImageButton pictureButton;
     private Bitmap thumbnail;
+    private ImageView inputImage;
 
     static final int REQUEST_CAPTURING_IMAGE = 1234;
 
@@ -43,6 +45,7 @@ public class EditItemActivity extends AppCompatActivity {
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
+        inputImage = (ImageView) findViewById(R.id.imageView1);
 
         loadValues();
 
@@ -59,8 +62,10 @@ public class EditItemActivity extends AppCompatActivity {
 
         // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
 
-        pictureButton.setImageResource(android.R.color.transparent);
-        thumbnail = null;
+        //pictureButton.setImageResource(android.R.color.transparent);
+        //inputImage.setImageResource(android.R.color.transparent);
+        //thumbnail = null;
+
 
         setResult(RESULT_OK);
     }
@@ -92,6 +97,7 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
         EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
         EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
+        ImageView inputImage = (ImageView) findViewById(R.id.imageView1);
 
         /* append data into EditText box */
         inputArtist.append(ArtList.allArt.get(pos).getArtist());
@@ -100,6 +106,7 @@ public class EditItemActivity extends AppCompatActivity {
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
         inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
+        inputImage.setImageBitmap(ArtList.allArt.get(pos).getThumbnail());
     }
 
     protected void saveInFile() {
@@ -181,9 +188,15 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
 
+        if(thumbnail == null){
+            thumbnail = ArtList.allArt.get(pos).getThumbnail();
+        }
+
+
+
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
-        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail );
+        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
@@ -231,7 +244,10 @@ public class EditItemActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
-            pictureButton.setImageBitmap(thumbnail);
+            //pictureButton.setImageBitmap(thumbnail);
+            inputImage.setImageBitmap(thumbnail);
+
+
         }
     }
 }
