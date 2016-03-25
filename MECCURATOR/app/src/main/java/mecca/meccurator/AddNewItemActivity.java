@@ -214,6 +214,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     // http://developer.android.com/training/camera/photobasics.html
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        //// TODO: 16-03-25 ADD SIZE CHECKING 
         if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
