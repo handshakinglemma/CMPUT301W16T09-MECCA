@@ -45,6 +45,7 @@ public class Art {
         //this.photo = photo;
         this.dimensions = dimensions;
         this.minprice = minprice;
+        this.bids = getBidLists();
 
     }
 

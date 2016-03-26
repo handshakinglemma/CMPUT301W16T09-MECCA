@@ -30,7 +30,7 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="241dp"
-        android:layout_height="125dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:layout_margin="5dp"
         android:background="#58b96ed2"
@@ -41,8 +41,6 @@
         android:layout_height="50dp"
         android:id="@+id/pictureButton"
         android:background="@android:drawable/ic_menu_camera" />
-
-
 
     <LinearLayout
         android:orientation="horizontal"
