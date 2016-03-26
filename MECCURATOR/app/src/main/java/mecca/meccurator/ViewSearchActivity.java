@@ -52,7 +52,7 @@ public class ViewSearchActivity extends AppCompatActivity {
 
         // Get keyword from HomeActivity
         Intent intentRcvEdit2 = getIntent();
-        keyword = intentRcvEdit.getStringExtra("keyword").toLowerCase();
+        keyword = intentRcvEdit2.getStringExtra("keyword").toLowerCase();
 
         oldAllArtListings = (ListView) findViewById(R.id.oldAllArtListings);
 

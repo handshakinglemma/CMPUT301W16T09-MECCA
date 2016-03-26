@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -31,6 +32,8 @@ public class ViewLoginActivity extends AppCompatActivity {
     private static final String USERFILENAME = "userfile.sav";
     private EditText username;
     private String username_text;
+
+    private ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,10 +99,22 @@ public class ViewLoginActivity extends AppCompatActivity {
 
         boolean match = false;
 
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute("");
+        try {
+            userList = new ArrayList<>();
+            userList.addAll(getUserListTask.get());
+            UserList.users = userList;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
         for(User user: UserList.users){
             if (username_text.equals(user.getUsername())){
-
                 match = true;
+
                 Intent intent = new Intent(this, HomeActivity.class);
                 intent.putExtra("current_user", username.getText().toString());
                 startActivity(intent);

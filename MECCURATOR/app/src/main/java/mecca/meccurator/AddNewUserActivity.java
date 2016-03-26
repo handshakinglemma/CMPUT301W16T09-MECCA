@@ -13,6 +13,8 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -23,6 +25,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays a form for the user to fill out to create a new account.
@@ -32,6 +35,7 @@ public class AddNewUserActivity extends AppCompatActivity {
 
     /* file that users are saved in */
     protected static final String USERFILE = "userfile.sav";
+    private ArrayList<User> userList;
 
     /* initialize all input fields */
     private EditText inputUsername;
@@ -57,9 +61,6 @@ public class AddNewUserActivity extends AppCompatActivity {
         String username = inputUsername.getText().toString();
         String email = inputEmail.getText().toString();
 
-        /* add new user to list of users */
-        User newestUser = new User(username, email);
-
         // The following commented out code is for for testing only
         // You can use it to see how many users exist inside users (the user list)
         //String usernames = "";
@@ -73,8 +74,18 @@ public class AddNewUserActivity extends AppCompatActivity {
         //Toast.makeText(testcontext, testsaved, testduration).show();
 
         boolean user_bool = false;
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute("");
+        try {
+            userList = new ArrayList<User>();
+            userList.addAll(getUserListTask.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
-        for(User user: UserList.users) {
+        for(User user: userList) {
 
             /* check if username already exists; don't allow duplicate user names */
             if (username.equals(user.getUsername())) {
@@ -105,12 +116,19 @@ public class AddNewUserActivity extends AppCompatActivity {
         
         /* if user doesn't already exist in users and isn't blank, add to users */
         if (!user_bool) {
+            /* add new user to list of users */
+            User newestUser = new User(username, email);
+
+            ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+            addUserTask.execute(newestUser);
+
             try {
                 UserList.users.add(newestUser);
             } catch (NullPointerException e) {
                 UserList users = new UserList();
                 UserList.users.add(newestUser);
             }
+
             saveInFile();
             finish();
         }

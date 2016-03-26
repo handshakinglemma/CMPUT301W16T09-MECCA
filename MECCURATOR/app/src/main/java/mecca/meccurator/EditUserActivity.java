@@ -138,6 +138,11 @@ public class EditUserActivity extends AppCompatActivity {
         /* add new entry to list of items */
         User newestUser = new User(current_user, email);
 
+        /*ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController().removeUserTask();
+        removeUserTask.execute();
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);*/
+
         UserList.users.remove(pos);
         UserList.users.add(pos, newestUser);
 
