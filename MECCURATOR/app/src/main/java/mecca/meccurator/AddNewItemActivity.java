@@ -27,6 +27,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Displays a form for the user to fill out to create a new item listing.
  * Saves new item to allArt.
+ * TODO Add picture to elastic search
  */
 public class AddNewItemActivity extends AppCompatActivity {
 

@@ -25,6 +25,7 @@ import java.util.concurrent.ExecutionException;
 /**
  * Displays editable form for user to update their item listing
  * The list of bids place on the item may be view from this page
+ *  TODO Add picture to elastic search
  */
 public class EditItemActivity extends AppCompatActivity {
 
@@ -152,7 +153,7 @@ public class EditItemActivity extends AppCompatActivity {
         String dimensionsLength = inputLengthDimensions.getText().toString();
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
-        String status = "available";
+        String status = ArtList.allArt.get(pos).getStatus();
         String owner = current_user;
         String borrower = "";
 
@@ -195,10 +196,13 @@ public class EditItemActivity extends AppCompatActivity {
         }
 
 
-
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
+
+        // Save bids
+        BidList bids_placed = ArtList.allArt.get(pos).getBidLists();
+        newestArt.setBids(bids_placed);  // Transfer over old bids
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
@@ -212,11 +216,15 @@ public class EditItemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
         ArtList.allArt.remove(pos);
 
-        newestArt.setId(art_id);
+        newestArt.setId(art_id); // set id locally
+
         ArtList.allArt.add(pos, newestArt);
+
 
         /* toast message */
         // new func: displayToast or something?

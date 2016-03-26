@@ -83,6 +83,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
             try {
                 Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
             } catch (InterruptedException ie) {
                 //Handle exception
             }
