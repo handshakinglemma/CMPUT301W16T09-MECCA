@@ -73,7 +73,17 @@ public class AddNewUserActivity extends AppCompatActivity {
         //int testduration = Toast.LENGTH_LONG;
         //Toast.makeText(testcontext, testsaved, testduration).show();
 
-        boolean user_bool = false;
+        if(username.equals("")){
+            inputUsername.setError("Empty Field!");
+            return;
+        }
+
+        if(email.equals("")){
+            inputEmail.setError("Empty Field!");
+            return;
+        }
+
+        // get user list and check if the username has been taken
         ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
         getUserListTask.execute("");
 
@@ -90,49 +100,26 @@ public class AddNewUserActivity extends AppCompatActivity {
 
             /* check if username already exists; don't allow duplicate user names */
             if (username.equals(user.getUsername())) {
-                user_bool = true;
-                Context context = getApplicationContext();
-                CharSequence saved = "Username already exists";
-                int duration = Toast.LENGTH_SHORT;
-                Toast.makeText(context, saved, duration).show();
-                // Clear input boxes
-                inputUsername.setText("", EditText.BufferType.EDITABLE);
-                inputEmail.setText("", EditText.BufferType.EDITABLE);
-                saveInFile();
+                inputUsername.setError("Username taken!");
+                return;
             }
         }
 
-        /* check is username is blank; don't allow blank username */
-        if (username.equals("")) {
-            user_bool = true;
-            Context context = getApplicationContext();
-            CharSequence blank_mssg = "Username cannot be blank";
-            int duration = Toast.LENGTH_SHORT;
-            Toast.makeText(context, blank_mssg, duration).show();
-            // Clear input boxes
-            inputUsername.setText("", EditText.BufferType.EDITABLE);
-            inputEmail.setText("", EditText.BufferType.EDITABLE);
-            saveInFile();
+        // Everything checks out, add username and email to userlist
+        User newestUser = new User(username, email);
+
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+        try {
+            UserList.users.add(newestUser);
+        } catch (NullPointerException e) {
+            UserList users = new UserList();
+            UserList.users.add(newestUser);
         }
-        
-        /* if user doesn't already exist in users and isn't blank, add to users */
-        if (!user_bool) {
-            /* add new user to list of users */
-            User newestUser = new User(username, email);
 
-            ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
-            addUserTask.execute(newestUser);
+        saveInFile();
+        finish();
 
-            try {
-                UserList.users.add(newestUser);
-            } catch (NullPointerException e) {
-                UserList users = new UserList();
-                UserList.users.add(newestUser);
-            }
-
-            saveInFile();
-            finish();
-        }
     }
 
     protected void saveInFile() {

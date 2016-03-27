@@ -94,8 +94,8 @@ public class ViewLoginActivity extends AppCompatActivity {
     public void ViewHomeActivity(View view) {
 
         // Save username input as username_text
-        username = (EditText)findViewById(R.id.username);
-        username_text = username.getText().toString();
+        EditText inputUser = (EditText)findViewById(R.id.username);
+        String username = inputUser.getText().toString();
 
         boolean match = false;
 
@@ -112,11 +112,11 @@ public class ViewLoginActivity extends AppCompatActivity {
         }
 
         for(User user: UserList.users){
-            if (username_text.equals(user.getUsername())){
+            if (username.equals(user.getUsername())){
                 match = true;
 
                 Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("current_user", username.getText().toString());
+                intent.putExtra("current_user", username);
                 startActivity(intent);
             }
         }
@@ -128,8 +128,8 @@ public class ViewLoginActivity extends AppCompatActivity {
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, saved, duration).show();
 
-            username = (EditText)findViewById(R.id.username);
-            username.setText("", EditText.BufferType.EDITABLE);
+            //EditText inputUser = (EditText) findViewById(R.id.username);
+            inputUser.setText("", EditText.BufferType.EDITABLE);
         }
     }
 }

@@ -105,7 +105,6 @@ public class EditUserActivity extends AppCompatActivity {
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
         /* append data into EditText box */
-
         inputEmail.append(UserList.users.get(pos).getEmail());
     }
 
@@ -129,11 +128,17 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     public void saveUser(View view){
-
+        //
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
         /* get text from EditText */
         String email = inputEmail.getText().toString();
+
+        // if blank input given, give error
+        if(email.equals("")){
+            inputEmail.setError("Empty Field!");
+            return;
+        }
 
         /* add new entry to list of items */
         User newestUser = new User(current_user, email);
