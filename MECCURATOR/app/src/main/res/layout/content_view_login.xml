@@ -10,7 +10,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="@string/AppTitle"
         android:textSize="50sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -45,7 +45,7 @@
         android:text="@string/login"
         android:id="@+id/login"
         android:layout_marginTop="10dp"
-        android:background="#47d8ca"
+        android:background="#83d1ef"
         android:layout_margin="10dp"
         android:onClick="ViewHomeActivity"/>
 
@@ -56,7 +56,7 @@
         android:text="@string/SignUp"
         android:id="@+id/newUser"
         android:layout_marginTop="10dp"
-        android:background="#47d8ca"
+        android:background="#83d1ef"
         android:layout_margin="10dp"
         android:onClick="CreateNewUserButton"/>
 
