@@ -60,10 +60,7 @@ public class ViewSearchActivity extends AppCompatActivity {
         // Get username and keyword from HomeActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
-
-        // Get keyword from HomeActivity
-        Intent intentRcvEdit2 = getIntent();
-        keyword = intentRcvEdit2.getStringExtra("keyword").toLowerCase();
+        keyword = intentRcvEdit.getStringExtra("keyword").toLowerCase();
 
         // Pull all server art
         boolean success = false;

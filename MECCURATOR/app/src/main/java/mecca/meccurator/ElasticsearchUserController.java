@@ -62,9 +62,9 @@ public class ElasticsearchUserController {
         }
     }
 
-    public static class AddUserTask extends AsyncTask<User,Void,ArrayList<User>> {
+    public static class AddUserTask extends AsyncTask<User,Void,String> {
         @Override
-        protected ArrayList<User> doInBackground(User... params) {
+        protected String doInBackground(User... params) {
             verifyConfig();
 
             for(User user : params) {
@@ -94,6 +94,7 @@ public class ElasticsearchUserController {
             User deletable = params[0];
 
             try {
+                Log.i("TODO", deletable.getId());
                 DocumentResult execute = client.execute(new Delete.Builder(deletable.getId()).index(INDEX).type(TYPE).build());
                 if(execute.isSucceeded()) {
                     Log.i("TODO", "Delete user was SUCCESSFUL");
