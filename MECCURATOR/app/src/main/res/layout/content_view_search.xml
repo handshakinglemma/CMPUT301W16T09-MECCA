@@ -15,7 +15,7 @@
         android:layout_marginTop="20dp"
         android:text="@string/title_activity_search_results"
         android:textSize="35sp"
-        android:textColor="#9500ff"
+        android:textColor="#504f4f"
         android:gravity="center" />
 
     <ListView
