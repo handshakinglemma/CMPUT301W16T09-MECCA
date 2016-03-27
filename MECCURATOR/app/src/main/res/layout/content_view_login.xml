@@ -27,28 +27,16 @@
         android:layout_gravity="center"
         android:textColor="#9500ff"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+    <EditText
+        android:layout_width="298dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
-
-        <TextView
-            android:layout_width="179dp"
-            android:layout_height="64dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/enter_username"
-            android:id="@+id/viewEnteredUsername" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="text"
-            android:id="@+id/username"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:hint="Enter Username:"
+        android:id="@+id/username" />
 
     <Button
         android:layout_width="298dp"
