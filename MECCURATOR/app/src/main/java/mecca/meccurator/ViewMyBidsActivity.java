@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -16,13 +17,17 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays the items that the user has placed bids on
@@ -32,44 +37,56 @@ public class ViewMyBidsActivity extends AppCompatActivity {
     private ListView oldBidsPlaced;
     private ArrayAdapter<Art> adapter;
     private ArrayList<Art> oldBids = new ArrayList<>();
-    int pos;
-    int userpos;
     String current_user;
+    private ArrayList<Art> allServerArt = new ArrayList<Art>();
+    protected static final String ARTFILE = "artfile.sav";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_my_bids);
+        Log.i("TODO", "ON CREATE");
 
+        setContentView(R.layout.activity_view_my_bids);
         oldBidsPlaced = (ListView) findViewById(R.id.oldBidsPlaced);
 
         Intent intent = getIntent();
         current_user = intent.getStringExtra("current_user");
 
+        // Pull all server art
+        boolean success = false;
+        while (!success){
+            success = pullAllServerArt();
+        }
+
+        // Save all server art locally
+        saveInFile();
+
+        // Load locally saved art
+        // Only need to do this once for the lifetime of this activity
+        loadFromFile();
+
+        // Sets variable selectedArt and updates adapter
+        setSelectedArt(allServerArt);
     }
 
     @Override
     protected void onStart() {
-        // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
-        loadUserFromFile();
+        Log.i("TODO", "ON START");
 
-        adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
-                R.layout.list_item, oldBids);
-        oldBidsPlaced.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        // Sets variable selectedArt and updates adapter
+        setSelectedArt(ArtList.allArt);
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    // Sets variable selectedArt and updates adapter
+    public void setSelectedArt (ArrayList<Art> artlist){
 
+        // Filter all art by if user has placed a bid
         oldBids = new ArrayList<>();
         ArrayList<Bid> artbids;
 
-        for(Art art: ArtList.allArt){
+        for(Art art: artlist){
             artbids = art.getBids();
             for (Bid bid: artbids) {
                 if (current_user.equals(bid.getBidder())) {
@@ -88,28 +105,51 @@ public class ViewMyBidsActivity extends AppCompatActivity {
             }
         }
 
+        Log.i("Size of oldBids", String.valueOf(oldBids.size()));
+        Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
+
+        // Update adapter
         adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
                 R.layout.list_item, oldBids);
         oldBidsPlaced.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
     }
 
-    private void loadUserFromFile() {
+    public boolean pullAllServerArt() {
+
+        // Get ALL art from server
+        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        getArtListTask.execute("");
         try {
-            FileInputStream fis = openFileInput(AddNewUserActivity.USERFILE);
-            BufferedReader in = new BufferedReader(new InputStreamReader(fis));
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getArtListTask.get());
+            return true;
 
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            try {
+                Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson = new Gson();
-            // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
-
-            Type listType = new TypeToken<ArrayList<User>>() {
-            }.getType();
-            UserList.users = gson.fromJson(in, listType);
+            gson.toJson(allServerArt, out);
+            out.flush();
+            fos.close();
 
         } catch (FileNotFoundException e) {
-            UserList.users = new ArrayList<User>();
-
+            throw new RuntimeException();
         } catch (IOException e) {
             throw new RuntimeException();
         }
@@ -129,15 +169,8 @@ public class ViewMyBidsActivity extends AppCompatActivity {
             ArtList.allArt = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             ArtList.allArt = new ArrayList<Art>();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
         }
     }
-
-
 
 }
