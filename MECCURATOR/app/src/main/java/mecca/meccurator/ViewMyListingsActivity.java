@@ -68,25 +68,10 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         current_user = intentRcvEdit.getStringExtra("current_user");
         oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
-        // This MIGHT work to ensure that server contents are pulled
-        allServerArt = null;
-        while (allServerArt == null){
-            // Get ALL art from server
-            ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
-            getArtListTask.execute("");
-            try {
-                allServerArt = new ArrayList<Art>();
-                allServerArt.addAll(getArtListTask.get());
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-            }
-
-            try {
-                Thread.sleep(1000); // Sleep for 1 sec
-                Log.i("TODO", "Sleeping for one sec");
-            } catch (InterruptedException ie) {
-                //Handle exception
-            }
+        // Pull all server art
+        boolean success = false;
+        while (!success){
+            success = pullAllServerArt();
         }
 
         // Save all server art locally
@@ -120,7 +105,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
                 return true;
             }
-
 
         });
 
@@ -175,13 +159,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         });
     }
 
-    // Launches AddNewItemActivity
-    public void CreateNewListingButton(View view) {
-        Intent intent = new Intent(this, AddNewItemActivity.class);
-        intent.putExtra("current_user", current_user);
-        startActivity(intent);
-    }
-
     @Override
     protected void onStart() {
 
@@ -190,6 +167,13 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         // Sets variable selectedArt and updates adapter
         setSelectedArt(ArtList.allArt);
 
+    }
+
+    // Launches AddNewItemActivity
+    public void CreateNewListingButton(View view) {
+        Intent intent = new Intent(this, AddNewItemActivity.class);
+        intent.putExtra("current_user", current_user);
+        startActivity(intent);
     }
 
     // Sets variable selectedArt and updates adapter
@@ -211,6 +195,28 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 R.layout.list_item, selectedArt);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+    }
+
+    public boolean pullAllServerArt() {
+
+        // Get ALL art from server
+        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        getArtListTask.execute("");
+        try {
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getArtListTask.get());
+            return true;
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            try {
+                Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            return false;
+        }
     }
 
     protected void saveInFile() {
@@ -247,9 +253,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
         } catch (FileNotFoundException e) {
             ArtList.allArt = new ArrayList<Art>();
-
-        } catch (IOException e) {
-            throw new RuntimeException();
         }
     }
 

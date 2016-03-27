@@ -133,9 +133,11 @@ public class EditItemActivity extends AppCompatActivity {
 
     public void saveEntry(View view){
 
+        Art art =  ArtList.allArt.get(pos);
+
         // Delete item from server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
-        removeArtTask.execute(ArtList.allArt.get(pos));
+        removeArtTask.execute(art);
 
         float minprice;
 
@@ -153,7 +155,7 @@ public class EditItemActivity extends AppCompatActivity {
         String dimensionsLength = inputLengthDimensions.getText().toString();
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
-        String status = ArtList.allArt.get(pos).getStatus();
+        String status = art.getStatus();
         String owner = current_user;
         String borrower = "";
 
@@ -192,7 +194,7 @@ public class EditItemActivity extends AppCompatActivity {
         }
 
         if(thumbnail == null){
-            thumbnail = ArtList.allArt.get(pos).getThumbnail();
+            thumbnail = art.getThumbnail();
         }
 
 
@@ -201,7 +203,7 @@ public class EditItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
 
         // Save bids
-        BidList bids_placed = ArtList.allArt.get(pos).getBidLists();
+        BidList bids_placed = art.getBidLists();
         newestArt.setBids(bids_placed);  // Transfer over old bids
 
         // Add the art to Elasticsearch
@@ -216,15 +218,12 @@ public class EditItemActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
         ArtList.allArt.remove(pos);
 
         newestArt.setId(art_id); // set id locally
 
         ArtList.allArt.add(pos, newestArt);
-
 
         /* toast message */
         // new func: displayToast or something?

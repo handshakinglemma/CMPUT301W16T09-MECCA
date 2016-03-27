@@ -96,9 +96,11 @@ public class AddNewBidActivity extends AppCompatActivity {
     // TODO set notification flag on item and add notification to owner's notification list
     public void saveBidButton(View view){
 
+        Art art =  ArtList.allArt.get(pos);
+
         // Delete item from server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
-        removeArtTask.execute(ArtList.allArt.get(pos));
+        removeArtTask.execute(art);
 
 
         float rate;
@@ -114,12 +116,12 @@ public class AddNewBidActivity extends AppCompatActivity {
             return;
         }
 
-        if (rate <= ArtList.allArt.get(pos).getMinprice()){
+        if (rate <= art.getMinprice()){
             inputRate.setError("Bid too low...");
             return;
         }
 
-        Art art =  ArtList.allArt.get(pos);
+
         Bid bid = new Bid(current_user, rate);
         bids = art.getBidLists();
         bids.addBid(bid);

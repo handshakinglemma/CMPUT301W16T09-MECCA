@@ -168,18 +168,7 @@ public class AddNewItemActivity extends AppCompatActivity {
             ArtList.allArt.add(newestArt);
         }
 
-        //String id = ElasticsearchArtController.art_id;
         ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
-        //Log.i("Id of newest:", id);
-        //Log.i("Id of newest:", ArtList.allArt.get(ArtList.allArt.size()-1).getId());
-        //if (id != null){
-        //    Log.i("Id of newest:", id);
-        //}
-        //else{
-        //    Log.i("TODO", "Id is null");
-        //}
-        //Log.e("newly added id", ArtList.allArt.get(ArtList.allArt.size()-1).getId());
-
 
         /* toast message */
         // new func: displayToast or something?

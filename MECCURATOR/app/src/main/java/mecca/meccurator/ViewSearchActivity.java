@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,15 +18,19 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.concurrent.ExecutionException;
 
 /**
  * This shows the user all art items that are not borrowed and that are not
@@ -36,17 +41,23 @@ public class ViewSearchActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
     public String keyword;
-    private ListView oldAllArtListings;
+    private ListView oldSearchListings;
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
     public String current_user;
+    protected static final String ARTFILE = "artfile.sav";
+    private ArrayList<Art> allServerArt = new ArrayList<Art>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_view_search);
 
-        // Get username from ViewLoginActivity
+        Log.i("TODO", "ON CREATE");
+
+        setContentView(R.layout.activity_view_search);
+        oldSearchListings = (ListView) findViewById(R.id.oldSearchListings);
+
+        // Get username and keyword from HomeActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
 
@@ -54,21 +65,42 @@ public class ViewSearchActivity extends AppCompatActivity {
         Intent intentRcvEdit2 = getIntent();
         keyword = intentRcvEdit2.getStringExtra("keyword").toLowerCase();
 
-        oldAllArtListings = (ListView) findViewById(R.id.oldAllArtListings);
+        // Pull all server art
+        boolean success = false;
+        while (!success){
+            success = pullAllServerArt();
+        }
 
-        oldAllArtListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+        // Save all server art locally
+        saveInFile();
+
+        // Load locally saved art
+        // Only need to do this once for the lifetime of this activity
+        loadFromFile();
+
+        // Sets variable selectedArt and updates adapter
+        setSelectedArt(allServerArt);
+
+        oldSearchListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
+
+                // Need to find position of art in ArtList.allArt
+                Log.i("clicked pos", String.valueOf(pos));
+                Art art_clicked = adapter.getItem(pos);
+                Log.i("clicked art", art_clicked.toString());
+                Log.i("ID of clicked art", art_clicked.getId());
+                int meta_position = ArtList.allArt.indexOf(art_clicked);
+                Log.i("meta pos", String.valueOf(meta_position));
 
                 Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
-                newbid.putExtra("position", position);
+                newbid.putExtra("position", meta_position);
                 newbid.putExtra("current_user", current_user);
                 startActivity(newbid);
                 return true;
             }
         });
-
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -76,17 +108,16 @@ public class ViewSearchActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
 
-        adapter = new ArrayAdapter<Art>(ViewSearchActivity.this,
-                R.layout.list_item, selectedArt);
-        oldAllArtListings.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        Log.i("TODO", "ON START");
+
+        // Sets variable selectedArt and updates adapter
+        setSelectedArt(ArtList.allArt);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    // Sets variable selectedArt and updates adapter
+    public void setSelectedArt (ArrayList<Art> artlist){
+
         selectedArt = new ArrayList<>();
         // If no input, selected art is art not owned by current user and that
         // do not have status == "borrowed"
@@ -94,6 +125,7 @@ public class ViewSearchActivity extends AppCompatActivity {
         // number with a space
         keyword = keyword.replaceAll("\\W", " ");
         ArrayList<String> keywords = new ArrayList(Arrays.asList(keyword.split(" ")));
+
         for( String k: keywords) {
             Log.i("TODO", "*" + k + "*");
         }
@@ -101,7 +133,7 @@ public class ViewSearchActivity extends AppCompatActivity {
         // TODO: What do we do if somebody enters in a bunch of spaces or other characters?
         if(keyword.equals("")) {
             try {
-                for (Art a : ArtList.allArt) {
+                for (Art a : artlist) {
                     if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
                             (!(a.getStatus().toLowerCase().trim().equals("borrowed")))) {
                         selectedArt.add(a);
@@ -111,9 +143,9 @@ public class ViewSearchActivity extends AppCompatActivity {
                 selectedArt = new ArrayList<>();
             }
         } else {
-            // Otherwise it also has keywords from the user input within the descritption.
+            // Otherwise it also has keywords from the user input within the description.
             try {
-                for (Art a : ArtList.allArt) {
+                for (Art a : artlist) {
                     if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&
                             (!(a.getStatus().toLowerCase().trim().equals("borrowed")))) {
 
@@ -135,11 +167,56 @@ public class ViewSearchActivity extends AppCompatActivity {
             }
         }
 
+        Log.i("Size of selected Art", String.valueOf(selectedArt.size()));
+        Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
+        // Update adapter
         adapter = new ArrayAdapter<Art>(ViewSearchActivity.this,
                 R.layout.list_item, selectedArt);
-        oldAllArtListings.setAdapter(adapter);
+        oldSearchListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+    }
+
+    public boolean pullAllServerArt() {
+
+        // Get ALL art from server
+        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        getArtListTask.execute("");
+        try {
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getArtListTask.get());
+            return true;
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            try {
+                Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(allServerArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -156,15 +233,8 @@ public class ViewSearchActivity extends AppCompatActivity {
             ArtList.allArt = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             ArtList.allArt = new ArrayList<Art>();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
         }
     }
-
-
 
 }
