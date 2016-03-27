@@ -105,6 +105,7 @@ public class EditUserActivity extends AppCompatActivity {
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
         /* append data into EditText box */
+
         inputEmail.append(UserList.users.get(pos).getEmail());
     }
 
@@ -134,14 +135,13 @@ public class EditUserActivity extends AppCompatActivity {
         /* get text from EditText */
         String email = inputEmail.getText().toString();
 
-
         /* add new entry to list of items */
         User newestUser = new User(current_user, email);
 
-        /*ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController().removeUserTask();
-        removeUserTask.execute();
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(UserList.users.get(pos));
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
-        addUserTask.execute(newestUser);*/
+        addUserTask.execute(newestUser);
 
         UserList.users.remove(pos);
         UserList.users.add(pos, newestUser);

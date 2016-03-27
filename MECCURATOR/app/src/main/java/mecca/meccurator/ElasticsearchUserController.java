@@ -7,10 +7,13 @@ import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
+import org.apache.commons.lang3.reflect.TypeUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -22,6 +25,7 @@ import io.searchbox.core.SearchResult;
 public class ElasticsearchUserController {
 
     // Changed hardcoded strings to variables
+    private static final String SERVER = "http://cmput301.softwareprocess.es:8080";
     private static final String INDEX = "kitties";
     private static final String TYPE = "user";
     private static JestDroidClient client;
@@ -82,11 +86,33 @@ public class ElasticsearchUserController {
         }
     }
 
-    // If no client, add one
+    public static class RemoveUserTask extends AsyncTask<User,Void,Void> {
+        @Override
+        protected Void doInBackground(User... params) {
+            verifyConfig();
+
+            User deletable = params[0];
+
+            try {
+                DocumentResult execute = client.execute(new Delete.Builder(deletable.getId()).index(INDEX).type(TYPE).build());
+                if(execute.isSucceeded()) {
+                    Log.i("TODO", "Delete user was SUCCESSFUL");
+                } else {
+                    Log.e("TODO", "Delete user FAILED");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+    }
+
+                // If no client, add one
     // Code from escamera lab
     public static void verifyConfig() {
         if(client == null) {
-            DroidClientConfig.Builder builder = new DroidClientConfig.Builder("http://cmput301.softwareprocess.es:8080");
+            DroidClientConfig.Builder builder = new DroidClientConfig.Builder(SERVER);
             DroidClientConfig config = builder.build();
 
             JestClientFactory factory = new JestClientFactory();

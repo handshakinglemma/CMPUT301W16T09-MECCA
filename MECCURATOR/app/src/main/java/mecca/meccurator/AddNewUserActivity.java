@@ -76,6 +76,7 @@ public class AddNewUserActivity extends AppCompatActivity {
         boolean user_bool = false;
         ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
         getUserListTask.execute("");
+
         try {
             userList = new ArrayList<User>();
             userList.addAll(getUserListTask.get());
