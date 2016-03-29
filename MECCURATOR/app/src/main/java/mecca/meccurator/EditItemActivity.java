@@ -45,17 +45,18 @@ public class EditItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
-        loadValues();
+
 
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
         inputImage = (ImageView) findViewById(R.id.imageView1);
+        loadValues();
 
         // http://developer.android.com/training/camera/photobasics.html
         pictureButton = (ImageButton) findViewById(R.id.pictureButton);
-        pictureButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_CAPTURING_IMAGE);
