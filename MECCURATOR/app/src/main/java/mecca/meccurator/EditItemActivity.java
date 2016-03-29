@@ -45,19 +45,17 @@ public class EditItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
+        loadValues();
 
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
         inputImage = (ImageView) findViewById(R.id.imageView1);
 
-        loadValues();
-
-
         // http://developer.android.com/training/camera/photobasics.html
         pictureButton = (ImageButton) findViewById(R.id.pictureButton);
-        pictureButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        pictureButton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View view){
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_CAPTURING_IMAGE);
@@ -65,14 +63,7 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
-        // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
 
-        //pictureButton.setImageResource(android.R.color.transparent);
-        //inputImage.setImageResource(android.R.color.transparent);
-        //thumbnail = null;
-
-
-        setResult(RESULT_OK);
     }
 
     public void deleteEntry(View view) {
@@ -111,7 +102,9 @@ public class EditItemActivity extends AppCompatActivity {
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
         inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
-        inputImage.setImageBitmap(ArtList.allArt.get(pos).getThumbnail());
+
+        thumbnail = ArtList.allArt.get(pos).getThumbnail();
+        inputImage.setImageBitmap(thumbnail);
     }
 
     protected void saveInFile() {
@@ -203,7 +196,7 @@ public class EditItemActivity extends AppCompatActivity {
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
-
+        newestArt.addThumbnail(thumbnail);
         // Save bids
         BidList bids_placed = art.getBidLists();
         newestArt.setBids(bids_placed);  // Transfer over old bids
@@ -250,30 +243,12 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     // http://developer.android.com/training/camera/photobasics.html
-    @SuppressLint("NewApi")
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         //// TODO: 16-03-25 ADD SIZE CHECKING 
-        if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK) {
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
-
-            if (thumbnail != null) {
-                if(thumbnail.getByteCount() < 65536) {
-                    //pictureButton.setImageBitmap(thumbnail);
-                    inputImage.setImageBitmap(thumbnail);
-                }
-                else{
-                    Context context = getApplicationContext();
-                    CharSequence saved = "Image Size Too Large";
-                    int duration = Toast.LENGTH_SHORT;
-                    Toast.makeText(context, saved, duration).show();
-                }
-            }
-
-
-
+            inputImage.setImageBitmap(thumbnail);
         }
     }
 

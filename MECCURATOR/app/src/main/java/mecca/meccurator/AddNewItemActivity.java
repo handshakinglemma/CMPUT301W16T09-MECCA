@@ -85,12 +85,8 @@ public class AddNewItemActivity extends AppCompatActivity {
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
 
-        // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
 
-        //inputImage.setImageResource(android.R.color.transparent);
-        //thumbnail = null;
 
-        setResult(RESULT_OK);
     }
 
     public void saveEntry(View view){
@@ -148,6 +144,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
+        newestArt.addThumbnail(thumbnail);
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
