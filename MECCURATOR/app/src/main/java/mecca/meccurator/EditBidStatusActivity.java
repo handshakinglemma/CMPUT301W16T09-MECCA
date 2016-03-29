@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -7,6 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
 public class EditBidStatusActivity extends AppCompatActivity {
@@ -19,6 +27,11 @@ public class EditBidStatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_bid_status);
+
+        Intent intent = getIntent();
+        pos = intent.getIntExtra("item_position", 0);
+        bidpos = intent.getIntExtra("bid_position", 0);
+        current_user = intent.getStringExtra("current_user");
 
         //get intent from ItemBidsActivity w/ username and position
     }
@@ -33,7 +46,7 @@ public class EditBidStatusActivity extends AppCompatActivity {
     //so on screen u see the bidder + rate
     //and u have an accept decline buttons
 
-    protected void acceptBidButton(){
+    public void acceptBidButton(View view){
 
         //change variable names
         Art editart = ArtList.allArt.get(pos);
@@ -41,10 +54,21 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
         //change status to borrowed and change borrower
         editart.setStatus("borrowed");
-        editart.setBorrower(currentbid.getBidder());
+        String borrower = currentbid.getBidder();
+        editart.setBorrower(borrower);
+        editart.setBids(null);
+
+        //also need to delete bids from other users
+
+
+
+
+
 
         //use method to decline rest of the bids
         declineAllBids();
+        saveInFile();
+        finish();
 
 
 
@@ -54,19 +78,40 @@ public class EditBidStatusActivity extends AppCompatActivity {
         //load the bidder and rate into textviews
     }
 
-    protected void declineBidButton(){
+    public void declineBidButton(View view){
 
         //removes that bid from the BidList
         ArtList.allArt.get(pos).getBids().remove(bidpos);
+        finish();
+        saveInFile();
 
 
     }
 
-    protected void declineAllBids(){
+    public void declineAllBids(){
 
         //empty the BidList
         ArtList.allArt.get(pos).setBids(null);
 
+    }
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(ArtList.allArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
     }
 
 }
