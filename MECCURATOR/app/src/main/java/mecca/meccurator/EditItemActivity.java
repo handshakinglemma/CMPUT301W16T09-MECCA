@@ -1,8 +1,11 @@
 package mecca.meccurator;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -43,14 +46,12 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
         inputImage = (ImageView) findViewById(R.id.imageView1);
-
         loadValues();
-        // TODO: 16-03-25 ADD DELETE PHOTO BUTTON
-
 
         // http://developer.android.com/training/camera/photobasics.html
         pictureButton = (ImageButton) findViewById(R.id.pictureButton);
@@ -63,14 +64,7 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
-        // http://stackoverflow.com/questions/11835251/remove-image-resource-of-imagebutton
 
-        //pictureButton.setImageResource(android.R.color.transparent);
-        //inputImage.setImageResource(android.R.color.transparent);
-        //thumbnail = null;
-
-
-        setResult(RESULT_OK);
     }
 
     public void deleteEntry(View view) {
@@ -109,7 +103,9 @@ public class EditItemActivity extends AppCompatActivity {
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
         inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
-        inputImage.setImageBitmap(ArtList.allArt.get(pos).getThumbnail());
+
+        thumbnail = ArtList.allArt.get(pos).getThumbnail();
+        inputImage.setImageBitmap(thumbnail);
     }
 
     protected void saveInFile() {
@@ -193,15 +189,11 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
 
-        if(thumbnail == null){
-            thumbnail = art.getThumbnail();
-        }
-
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
-
+        newestArt.addThumbnail(thumbnail);
         // Save bids
         BidList bids_placed = art.getBidLists();
         newestArt.setBids(bids_placed);  // Transfer over old bids
@@ -248,16 +240,18 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     // http://developer.android.com/training/camera/photobasics.html
-    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         //// TODO: 16-03-25 ADD SIZE CHECKING 
-        if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
+        if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK) {
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
-            //pictureButton.setImageBitmap(thumbnail);
             inputImage.setImageBitmap(thumbnail);
-
-
         }
+    }
+
+    public void deletePhoto(View view) {
+
+        thumbnail = null;
+        inputImage.setImageBitmap(thumbnail);
     }
 }
