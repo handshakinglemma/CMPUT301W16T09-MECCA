@@ -189,10 +189,6 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
 
-        if(thumbnail == null){
-            thumbnail = art.getThumbnail();
-        }
-
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
