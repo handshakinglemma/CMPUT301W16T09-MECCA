@@ -1,8 +1,11 @@
 package mecca.meccurator;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -49,7 +52,6 @@ public class EditItemActivity extends AppCompatActivity {
         inputImage = (ImageView) findViewById(R.id.imageView1);
 
         loadValues();
-        // TODO: 16-03-25 ADD DELETE PHOTO BUTTON
 
 
         // http://developer.android.com/training/camera/photobasics.html
@@ -248,16 +250,36 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     // http://developer.android.com/training/camera/photobasics.html
+    @SuppressLint("NewApi")
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         //// TODO: 16-03-25 ADD SIZE CHECKING 
         if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
-            //pictureButton.setImageBitmap(thumbnail);
-            inputImage.setImageBitmap(thumbnail);
+
+            if (thumbnail != null) {
+                if(thumbnail.getByteCount() < 65536) {
+                    //pictureButton.setImageBitmap(thumbnail);
+                    inputImage.setImageBitmap(thumbnail);
+                }
+                else{
+                    Context context = getApplicationContext();
+                    CharSequence saved = "Image Size Too Large";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, saved, duration).show();
+                }
+            }
+
 
 
         }
+    }
+
+    public void deletePhoto(View view) {
+
+        thumbnail = null;
+        inputImage.setImageBitmap(thumbnail);
     }
 }

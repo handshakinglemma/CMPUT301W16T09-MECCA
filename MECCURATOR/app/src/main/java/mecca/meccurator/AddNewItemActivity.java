@@ -213,6 +213,12 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         }
     }
+
+    public void deletePhoto(View view) {
+
+        thumbnail = null;
+        inputImage.setImageBitmap(thumbnail);
+    }
 }
 
 
