@@ -3,10 +3,7 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -28,9 +25,9 @@ import java.util.concurrent.ExecutionException;
  */
 public class AddNewBidActivity extends AppCompatActivity {
 
-    int pos;
-    String current_user;
-    BidList bids;
+    private int pos;
+    private String current_user;
+    private BidList bids;
     //ArtList myBids; //= new ArtList();
     //int userpos;]
 
@@ -55,7 +52,7 @@ public class AddNewBidActivity extends AppCompatActivity {
 
     }
 
-    protected void loadValues() {
+    private void loadValues() {
 
         /* get values to be edited and fill boxes */
         EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
@@ -74,7 +71,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
     }
 
-    protected void saveInFile() {
+    private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE, 0);
 

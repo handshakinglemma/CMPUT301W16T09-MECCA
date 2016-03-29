@@ -1,19 +1,12 @@
 package mecca.meccurator;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -88,7 +81,7 @@ public class AddNewUserActivity extends AppCompatActivity {
         getUserListTask.execute("");
 
         try {
-            userList = new ArrayList<User>();
+            userList = new ArrayList<>();
             userList.addAll(getUserListTask.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -155,7 +148,7 @@ public class AddNewUserActivity extends AppCompatActivity {
             UserList.users = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            UserList.users = new ArrayList<User>();
+            UserList.users = new ArrayList<>();
 
         } catch (IOException e) {
             throw new RuntimeException();

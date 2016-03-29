@@ -62,7 +62,7 @@
             android:id="@+id/enterEmail"
             android:layout_weight="1"
             android:hint="@string/email"
-            android:inputType="text" />
+            android:inputType="textEmailAddress" />
 
     </LinearLayout>
 

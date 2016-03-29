@@ -19,7 +19,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetStatus() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1,);
 
         // test that it is unavailable
         assertEquals("unavailable", art.getStatus());
