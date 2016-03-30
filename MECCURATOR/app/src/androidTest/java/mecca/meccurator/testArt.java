@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     // The Art class as of March 2nd:
     //public Art(String status, String owner, String borrower, String description,
     //           String artist, String title, String dimensions, float minprice) {
+
+
 
     public void testSetStatus() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",

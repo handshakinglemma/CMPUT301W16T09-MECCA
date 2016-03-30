@@ -53,7 +53,8 @@
     <string name="enter_username">Enter Username:</string>
     <string name="login">Login</string>
     <string name="title_activity_add_new_user">AddNewUserActivity</string>
-    <string name="email">neato@hotmail.com</string>
+    <string name="email">Email:</string>
+    <string name="email_hint">abc@hotmail.com</string>
     <string name="SignUp">Sign Up</string>
 
     <string name="title_activity_borrowed_items">My Borrowed Items</string>

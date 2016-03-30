@@ -3,6 +3,7 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -205,7 +206,21 @@ public class AddNewItemActivity extends AppCompatActivity {
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
             //pictureButton.setImageBitmap(thumbnail);
-            inputImage.setImageBitmap(thumbnail);
+            if(thumbnail != null){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                    if(thumbnail.getByteCount() < 65536){
+                        inputImage.setImageBitmap(thumbnail);
+                    }
+                    else{
+
+                        Context context = getApplicationContext();
+                        CharSequence saved = String.valueOf(thumbnail.getByteCount());
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, saved, duration).show();
+                    }
+                }
+            }
+
 
         }
     }
