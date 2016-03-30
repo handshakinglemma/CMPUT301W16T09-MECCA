@@ -3,6 +3,7 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -44,12 +45,11 @@ public class AddNewItemActivity extends AppCompatActivity {
     private TextView inputStatus;
     private ImageView inputImage;
     /* also need an input field for photos but idk anything yet so */
-    public String current_user;
+    private String current_user;
 
-    private ImageButton pictureButton;
     private Bitmap thumbnail;
 
-    static final int REQUEST_CAPTURING_IMAGE = 1234;
+    private static final int REQUEST_CAPTURING_IMAGE = 1234;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +71,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputImage = (ImageView) findViewById(R.id.imageView1);
 
         // http://developer.android.com/training/camera/photobasics.html
-        pictureButton = (ImageButton) findViewById(R.id.pictureButton);
-        pictureButton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view){
+        ImageButton pictureButton = (ImageButton) findViewById(R.id.pictureButton);
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivityForResult(intent, REQUEST_CAPTURING_IMAGE);
@@ -179,7 +179,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void saveInFile() {
+    private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(ARTFILE, 0);
 
@@ -206,7 +206,21 @@ public class AddNewItemActivity extends AppCompatActivity {
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
             //pictureButton.setImageBitmap(thumbnail);
-            inputImage.setImageBitmap(thumbnail);
+            if(thumbnail != null){
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
+                    if(thumbnail.getByteCount() < 65536){
+                        inputImage.setImageBitmap(thumbnail);
+                    }
+                    else{
+
+                        Context context = getApplicationContext();
+                        CharSequence saved = String.valueOf(thumbnail.getByteCount());
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, saved, duration).show();
+                    }
+                }
+            }
+
 
         }
     }

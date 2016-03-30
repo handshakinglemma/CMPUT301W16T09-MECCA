@@ -35,7 +35,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:inputType="text"
         android:textAlignment="center"
-        android:hint="Enter Username:"
+        android:hint="Enter Username"
         android:id="@+id/username" />
 
     <Button

@@ -35,8 +35,6 @@ import java.util.concurrent.ExecutionException;
 public class BorrowedItemsActivity extends AppCompatActivity {
 
     private ListView oldBorrowedItems;
-    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
-    private ArrayList<Art> borrowedArt = new ArrayList<Art>();
     public String current_user;
     protected static final String ARTFILE = "artfile.sav";
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
@@ -86,7 +84,7 @@ public class BorrowedItemsActivity extends AppCompatActivity {
     public void setSelectedArt (ArrayList<Art> artlist){
 
         // Filter all art by if user is borrowing item
-        borrowedArt = new ArrayList<>();
+        ArrayList<Art> borrowedArt = new ArrayList<>();
         // Selected art is only those items that the current_user is a borrower
         for (Art a: artlist) {
             if ((a.getBorrower().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) {
@@ -98,7 +96,7 @@ public class BorrowedItemsActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        adapter = new ArrayAdapter<Art>(BorrowedItemsActivity.this,
+        ArrayAdapter<Art> adapter = new ArrayAdapter<Art>(BorrowedItemsActivity.this,
                 R.layout.list_item, borrowedArt);
         oldBorrowedItems.setAdapter(adapter);
         adapter.notifyDataSetChanged();

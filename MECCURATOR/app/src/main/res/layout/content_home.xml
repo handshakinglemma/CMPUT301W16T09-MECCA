@@ -33,7 +33,7 @@
             android:layout_height="fill_parent"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="text"
-            android:hint="Search text"
+            android:hint="@string/enterSearch"
             android:id="@+id/editText2" />
 
 
@@ -56,15 +56,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello,"
-            android:textColor="#504f4f"
+            android:text="@string/hello"
+            android:textColor="#9500ff"
             android:textSize="30dp" />
 
         <Button
             android:id="@+id/username2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="User1"
+            android:text="@string/user1"
             android:textSize="30dp"
             android:background="#0083d1ef"
             android:onClick="ViewMyProfileButton"
@@ -75,9 +75,9 @@
             android:layout_height="50dp"
             android:layout_marginLeft="5dp"
             android:textSize="10dp"
-            android:text="Logout"
+            android:text="@string/logout"
             android:onClick="logOut"
-            android:background="#c4c4c4"
+            android:background="#83d1ef"
             android:layout_gravity="right" />
 
     </LinearLayout>
@@ -89,7 +89,7 @@
         android:id="@+id/homeDescription"
         android:text="@string/homeDescription"
         android:textStyle="bold"
-        android:textColor="#504f4f" />
+        android:textColor="#9500ff" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -103,11 +103,11 @@
             android:layout_height="50dp"
             android:layout_weight="0.25"
             android:layout_gravity="right|center_vertical"
-            android:text="Notifications"
+            android:text="@string/notifications"
             android:textSize="10dp"
             android:onClick="ViewMyNotificationsButton"
             android:layout_marginRight="5dp"
-            android:background="#c4c4c4" />
+            android:background="#83d1ef" />
 
         <Button
             android:layout_width="0dp"
@@ -117,7 +117,7 @@
             android:text="@string/viewListings"
             android:onClick="ViewListingsButton"
             android:id="@+id/ViewListingsButtonID"
-            android:background="#c4c4c4"
+            android:background="#83d1ef"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:layout_gravity="right|center_vertical" />
@@ -128,7 +128,7 @@
             android:layout_weight="0.25"
             android:textSize="10dp"
             android:text="My Borrowed Items"
-            android:background="#c4c4c4"
+            android:background="#83d1ef"
             android:onClick="ViewMyBorrowedItemsButton"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="5dp"
@@ -141,7 +141,7 @@
             android:textSize="10dp"
             android:text="My Bids"
             android:onClick="ViewMyBidsButton"
-            android:background="#c4c4c4"
+            android:background="#83d1ef"
             android:layout_marginLeft="5dp"
             android:layout_gravity="right|center_vertical" />
 

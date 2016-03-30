@@ -6,7 +6,9 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -45,6 +47,20 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         current_user = intent.getStringExtra("current_user");
 
         oldItemBids = ArtList.allArt.get(pos).getBids();
+
+        itemBidListings.setOnItemClickListener(new android.widget.AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int meta_position, long id) {
+
+                Intent bidStatus = new Intent(getApplicationContext(), EditBidStatusActivity.class);
+                bidStatus.putExtra("item_position", pos);
+                bidStatus.putExtra("bid_position", meta_position);
+                bidStatus.putExtra("current_user", current_user);
+                startActivity(bidStatus);
+
+            }
+        });
     }
 
     @Override
@@ -52,21 +68,6 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         // TODO Auto-generated method stub
         super.onStart();
         loadFromFile();
-
-        /* just a test
-        Default = new User("default", "88");
-        pos = 1;
-
-        //also add bid to myBids eg. the borrowers
-        ArtList myBids = new ArtList();
-        Art myBid = ArtList.allArt.get(pos);
-        myBids.addItem(myBid);
-        Default.myBidsPlaced(myBids, ArtList.allArt.get(pos).getOwner());
-
-        oldItemBids = ArtList.allArt.get(0).getBids(); */
-
-
-
 
         adapter = new ArrayAdapter<Bid>(ViewItemBidsActivity.this,
                 R.layout.list_item, oldItemBids);
@@ -78,6 +79,9 @@ public class ViewItemBidsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(oldItemBids == null){
+            adapter.notifyDataSetChanged();
+        }
         adapter.notifyDataSetChanged();
 
     }

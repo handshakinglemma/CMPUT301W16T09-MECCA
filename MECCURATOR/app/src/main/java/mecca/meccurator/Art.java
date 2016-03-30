@@ -3,11 +3,8 @@ package mecca.meccurator;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
-import android.widget.Toast;
-import android.content.Context;
 
 import java.io.ByteArrayOutputStream;
-import java.sql.Blob;
 import java.util.ArrayList;
 
 import io.searchbox.annotations.JestId;
@@ -42,7 +39,6 @@ public class Art {
         this.artist = artist;
         this.title = title;
         this.thumbnail = thumbnail;
-        //this.photo = photo;
         this.dimensions = dimensions;
         this.minprice = minprice;
         this.bids = getBidLists();
