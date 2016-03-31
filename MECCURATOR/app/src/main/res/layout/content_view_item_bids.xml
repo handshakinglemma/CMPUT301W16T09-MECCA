@@ -20,7 +20,6 @@
         android:textColor="@color/textColor"
         android:gravity="center"/>
 
-
     <ListView
         android:id="@+id/itemBidListings"
         android:layout_width="fill_parent"
@@ -30,6 +29,5 @@
         tools:listitem="@android:layout/simple_expandable_list_item_2">
 
     </ListView>
-
 
 </LinearLayout>

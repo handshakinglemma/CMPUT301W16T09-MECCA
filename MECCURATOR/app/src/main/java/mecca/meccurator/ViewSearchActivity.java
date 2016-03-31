@@ -45,6 +45,7 @@ public class ViewSearchActivity extends AppCompatActivity {
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
     public String current_user;
+    public String owner;
     protected static final String ARTFILE = "artfile.sav";
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
 
@@ -90,10 +91,12 @@ public class ViewSearchActivity extends AppCompatActivity {
                 Log.i("ID of clicked art", art_clicked.getId());
                 int meta_position = ArtList.allArt.indexOf(art_clicked);
                 Log.i("meta pos", String.valueOf(meta_position));
+                owner = art_clicked.getOwner();
 
                 Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
                 newbid.putExtra("position", meta_position);
                 newbid.putExtra("current_user", current_user);
+                newbid.putExtra("owner", owner);
                 startActivity(newbid);
                 return true;
             }
@@ -123,11 +126,8 @@ public class ViewSearchActivity extends AppCompatActivity {
         keyword = keyword.replaceAll("\\W", " ");
         ArrayList<String> keywords = new ArrayList(Arrays.asList(keyword.split(" ")));
 
-        for( String k: keywords) {
-            Log.i("TODO", "*" + k + "*");
-        }
-
-        // TODO: What do we do if somebody enters in a bunch of spaces or other characters?
+        // NOTE: punctuation and spaces are excluded from the input and description
+        // if nothing entered, search all
         if(keyword.equals("")) {
             try {
                 for (Art a : artlist) {
@@ -140,7 +140,7 @@ public class ViewSearchActivity extends AppCompatActivity {
                 selectedArt = new ArrayList<>();
             }
         } else {
-            // Otherwise it also has keywords from the user input within the description.
+            // Otherwise search for keywords in the description.
             try {
                 for (Art a : artlist) {
                     if ((!(a.getOwner().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) &&

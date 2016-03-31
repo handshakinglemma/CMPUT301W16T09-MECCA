@@ -18,20 +18,20 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="55dp"
-        android:weightSum="1">
+        android:layout_height="wrap_content">
+
         <Button
-            android:layout_width="55dp"
+            android:layout_width="50dp"
             android:layout_height="fill_parent"
             android:drawableLeft="@android:drawable/ic_search_category_default"
-            android:padding="5dp"
             android:onClick="ViewSearchActivity"
             android:id="@+id/ViewSearchButtonID"
             android:background="#0083d1ef" />
 
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
+            android:layout_marginLeft="10dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:inputType="text"
             android:hint="@string/enterSearch"
@@ -42,16 +42,15 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
-        android:layout_height="300dp"
-        android:layout_margin="5dp"
+        android:layout_height="305dp"
+        android:layout_marginTop="10dp"
         android:background="@drawable/background"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:orientation="horizontal"
-        android:weightSum="1">
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,6 +63,8 @@
             android:id="@+id/username2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:text="@string/user1"
             android:textSize="30dp"
             android:background="#0083d1ef"
@@ -72,8 +73,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginLeft="5dp"
+            android:layout_height="wrap_content"
             android:textSize="10dp"
             android:text="@string/logout"
             android:onClick="logOut"
@@ -84,8 +84,10 @@
 
     <TextView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"
+        android:gravity="center_vertical"
         android:id="@+id/homeDescription"
         android:text="@string/homeDescription"
         android:textStyle="bold"
@@ -93,14 +95,13 @@
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_margin="5dp"
-        android:weightSum="1">
+        android:layout_marginTop="10dp">
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:layout_gravity="right|center_vertical"
             android:text="NOTIFICATIONS"
@@ -112,7 +113,7 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:textSize="10dp"
             android:text="@string/viewListings"
@@ -125,7 +126,7 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:textSize="10dp"
             android:text="My Borrowed Items"
@@ -138,7 +139,7 @@
 
         <Button
             android:layout_width="0dp"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:textSize="10dp"
             android:text="My Bids"
