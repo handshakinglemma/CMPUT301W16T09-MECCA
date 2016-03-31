@@ -78,6 +78,7 @@ public class ViewLoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(view.getContext(), HomeActivity.class);
                         intent.putExtra("current_user", username);
                         startActivity(intent);
+
                     }
                 }
 
