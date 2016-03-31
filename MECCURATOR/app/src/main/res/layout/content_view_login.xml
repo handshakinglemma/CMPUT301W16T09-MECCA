@@ -10,13 +10,12 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:text="@string/AppTitle"
         android:textSize="50sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_gravity="center"
-        android:textColor="#9500ff"
-        />
+        android:textColor="@color/textColor" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,30 +24,18 @@
         android:textSize="30sp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_gravity="center"
-        android:textColor="#9500ff"/>
+        android:textColor="@color/textColor"/>
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
+    <EditText
+        android:layout_width="298dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
-
-        <TextView
-            android:layout_width="179dp"
-            android:layout_height="64dp"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/enter_username"
-            android:id="@+id/viewEnteredUsername" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:inputType="text"
-            android:id="@+id/username"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_marginTop="60dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="text"
+        android:textAlignment="center"
+        android:hint="Enter Username"
+        android:id="@+id/username" />
 
     <Button
         android:layout_width="298dp"
@@ -57,7 +44,7 @@
         android:text="@string/login"
         android:id="@+id/login"
         android:layout_marginTop="10dp"
-        android:background="#47d8ca"
+        android:background="@color/buttonColor"
         android:layout_margin="10dp"
         android:onClick="ViewHomeActivity"/>
 
@@ -68,7 +55,7 @@
         android:text="@string/SignUp"
         android:id="@+id/newUser"
         android:layout_marginTop="10dp"
-        android:background="#47d8ca"
+        android:background="@color/buttonColor"
         android:layout_margin="10dp"
         android:onClick="CreateNewUserButton"/>
 

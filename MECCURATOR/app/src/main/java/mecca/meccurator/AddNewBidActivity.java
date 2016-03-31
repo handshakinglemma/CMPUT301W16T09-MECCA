@@ -3,10 +3,8 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -18,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays the item description and allows user to place a bid on this item.
@@ -26,9 +25,9 @@ import java.io.OutputStreamWriter;
  */
 public class AddNewBidActivity extends AppCompatActivity {
 
-    int pos;
-    String current_user;
-    BidList bids;
+    private int pos;
+    private String current_user;
+    private BidList bids;
     //ArtList myBids; //= new ArtList();
     //int userpos;]
 
@@ -53,7 +52,7 @@ public class AddNewBidActivity extends AppCompatActivity {
 
     }
 
-    protected void loadValues() {
+    private void loadValues() {
 
         /* get values to be edited and fill boxes */
         EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
@@ -72,7 +71,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
     }
 
-    protected void saveInFile() {
+    private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE, 0);
 
@@ -94,6 +93,12 @@ public class AddNewBidActivity extends AppCompatActivity {
     // TODO set notification flag on item and add notification to owner's notification list
     public void saveBidButton(View view){
 
+        Art art =  ArtList.allArt.get(pos);
+
+        // Delete item from server
+        ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
+        removeArtTask.execute(art);
+
 
         float rate;
         String status;
@@ -108,23 +113,39 @@ public class AddNewBidActivity extends AppCompatActivity {
             return;
         }
 
+        if (rate <= art.getMinprice()){
+            inputRate.setError("Bid too low...");
+            return;
+        }
+
 
         Bid bid = new Bid(current_user, rate);
-
-        bids = ArtList.allArt.get(pos).getBidLists();
-
+        bids = art.getBidLists();
         bids.addBid(bid);
-
-        ArtList.allArt.get(pos).setBids(bids);
+        art.setBids(bids);
 
         //after this SAVE to ur own bids
         //and send a notif to the owner
         //and change item status to bidded if not already done
         status = "bidded";
 
-        ArtList.allArt.get(pos).setStatus(status);
+        art.setStatus(status);
         //also change the minimum bidding price
-        ArtList.allArt.get(pos).setMinprice(rate);
+        art.setMinprice(rate);
+
+        // Add the art to Elasticsearch
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(art);
+
+        String art_id = ""; // Initialize
+        try {
+            art_id = addArtTask.get();
+            Log.i("adds art_id is", art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        art.setId(art_id); // set id locally
 
         /* toast message */
         // new func: displayToast or something?

@@ -1,15 +1,22 @@
 package mecca.meccurator;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.provider.MediaStore;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -19,27 +26,59 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.math.BigDecimal;
 import java.util.concurrent.ExecutionException;
 
 /**
  * Displays editable form for user to update their item listing
  * The list of bids place on the item may be view from this page
+ *  TODO Add picture to elastic search
  */
 public class EditItemActivity extends AppCompatActivity {
 
     int pos;
     public String current_user;
 
+    private ImageButton pictureButton;
+    private Bitmap thumbnail;
+    private ImageView inputImage;
+
+    static final int REQUEST_CAPTURING_IMAGE = 1234;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
+        inputImage = (ImageView) findViewById(R.id.imageView1);
+        loadValues();
 
+        // http://developer.android.com/training/camera/photobasics.html
+        pictureButton = (ImageButton) findViewById(R.id.pictureButton);
+        pictureButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(intent, REQUEST_CAPTURING_IMAGE);
+                }
+            }
+        });
+
+        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+            Button button = (Button)findViewById(R.id.item_bids);
+            button.setText("Set Available");
+        }
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         loadValues();
     }
 
@@ -70,6 +109,18 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
         EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
         EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
+        ImageView inputImage = (ImageView) findViewById(R.id.imageView1);
+        TextView showStatus = (TextView) findViewById(R.id.enterStatus);
+
+
+        //make sure it's empty first
+        inputArtist.getText().clear();
+        inputDescription.getText().clear();
+        inputTitle.getText().clear();
+        inputMinPrice.getText().clear();
+        inputLengthDimensions.getText().clear();
+        inputWidthDimensions.getText().clear();
+
 
         /* append data into EditText box */
         inputArtist.append(ArtList.allArt.get(pos).getArtist());
@@ -78,6 +129,16 @@ public class EditItemActivity extends AppCompatActivity {
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
         inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
+
+        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+            showStatus.setText(String.format("%s by %s", ArtList.allArt.get(pos).getStatus(), ArtList.allArt.get(pos).getBorrower()));
+        } else{
+            showStatus.setText(ArtList.allArt.get(pos).getStatus());
+        }
+
+
+        thumbnail = ArtList.allArt.get(pos).getThumbnail();
+        inputImage.setImageBitmap(thumbnail);
     }
 
     protected void saveInFile() {
@@ -101,9 +162,11 @@ public class EditItemActivity extends AppCompatActivity {
 
     public void saveEntry(View view){
 
+        Art art =  ArtList.allArt.get(pos);
+
         // Delete item from server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
-        removeArtTask.execute(ArtList.allArt.get(pos));
+        removeArtTask.execute(art);
 
         float minprice;
 
@@ -121,7 +184,7 @@ public class EditItemActivity extends AppCompatActivity {
         String dimensionsLength = inputLengthDimensions.getText().toString();
         String dimensionsWidth = inputWidthDimensions.getText().toString();
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
-        String status = "available";
+        String status = art.getStatus();
         String owner = current_user;
         String borrower = "";
 
@@ -159,9 +222,14 @@ public class EditItemActivity extends AppCompatActivity {
             return;
         }
 
+
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
-        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice );
+        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
+        newestArt.addThumbnail(thumbnail);
+        // Save bids
+        BidList bids_placed = art.getBidLists();
+        newestArt.setBids(bids_placed);  // Transfer over old bids
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
@@ -178,7 +246,8 @@ public class EditItemActivity extends AppCompatActivity {
         //so this should be artwork.add(newestArt), when artwork is instantiated publicly
         ArtList.allArt.remove(pos);
 
-        newestArt.setId(art_id);
+        newestArt.setId(art_id); // set id locally
+
         ArtList.allArt.add(pos, newestArt);
 
         /* toast message */
@@ -196,11 +265,37 @@ public class EditItemActivity extends AppCompatActivity {
 
     // Click to view bids on this item
     public void ViewItemBidsButton(View view) {
-        Intent intent = new Intent(this, ViewItemBidsActivity.class);
-        intent.putExtra("current_user", current_user);
-        intent.putExtra("position", pos);
 
-        startActivity(intent);
+        Art art = ArtList.allArt.get(pos);
+
+        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+            art.setStatus("available");
+            art.setBorrower("");
+            loadValues();
+        }
+        else{
+            Intent intent = new Intent(this, ViewItemBidsActivity.class);
+            intent.putExtra("current_user", current_user);
+            intent.putExtra("position", pos);
+
+            startActivity(intent);
+        }
+
     }
 
+    // http://developer.android.com/training/camera/photobasics.html
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        //// TODO: 16-03-25 ADD SIZE CHECKING 
+        if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK) {
+            Bundle extras = intent.getExtras();
+            thumbnail = (Bitmap) extras.get("data");
+            inputImage.setImageBitmap(thumbnail);
+        }
+    }
+
+    public void deletePhoto(View view) {
+
+        thumbnail = null;
+        inputImage.setImageBitmap(thumbnail);
+    }
 }

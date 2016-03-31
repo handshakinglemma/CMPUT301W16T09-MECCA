@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 
 /**
@@ -31,6 +32,8 @@ public class ViewLoginActivity extends AppCompatActivity {
     private static final String USERFILENAME = "userfile.sav";
     private EditText username;
     private String username_text;
+
+    private ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,30 +94,42 @@ public class ViewLoginActivity extends AppCompatActivity {
     public void ViewHomeActivity(View view) {
 
         // Save username input as username_text
-        username = (EditText)findViewById(R.id.username);
-        username_text = username.getText().toString();
+        EditText inputUser = (EditText)findViewById(R.id.username);
+        String username = inputUser.getText().toString();
 
         boolean match = false;
 
-        for(User user: UserList.users){
-            if (username_text.equals(user.getUsername())){
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute("");
+        try {
+            userList = new ArrayList<>();
+            userList.addAll(getUserListTask.get());
+            UserList.users = userList;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
+        for(User user: UserList.users){
+            if (username.equals(user.getUsername())){
                 match = true;
+
                 Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("current_user", username.getText().toString());
+                intent.putExtra("current_user", username);
                 startActivity(intent);
             }
         }
 
-        if (match == false){
+        if (!match){  // Simplified boolean expression
             // If username is incorrect display error message then clear the input
             Context context = getApplicationContext();
             CharSequence saved = "Invalid Username!";
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, saved, duration).show();
 
-            username = (EditText)findViewById(R.id.username);
-            username.setText("", EditText.BufferType.EDITABLE);
+            //EditText inputUser = (EditText) findViewById(R.id.username);
+            inputUser.setText("", EditText.BufferType.EDITABLE);
         }
     }
 }

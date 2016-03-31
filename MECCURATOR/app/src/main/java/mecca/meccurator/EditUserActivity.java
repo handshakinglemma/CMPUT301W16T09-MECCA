@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,12 +27,14 @@ import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.sql.Blob;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays editable form for user to update their profile
  */
 public class EditUserActivity extends AppCompatActivity {
 
+    private ArrayList<User> userList;
     public String current_user;
     private String email;
     private static final String USEREDITFILE = "userfile.sav";
@@ -49,11 +52,21 @@ public class EditUserActivity extends AppCompatActivity {
         TextView textview = (TextView) findViewById(R.id.username_my_profile);
         textview.setText(current_user);
 
-        loadFromFile();
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute();
+
+        try {
+            userList = new ArrayList<User>();
+            userList.addAll(getUserListTask.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         pos = 0;
 
-        for(User user: UserList.users){
+        for(User user: userList){
             if (current_user.equals(user.getUsername())){
                 break;
             }
@@ -129,16 +142,28 @@ public class EditUserActivity extends AppCompatActivity {
 
     public void saveUser(View view){
 
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(UserList.users.get(pos));
+
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
         /* get text from EditText */
         String email = inputEmail.getText().toString();
 
+        // if blank input given, give error
+        if(email.equals("")){
+            inputEmail.setError("Empty Field!");
+            return;
+        }
 
         /* add new entry to list of items */
         User newestUser = new User(current_user, email);
 
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+
         UserList.users.remove(pos);
+
         UserList.users.add(pos, newestUser);
 
         /* toast message */

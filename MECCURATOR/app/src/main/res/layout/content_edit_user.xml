@@ -7,67 +7,45 @@
     tools:showIn="@layout/activity_edit_user"
     android:orientation="vertical">
 
-
+    <!-- Fixed hardcoded string to use @string resource for user string. -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Username"
-        android:textColor="#9500ff"
-        android:textSize="40sp"
-        android:textAllCaps="true"
-        android:layout_marginBottom="40dp"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/textColor"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="90dp"
+        android:gravity="center"
+        android:text="@string/edit_info"
+        android:textSize="50sp"
+        android:textAllCaps="true" />
 
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="298dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAlignment="center"
+        android:id="@+id/username_my_profile"
+        android:text="@string/user1"/>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/username"
-            android:id="@+id/viewUsername"
-            android:layout_weight="1" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/username_my_profile"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/email"
-            android:id="@+id/viewEmail"
-            android:layout_weight="1" />
-
-        <EditText
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/enterEmail"
-            android:layout_weight="1"
-            android:inputType="text"/>
-
-    </LinearLayout>
+    <EditText
+        android:layout_width="298dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="textEmailAddress"
+        android:textAlignment="center"
+        android:id="@+id/enterEmail"
+        android:hint="Email:"/>
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="298dp"
         android:layout_height="wrap_content"
         android:text="@string/save_user"
         android:id="@+id/saveUser"
         android:layout_marginTop="10dp"
-        android:background="#47d8ca"
+        android:background="@color/buttonColor"
         android:layout_margin="10dp"
         android:onClick="saveUser"
         android:layout_gravity="center_horizontal" />

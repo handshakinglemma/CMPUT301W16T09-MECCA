@@ -1,13 +1,23 @@
 package mecca.meccurator;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 public class EditBidStatusActivity extends AppCompatActivity {
 
@@ -19,6 +29,11 @@ public class EditBidStatusActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_bid_status);
+
+        Intent intent = getIntent();
+        pos = intent.getIntExtra("item_position", 0);
+        bidpos = intent.getIntExtra("bid_position", 0);
+        current_user = intent.getStringExtra("current_user");
 
         //get intent from ItemBidsActivity w/ username and position
     }
@@ -33,18 +48,44 @@ public class EditBidStatusActivity extends AppCompatActivity {
     //so on screen u see the bidder + rate
     //and u have an accept decline buttons
 
-    protected void acceptBidButton(){
+    public void acceptBidButton(View view){
 
         //change variable names
-        Art editart = ArtList.allArt.get(pos);
-        Bid currentbid = editart.getBids().get(bidpos);
+        Art art = ArtList.allArt.get(pos);
+
+        // Delete item from server
+        ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
+        removeArtTask.execute(art);
+
+        Bid currentbid = art.getBids().get(bidpos);
 
         //change status to borrowed and change borrower
-        editart.setStatus("borrowed");
-        editart.setBorrower(currentbid.getBidder());
+        art.setStatus("borrowed");
+        String borrower = currentbid.getBidder();
+        art.setBorrower(borrower);
+
+        //also need to delete bids from other users
 
         //use method to decline rest of the bids
         declineAllBids();
+
+
+        // Add the art to Elasticsearch
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(art);
+
+        String art_id = ""; // Initialize
+        try {
+            art_id = addArtTask.get();
+            Log.i("adds art_id is", art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        art.setId(art_id); // set id locally
+
+        saveInFile();
+        finish();
 
 
 
@@ -54,19 +95,64 @@ public class EditBidStatusActivity extends AppCompatActivity {
         //load the bidder and rate into textviews
     }
 
-    protected void declineBidButton(){
+    public void declineBidButton(View view){
+
+        //change variable names
+        Art art = ArtList.allArt.get(pos);
+
+        // Delete item from server
+        ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
+        removeArtTask.execute(art);
 
         //removes that bid from the BidList
-        ArtList.allArt.get(pos).getBids().remove(bidpos);
+        art.getBids().remove(bidpos);
+
+
+        // Add the art to Elasticsearch
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(art);
+
+        String art_id = ""; // Initialize
+        try {
+            art_id = addArtTask.get();
+            Log.i("adds art_id is", art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        art.setId(art_id); // set id locally
+
+        saveInFile();
+        finish();
+
 
 
     }
 
-    protected void declineAllBids(){
+    public void declineAllBids(){
 
         //empty the BidList
         ArtList.allArt.get(pos).setBids(null);
 
+    }
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(ArtList.allArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
     }
 
 }

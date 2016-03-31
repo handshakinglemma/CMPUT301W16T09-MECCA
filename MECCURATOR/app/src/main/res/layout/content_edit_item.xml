@@ -29,11 +29,36 @@
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="241dp"
-        android:layout_height="125dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:layout_margin="5dp"
-        android:background="#58b96ed2"
+        android:background="@color/pictureColor"
         android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/pictureButton"
+            android:background="@android:drawable/ic_menu_camera" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_item"
+            android:id="@+id/deletephoto"
+            android:onClick="deletePhoto"
+            android:layout_marginTop="10dp"
+            android:background="@color/buttonColor"
+            android:layout_margin="10dp"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:orientation="horizontal"
@@ -110,13 +135,12 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Status"
             android:id="@+id/viewStatus"
-            android:layout_weight="1" />
+            android:layout_weight="0.02" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/newItemStatus"
             android:id="@+id/enterStatus"
             android:layout_weight="0.19" />
 
@@ -135,7 +159,7 @@
             android:id="@+id/save"
             android:onClick="saveEntry"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
 
@@ -146,7 +170,7 @@
             android:id="@+id/delete"
             android:onClick="deleteEntry"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
 
@@ -157,7 +181,7 @@
             android:id="@+id/item_bids"
             android:onClick="ViewItemBidsButton"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

@@ -1,66 +1,72 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays a list of all items currently being borrowed by the user
  */
 public class BorrowedItemsActivity extends AppCompatActivity {
 
-    private static final String FILENAME = "file.sav";
     private ListView oldBorrowedItems;
-    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
-    private ArrayList<Art> selectedArt = new ArrayList<Art>();
     public String current_user;
+    protected static final String ARTFILE = "artfile.sav";
+    private ArrayList<Art> allServerArt = new ArrayList<Art>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("TODO", "ON CREATE");
+
         setContentView(R.layout.activity_borrowed_items);
 
-        // Get username from ViewLoginActivity
+        // Get username from HomeActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
 
         oldBorrowedItems = (ListView) findViewById(R.id.oldBorrowedItems);
 
-        // Update this!!!!
-        // Want when item is clicked to see the view item page where you can place a bid
-        // I think this is the AddNewBidActivity
-        oldBorrowedItems.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+        // Pull all server art
+        boolean success = false;
+        while (!success){
+            success = pullAllServerArt();
+        }
 
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        // Save all server art locally
+        saveInFile();
 
-                Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
-                int pos = position;
-                newbid.putExtra("position", pos);
-                newbid.putExtra("current_user", current_user);
-                startActivity(newbid);
-                return true;
-            }
-        });
+        // Load locally saved art
+        // Only need to do this once for the lifetime of this activity
+        loadFromFile();
 
+        // Sets variable selectedArt and updates adapter
+        setSelectedArt(allServerArt);
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -68,28 +74,72 @@ public class BorrowedItemsActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
-        loadFromFile();
+        Log.i("TODO", "ON START");
 
-        adapter = new ArrayAdapter<Art>(BorrowedItemsActivity.this,
-                R.layout.list_item, selectedArt);
-        oldBorrowedItems.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        // Sets variable selectedArt and updates adapter
+        setSelectedArt(ArtList.allArt);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        selectedArt = new ArrayList<>();
+    // Sets variable selectedArt and updates adapter
+    public void setSelectedArt (ArrayList<Art> artlist){
+
+        // Filter all art by if user is borrowing item
+        ArrayList<Art> borrowedArt = new ArrayList<>();
         // Selected art is only those items that the current_user is a borrower
-        for (Art a: ArtList.allArt) {
+        for (Art a: artlist) {
             if ((a.getBorrower().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) {
-                selectedArt.add(a);
+                borrowedArt.add(a);
             }
         }
-        adapter = new ArrayAdapter<Art>(BorrowedItemsActivity.this,
-                R.layout.list_item, selectedArt);
+
+        Log.i("Size of borrowed art", String.valueOf(borrowedArt.size()));
+        Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
+
+        // Update adapter
+        ArrayAdapter<Art> adapter = new ArrayAdapter<Art>(BorrowedItemsActivity.this,
+                R.layout.list_item, borrowedArt);
         oldBorrowedItems.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
+    }
+
+    public boolean pullAllServerArt() {
+
+        // Get ALL art from server
+        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        getArtListTask.execute("");
+        try {
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getArtListTask.get());
+            return true;
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            try {
+                Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(allServerArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException();
+        } catch (IOException e) {
+            throw new RuntimeException();
+        }
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -106,12 +156,8 @@ public class BorrowedItemsActivity extends AppCompatActivity {
             ArtList.allArt = gson.fromJson(in, listType);
 
         } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
             ArtList.allArt = new ArrayList<Art>();
-
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
         }
     }
+
 }

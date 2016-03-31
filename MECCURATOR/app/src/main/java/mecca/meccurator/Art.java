@@ -1,8 +1,10 @@
 package mecca.meccurator;
 
-import android.widget.Toast;
-import android.content.Context;
-import java.sql.Blob;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import io.searchbox.annotations.JestId;
@@ -22,22 +24,25 @@ public class Art {
     private String description;
     private String artist;
     private String title;
-    private Blob photo;
+    protected transient Bitmap thumbnail;
+    protected String thumbnailBase64;
     private String dimensions;
     protected BidList bids;
     private float minprice;
 
     public Art(String status, String owner, String borrower, String description,
-               String artist, String title, String dimensions, float minprice) {
+               String artist, String title, String dimensions, float minprice, Bitmap thumbnail) {
         this.status = status;
         this.owner = owner;
         this.borrower = borrower;
         this.description = description;
         this.artist = artist;
         this.title = title;
-        //this.photo = photo;
+        this.thumbnail = thumbnail;
         this.dimensions = dimensions;
         this.minprice = minprice;
+        this.bids = getBidLists();
+
     }
 
     /* some standard getters and setters */
@@ -99,13 +104,26 @@ public class Art {
         this.artist = artist;
     }
 
-    public Blob getPhoto() {
-        return photo;
+    public void addThumbnail(Bitmap newThumbnail){
+        if (newThumbnail != null) {
+            thumbnail = newThumbnail;
+            ByteArrayOutputStream byteArrayBitmapStream = new ByteArrayOutputStream();
+            newThumbnail.compress(Bitmap.CompressFormat.PNG, 100, byteArrayBitmapStream);
+
+            byte[] b = byteArrayBitmapStream.toByteArray();
+            thumbnailBase64 = Base64.encodeToString(b, Base64.DEFAULT);
+        }
     }
 
-    public void setPhoto(Blob photo) {
-        this.photo = photo;
+    public Bitmap getThumbnail(){
+        if (thumbnail == null && thumbnailBase64 != null) {
+            byte[] decodeString = Base64.decode(thumbnailBase64, Base64.DEFAULT);
+            thumbnail = BitmapFactory.decodeByteArray(decodeString, 0, decodeString.length);
+        }
+        return thumbnail;
     }
+
+
 
     public String getDimensions() {
         return dimensions;

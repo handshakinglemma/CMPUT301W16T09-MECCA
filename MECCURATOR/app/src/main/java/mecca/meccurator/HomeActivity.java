@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Displays user's home page.
@@ -17,6 +18,8 @@ import android.widget.Button;
 public class HomeActivity extends AppCompatActivity {
 
     public String current_user;
+    public String keyword;
+    private EditText search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +35,6 @@ public class HomeActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/16806376/how-to-change-the-text-of-button-using-a-variable-or-return-value-from-function
         Button button = (Button)findViewById(R.id.username2);
         button.setText(current_user);
-
-
 
     }
 
@@ -92,8 +93,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ViewSearchActivity(View view){
+        search = (EditText) findViewById(R.id.editText2);
+        keyword = search.getText().toString();
+
         Intent intent = new Intent(this, ViewSearchActivity.class);
         intent.putExtra("current_user", current_user);
+        intent.putExtra("keyword", keyword);
         startActivity(intent);
     }
 

@@ -34,7 +34,7 @@
         android:layout_height="125dp"
         android:gravity="center"
         android:layout_margin="5dp"
-        android:background="#58b96ed2"
+        android:background="@color/pictureColor"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
@@ -138,7 +138,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/enterRate"
-            android:hint="Enter Bidding Price"
+            android:hint="@string/enterBid"
             android:layout_weight="1"
             android:inputType="numberDecimal"/>
 
@@ -149,7 +149,7 @@
             android:id="@+id/item_bids"
             android:onClick="saveBidButton"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>

@@ -37,11 +37,13 @@
     <string name="item_bids"> View Bids On Item </string>
 
     <string name="title_activity_edit_user">EditUserActivity</string>
+    <string name="edit_info">Edit User</string>
     <string name="name">Name:</string>
     <string name="username">Username:</string>
     <string name="phone_number">Phone Number:</string>
     <string name="phone_number_hint">### ### ####</string>
     <string name="save_user">Save</string>
+    <string name="user">Username</string>
 
     <string name="title_activity_add_new_bid">AddNewBidActivity</string>
     <string name="title_activity_view_my_bids">ViewMyBidsActivity</string>
@@ -53,6 +55,7 @@
     <string name="login">Login</string>
     <string name="title_activity_add_new_user">AddNewUserActivity</string>
     <string name="email">Email:</string>
+    <string name="email_hint">abc@hotmail.com</string>
     <string name="SignUp">Sign Up</string>
 
     <string name="title_activity_borrowed_items">My Borrowed Items</string>
@@ -62,5 +65,11 @@
     <string name="title_activity_search_results">Search Results</string>
     <string name="place_bid">Place Bid</string>
     <string name="title_activity_edit_bid_status">EditBidStatusActivity</string>
+    <string name="enterBid">Enter Bidding Price</string>
+    <string name="enterSearch">Search text</string>
+    <string name="hello">Hello,</string>
+    <string name="user1">User1</string>
+    <string name="logout">Logout</string>
+    <string name="notifications">Notifications</string>
 
 </resources>

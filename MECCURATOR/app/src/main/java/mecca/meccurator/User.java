@@ -3,6 +3,8 @@ package mecca.meccurator;
 import java.sql.Blob;
 import java.util.ArrayList;
 
+import io.searchbox.annotations.JestId;
+
 /**
  * To use the app, each user must have a user object associated with them. The username of the user
  * must be unique.
@@ -13,6 +15,17 @@ public class User {
     private String username;
     private String email;
     protected ArtList myBids;
+
+    @JestId
+    protected String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     // TODO pass parameter photo
     public User(String username, String email) {
