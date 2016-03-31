@@ -26,7 +26,7 @@
     <string name="dimensions">Dimensions</string>
     <string name="dimensionLength">Length:</string>
     <string name="dimensionWidth">Width:</string>
-    <string name="minprice">Starting Bid: </string>
+    <string name="minprice">Starting Bid: $</string>
     <string name="description">Description:</string>
     <string name="Status"> Status: </string>
     <string name="newItemStatus">Available</string>
