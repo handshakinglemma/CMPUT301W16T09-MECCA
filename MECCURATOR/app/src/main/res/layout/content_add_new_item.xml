@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
     tools:context="mecca.meccurator.AddNewItemActivity"
     tools:showIn="@layout/activity_add_new_item"
     android:orientation="vertical"
@@ -12,67 +16,63 @@
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:inputType="text"
         android:id="@+id/enterTitle"
-        android:hint="@string/Title"
+        android:hint="Title:"
         android:gravity="center"
-        android:textSize="30dp"
-        android:layout_weight="0.09" />
+        android:textSize="30dp" />
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:id="@+id/enterArtist"
-        android:hint="@string/artist"
+        android:hint="Artist:"
         android:gravity="center"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:textSize="16dp"/>
 
 
     <ImageView
         android:id="@+id/imageView1"
-        android:layout_width="241dp"
-        android:layout_height="50dp"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
         android:gravity="center"
-        android:layout_margin="5dp"
-        android:background="#58b96ed2"
+        android:layout_margin="10dp"
+        android:background="@color/pictureColor"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
-    <ImageButton
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:id="@+id/pictureButton"
-        android:background="@android:drawable/ic_menu_camera" />
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/pictureButton"
+            android:layout_gravity="center"
+            android:background="@android:drawable/ic_menu_camera" />
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/delete_item"
+            android:layout_height="match_parent"
+            android:text="Cancel Photo"
             android:id="@+id/deletephoto"
             android:onClick="deletePhoto"
-            android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center" />
     </LinearLayout>
 
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
+        android:layout_gravity="center"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/dimensions"
-            android:id="@+id/viewDimensions"
-            android:layout_weight="1" />
 
         <EditText
             android:layout_width="fill_parent"
@@ -80,6 +80,7 @@
             android:id="@+id/enterLengthDimensions"
             android:layout_weight="1"
             android:hint="@string/dimensionLength"
+            android:textAlignment="center"
             android:inputType="numberDecimal"/>
 
         <EditText
@@ -87,22 +88,20 @@
             android:layout_height="wrap_content"
             android:id="@+id/enterWidthDimensions"
             android:layout_weight="1"
+            android:textAlignment="center"
             android:hint="@string/dimensionWidth"
             android:inputType="numberDecimal"/>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/viewDescription"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/description"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
         android:id="@+id/enterDescription"
         android:layout_width="fill_parent"
-        android:layout_height="95dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/description"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAlignment="center"
         android:inputType="text" />
 
     <LinearLayout
@@ -111,10 +110,10 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_width="260dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/minprice"
+            android:text="Starting Bid: "
             android:id="@+id/viewMinPrice" />
 
         <EditText
@@ -149,15 +148,14 @@
 
     </LinearLayout>
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/save_item"
         android:id="@+id/save"
         android:onClick="saveEntry"
         android:layout_marginTop="10dp"
-        android:background="#47d8ca"
-        android:layout_margin="10dp"
-        android:layout_gravity="center_horizontal" />
+        android:background="@color/buttonColor"
+        android:layout_gravity="center" />
 
 
 </LinearLayout>

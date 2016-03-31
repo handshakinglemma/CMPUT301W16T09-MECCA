@@ -32,7 +32,7 @@
         android:layout_height="50dp"
         android:gravity="center"
         android:layout_margin="5dp"
-        android:background="#58b96ed2"
+        android:background="@color/pictureColor"
         android:layout_gravity="center_horizontal" />
 
     <LinearLayout
@@ -53,7 +53,7 @@
             android:id="@+id/deletephoto"
             android:onClick="deletePhoto"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
@@ -160,7 +160,7 @@
             android:id="@+id/save"
             android:onClick="saveEntry"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
 
@@ -171,7 +171,7 @@
             android:id="@+id/delete"
             android:onClick="deleteEntry"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
 
@@ -182,7 +182,7 @@
             android:id="@+id/item_bids"
             android:onClick="ViewItemBidsButton"
             android:layout_marginTop="10dp"
-            android:background="#47d8ca"
+            android:background="@color/buttonColor"
             android:layout_margin="10dp"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
