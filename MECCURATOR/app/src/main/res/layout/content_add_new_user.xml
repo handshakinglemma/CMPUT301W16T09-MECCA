@@ -43,7 +43,7 @@
         android:layout_width="298dp"
         android:layout_height="wrap_content"
         android:text="@string/save_item"
-        android:id="@+id/save"
+        android:id="@+id/saveUser"
         android:onClick="saveUser"
         android:background="@color/buttonColor"
         android:layout_marginTop="10dp"
