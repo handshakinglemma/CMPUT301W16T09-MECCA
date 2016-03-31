@@ -59,6 +59,9 @@ public class User {
     }
 
     public ArrayList<String> getAllNotifications() {
+        if(allNotifications == null){
+            allNotifications = new ArrayList<String>();
+        }
         return allNotifications;
     }
 

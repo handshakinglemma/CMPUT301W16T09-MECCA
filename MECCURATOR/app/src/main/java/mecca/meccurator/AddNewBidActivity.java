@@ -18,6 +18,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -32,7 +33,8 @@ public class AddNewBidActivity extends AppCompatActivity {
     private String owner;
     private BidList bids;
     //ArtList myBids; //= new ArtList();
-    //int userpos;]
+    int ownerpos;
+    protected ArrayList<User> userList;
 
 
     //also make an add notification method
@@ -46,6 +48,29 @@ public class AddNewBidActivity extends AppCompatActivity {
         pos = newbid.getIntExtra("position", 0);
         current_user = newbid.getStringExtra("current_user");
         owner = newbid.getStringExtra("owner");
+
+
+
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute();
+
+        try {
+            userList = new ArrayList<User>();
+            userList.addAll(getUserListTask.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        ownerpos = 0;
+
+        for(User user: userList){
+            if (owner.equals(user.getUsername())){
+                break;
+            }
+            ++ownerpos;
+        }
     }
 
     @Override
@@ -112,6 +137,19 @@ public class AddNewBidActivity extends AppCompatActivity {
         removeArtTask.execute(art);
 
 
+        //get user data
+        ArrayList<String> ownerNotifs = UserList.users.get(ownerpos).getAllNotifications();
+        String ownerEmail = UserList.users.get(ownerpos).getEmail();
+
+        //Delete user from server
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(UserList.users.get(ownerpos));
+
+
+
+
+
+
         float rate;
         String status;
         //USE CURRENT USER
@@ -158,6 +196,21 @@ public class AddNewBidActivity extends AppCompatActivity {
         }
 
         art.setId(art_id); // set id locally
+
+
+        //Set user again w/ new notif
+        String addNotif = "New bid placed by " + current_user + " at " + String.valueOf(rate);
+        ownerNotifs.add(0,addNotif);
+        User addOwner = new User(owner,ownerEmail,ownerNotifs);
+
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(addOwner);
+
+        UserList.users.remove(ownerpos);
+
+        UserList.users.add(ownerpos, addOwner);
+
+
 
         /* toast message */
         // new func: displayToast or something?
