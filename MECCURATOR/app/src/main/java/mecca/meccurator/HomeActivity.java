@@ -3,10 +3,9 @@ package mecca.meccurator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -35,6 +34,36 @@ public class HomeActivity extends AppCompatActivity {
         // https://stackoverflow.com/questions/16806376/how-to-change-the-text-of-button-using-a-variable-or-return-value-from-function
         Button button = (Button)findViewById(R.id.username2);
         button.setText(current_user);
+
+        Button listings = (Button) findViewById(R.id.ViewListingsButtonID);
+        Button notifications = (Button) findViewById(R.id.ViewNotificationsButtonID);
+        Button borrowed = (Button) findViewById(R.id.ViewBorrowedButtonID);
+        Button bids = (Button) findViewById(R.id.ViewBidsButtonID);
+
+        listings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ViewListingsButton(v);
+            }
+        });
+        notifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyNotificationsButton(v);
+            }
+        });
+        borrowed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyBorrowedItemsButton(v);
+            }
+        });
+        bids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyBidsButton(v);
+            }
+        });
+
 
     }
 
