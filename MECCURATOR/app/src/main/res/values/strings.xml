@@ -22,6 +22,7 @@
     <string name="Title">Title:</string>
     <string name="cancel">Cancel Photo</string>
 
+    <string name="dimensionUnits">cm</string>
     <string name="title_activity_add_new_item">AddNewItemActivity</string>
     <string name="dimensions">Dimensions</string>
     <string name="dimensionLength">Length:</string>
