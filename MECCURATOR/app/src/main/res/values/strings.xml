@@ -32,6 +32,7 @@
     <string name="Status"> Status: </string>
     <string name="newItemStatus">Available</string>
 
+    <string name="bidder_info">Bidder Info</string>
     <string name="title_activity_edit_item">EditItemActivity</string>
     <string name="delete_item">Delete</string>
     <string name="homeDescription">Rent fascinating pieces of art locally\u0021</string>

@@ -18,7 +18,7 @@
         android:textSize="35dp"
         android:text="Bids Placed"
         android:textColor="@color/textColor"
-        android:gravity="center"/>
+        android:gravity="center" />
 
     <ListView
         android:id="@+id/itemBidListings"
