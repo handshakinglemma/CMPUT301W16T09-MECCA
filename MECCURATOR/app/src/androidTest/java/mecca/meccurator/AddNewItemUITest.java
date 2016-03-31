@@ -36,7 +36,7 @@ public class AddNewItemUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
-        solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
+        solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test1");
         solo.clickOnButton("SAVE");
         solo.goBack();
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);

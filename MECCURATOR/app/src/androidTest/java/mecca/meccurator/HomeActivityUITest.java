@@ -29,7 +29,7 @@ public class HomeActivityUITest extends
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
-        solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
+        solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test1");
         solo.clickOnButton("Save");
         solo.goBack();
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
@@ -47,9 +47,6 @@ public class HomeActivityUITest extends
     //US 05.03.01
     public void testNotificationsButton() {
         solo.clickOnButton("Notifications");
-        //solo.clickOnView(solo.getView(R.id.ViewNotificationsButtonID));
-        //solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ViewNotificationsButtonID));
-        solo.waitForActivity(ViewNotificationsActivity.class, 2000);
         solo.assertCurrentActivity("Did not open My Notifications", ViewNotificationsActivity.class);
     }
 
