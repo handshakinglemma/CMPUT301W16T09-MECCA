@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.graphics.Bitmap;
 import android.test.ActivityInstrumentationTestCase2;
 
 /**
@@ -11,13 +12,15 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
         super(HomeActivity.class);
     }
 
+    Bitmap thumbmail;
+
     public void testAddItem() {
 
          ArtList myArt = new ArtList();
 
          // Assumes owner is logged in and status is set to available, with no borrower
          Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                 "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                 "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
          myArt.addItem(art);
 
          // check if allArt contains the new item
@@ -28,7 +31,7 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
     public void testGetItem() {
         ArtList myArt = new ArtList();
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         myArt.addItem(art);
 
         // check if we get art using getItem
@@ -41,9 +44,9 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
 
         ArtList myArt = new ArtList();
         Art art1 = new Art("available", "Mercy", "", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Art art2 = new Art("available", "Colleen", "", "A Giraffe eating an Apple",
-                "Mercy", "Who made gravity?", "8x11 in", 1, );
+                "Mercy", "Who made gravity?", "8x11 in", 1,thumbmail );
 
         // check that ArtList is empty
         assertFalse(myArt.hasItem(art1));
@@ -62,7 +65,7 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
 
         ArtList myArt = new ArtList();
         Art art = new Art("available", "Mercy", "", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         myArt.addItem(art);
         //check if actually added to listings
         assertTrue(myArt.hasItem(art));
@@ -73,9 +76,9 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
 
         //check multiple deletes
         Art art2 = new Art("available", "Mercy", "", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Art art3 = new Art("available", "Colleen", "", "A Giraffe eating an Apple",
-                "Mercy", "Who made Gravity?", "8x11 in", 1, );
+                "Mercy", "Who made Gravity?", "8x11 in", 1, thumbmail);
 
         myArt.addItem(art2);
         myArt.addItem(art3);
@@ -91,9 +94,9 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
     public void testGetArtwork() {
         ArtList myArt = new ArtList();
         Art art1 = new Art("available", "Mercy", "", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Art art2 = new Art("available", "Colleen", "", "A Giraffe eating an Apple",
-                "Mercy", "Who made Gravity?", "8x11 in", 1, );
+                "Mercy", "Who made Gravity?", "8x11 in", 1, thumbmail);
 
         myArt.addItem(art1);
         myArt.addItem(art2);
@@ -110,9 +113,9 @@ public class testArtList extends ActivityInstrumentationTestCase2 {
     public void testRemove() {
         ArtList myArt = new ArtList();
         Art art1 = new Art("available", "Mercy", "", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Art art2 = new Art("available", "Colleen", "", "A Giraffe eating an Apple",
-                "Mercy", "Who made Gravity?", "8x11 in", 1, );
+                "Mercy", "Who made Gravity?", "8x11 in", 1, thumbmail);
         myArt.addItem(art1);
         myArt.addItem(art2);
 

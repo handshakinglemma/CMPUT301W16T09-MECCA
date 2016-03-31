@@ -26,6 +26,7 @@
             android:drawableLeft="@android:drawable/ic_search_category_default"
             android:padding="5dp"
             android:onClick="ViewSearchActivity"
+            android:id="@+id/ViewSearchButtonID"
             android:background="#0083d1ef" />
 
         <EditText
@@ -102,7 +103,8 @@
             android:layout_height="50dp"
             android:layout_weight="0.25"
             android:layout_gravity="right|center_vertical"
-            android:text="@string/notifications"
+            android:text="NOTIFICATIONS"
+            android:id="@+id/ViewNotificationsButtonID"
             android:textSize="10dp"
             android:onClick="ViewMyNotificationsButton"
             android:layout_marginRight="5dp"
@@ -129,6 +131,7 @@
             android:text="My Borrowed Items"
             android:background="@color/buttonColor"
             android:onClick="ViewMyBorrowedItemsButton"
+            android:id="@+id/ViewBorrowedButtonID"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp" />
@@ -140,7 +143,12 @@
             android:textSize="10dp"
             android:text="My Bids"
             android:onClick="ViewMyBidsButton"
+<<<<<<< Updated upstream
             android:background="@color/buttonColor"
+=======
+            android:id="@+id/ViewBidsButtonID"
+            android:background="#83d1ef"
+>>>>>>> Stashed changes
             android:layout_marginLeft="5dp"
             android:layout_gravity="right|center_vertical" />
 

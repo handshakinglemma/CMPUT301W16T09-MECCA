@@ -18,11 +18,15 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     //public Art(String status, String owner, String borrower, String description,
     //           String artist, String title, String dimensions, float minprice) {
 
+<<<<<<< Updated upstream
 
+=======
+    Bitmap thumbmail;
+>>>>>>> Stashed changes
 
     public void testSetStatus() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1,);
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
 
         // test that it is unavailable
         assertEquals("unavailable", art.getStatus());
@@ -34,7 +38,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetStatus() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("unavailable", art.getStatus());
 
         String returnedStatus = art.getStatus();
@@ -43,7 +47,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetOwner() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail );
         assertEquals("Mercy", art.getOwner());
 
         art.setOwner("Colleen");
@@ -52,7 +56,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetOwner() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("Mercy", art.getOwner());
 
         String owner = art.getOwner();
@@ -61,7 +65,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetDescription() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("A bunch of colourful scribbles", art.getDescription());
 
         art.setDescription("A gorgeous rainbow pouring from the sky");
@@ -70,7 +74,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetDescription() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1,thumbmail );
         assertEquals("A bunch of colourful scribbles", art.getDescription());
 
         String description = art.getDescription();
@@ -79,7 +83,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetBorrower() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("Chaitali", art.getBorrower());
 
         art.setBorrower("Colleen");
@@ -88,7 +92,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetBorrower() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("Chaitali", art.getBorrower());
 
         String borrower = art.getBorrower();
@@ -97,7 +101,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetTitle() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("Taste the Rainbow", art.getTitle());
 
         art.setTitle("Sky Paint");
@@ -106,7 +110,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetTitle() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1,thumbmail );
         assertEquals("Taste the Rainbow", art.getTitle());
 
         String title = art.getTitle();
@@ -115,7 +119,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetArtist() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1,thumbmail );
         assertEquals("Mercy", art.getArtist());
 
         art.setArtist("Colleen");
@@ -124,12 +128,13 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetArtist() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         assertEquals("Mercy", art.getArtist());
 
         String artist = art.getArtist();
         assertEquals(artist, art.getArtist());
     }
+    //THIS WAS COMMENTED OUT TO BEGIN WITH
 /*  Not yet implemented
     public void testSetPhoto() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
@@ -151,7 +156,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 */
     public void testSetDimensions() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1,thumbmail );
         assertEquals("8x11 in", art.getDimensions());
 
         art.setDimensions("11x8 in");
@@ -160,7 +165,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetDimensions() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail );
         assertEquals("8x11 in", art.getDimensions());
 
         String dimensions = art.getDimensions();
@@ -169,7 +174,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetMinprice() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Float minprice1 = new Float(1);
         assertEquals(minprice1,art.getMinprice());
 
@@ -180,7 +185,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetMinprice() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Float minprice1 = new Float(1);
         assertEquals(minprice1, art.getMinprice());
 
@@ -190,7 +195,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testSetBids() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1,thumbmail );
         Bid bid1 = new Bid("Mercy", 5);
         Bid bid2 = new Bid("Emma", 6);
         BidList bidList = new BidList();
@@ -211,7 +216,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetBids() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Bid bid1 = new Bid("Mercy", 5);
         Bid bid2 = new Bid("Emma", 6);
         BidList bidList = new BidList();
@@ -229,7 +234,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
 
     public void testGetBidLists() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
-                "Mercy", "Taste the Rainbow", "8x11 in", 1, );
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbmail);
         Bid bid1 = new Bid("Mercy", 5);
         Bid bid2 = new Bid("Emma", 6);
         BidList bidList = new BidList();

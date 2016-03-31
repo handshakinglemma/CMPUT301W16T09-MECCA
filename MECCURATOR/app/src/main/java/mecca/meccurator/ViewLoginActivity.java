@@ -3,13 +3,10 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -39,6 +36,16 @@ public class ViewLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_login);
+
+
+        Button mEmailSignInButton = (Button) findViewById(R.id.newUser);
+        mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddNewUserActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -84,11 +91,11 @@ public class ViewLoginActivity extends AppCompatActivity {
         //what it should do on back
     }
 
-    // Create a new user
+    /*// Create a new user
     public void CreateNewUserButton(View view) {
         Intent intent = new Intent(this, AddNewUserActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     // View my home activity
     public void ViewHomeActivity(View view) {

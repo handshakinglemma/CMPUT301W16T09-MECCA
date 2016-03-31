@@ -71,5 +71,6 @@
     <string name="user1">User1</string>
     <string name="logout">Logout</string>
     <string name="notifications">Notifications</string>
+    <string name="signup">Sign Up</string>
 
 </resources>
