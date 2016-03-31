@@ -166,7 +166,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         Log.i("TODO", "ON START");
         // Sets variable selectedArt and updates adapter
         setSelectedArt(ArtList.allArt);
-
     }
 
     // Launches AddNewItemActivity

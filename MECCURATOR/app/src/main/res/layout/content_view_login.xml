@@ -33,7 +33,7 @@
         android:layout_marginTop="60dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:inputType="text"
-        android:textAlignment="center"
+        android:gravity="center"
         android:hint="Enter Username"
         android:id="@+id/username" />
 

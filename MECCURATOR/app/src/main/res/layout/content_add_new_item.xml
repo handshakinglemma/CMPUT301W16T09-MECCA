@@ -9,9 +9,7 @@
     android:paddingTop="16dp"
     tools:context="mecca.meccurator.AddNewItemActivity"
     tools:showIn="@layout/activity_add_new_item"
-    android:orientation="vertical"
-    android:weightSum="1">
-
+    android:orientation="vertical">
 
     <EditText
         android:layout_width="fill_parent"
@@ -19,7 +17,7 @@
         android:layout_gravity="center"
         android:inputType="text"
         android:id="@+id/enterTitle"
-        android:hint="Title:"
+        android:hint="@string/Title"
         android:gravity="center"
         android:textSize="30dp" />
 
@@ -28,18 +26,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/enterArtist"
-        android:hint="Artist:"
+        android:hint="@string/artist"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
-        android:inputType="text"
-        android:textSize="16dp"/>
-
+        android:inputType="text" />
 
     <ImageView
         android:id="@+id/imageView1"
         android:layout_width="fill_parent"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
         android:gravity="center"
-        android:layout_margin="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/pictureColor"
         android:layout_gravity="center_horizontal" />
 
@@ -47,7 +45,8 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp">
 
         <ImageButton
             android:layout_width="50dp"
@@ -57,80 +56,107 @@
             android:background="@android:drawable/ic_menu_camera" />
 
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Cancel Photo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel"
             android:id="@+id/deletephoto"
             android:onClick="deletePhoto"
             android:background="@color/buttonColor"
-            android:layout_margin="10dp"
             android:layout_gravity="center" />
     </LinearLayout>
-
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_gravity="center"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dimensionLength"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/enterLengthDimensions"
-            android:layout_weight="1"
-            android:hint="@string/dimensionLength"
+            android:layout_weight="0.25"
             android:textAlignment="center"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:maxLength="7" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dimensionUnits"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dimensionWidth"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginLeft="10dp"/>
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/enterWidthDimensions"
-            android:layout_weight="1"
+            android:layout_weight="0.25"
             android:textAlignment="center"
-            android:hint="@string/dimensionWidth"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:maxLength="7"/>
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dimensionUnits"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
     <EditText
         android:id="@+id/enterDescription"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_height="0dp"
+        android:layout_weight="0.5"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:hint="@string/description"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
-        android:inputType="text" />
+        android:inputType="text|textMultiLine" />
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Starting Bid: "
+            android:text="@string/minprice"
             android:id="@+id/viewMinPrice" />
 
         <EditText
-            android:layout_width="fill_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:id="@+id/enterMinPrice"
             android:layout_weight="1"
-            android:inputType="numberDecimal"/>
+            android:id="@+id/enterMinPrice"
+            android:inputType="numberDecimal" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/Status"
@@ -142,11 +168,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="@string/newItemStatus"
-            android:id="@+id/enterStatus"
-            android:layout_weight="0.19" />
-
-
+            android:id="@+id/enterStatus" />
     </LinearLayout>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -155,7 +179,6 @@
         android:onClick="saveEntry"
         android:layout_marginTop="10dp"
         android:background="@color/buttonColor"
-        android:layout_gravity="center" />
-
+        android:layout_gravity="center|bottom" />
 
 </LinearLayout>
