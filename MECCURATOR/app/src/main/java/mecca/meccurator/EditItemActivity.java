@@ -129,7 +129,13 @@ public class EditItemActivity extends AppCompatActivity {
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
         inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
-        showStatus.setText(ArtList.allArt.get(pos).getStatus());
+
+        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+            showStatus.setText(String.format("%s by %s", ArtList.allArt.get(pos).getStatus(), ArtList.allArt.get(pos).getBorrower()));
+        } else{
+            showStatus.setText(ArtList.allArt.get(pos).getStatus());
+        }
+
 
         thumbnail = ArtList.allArt.get(pos).getThumbnail();
         inputImage.setImageBitmap(thumbnail);
@@ -259,11 +265,22 @@ public class EditItemActivity extends AppCompatActivity {
 
     // Click to view bids on this item
     public void ViewItemBidsButton(View view) {
-        Intent intent = new Intent(this, ViewItemBidsActivity.class);
-        intent.putExtra("current_user", current_user);
-        intent.putExtra("position", pos);
 
-        startActivity(intent);
+        Art art = ArtList.allArt.get(pos);
+
+        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+            art.setStatus("available");
+            art.setBorrower("");
+            loadValues();
+        }
+        else{
+            Intent intent = new Intent(this, ViewItemBidsActivity.class);
+            intent.putExtra("current_user", current_user);
+            intent.putExtra("position", pos);
+
+            startActivity(intent);
+        }
+
     }
 
     // http://developer.android.com/training/camera/photobasics.html
