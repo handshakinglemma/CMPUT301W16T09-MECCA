@@ -71,6 +71,7 @@
             android:layout_height="wrap_content"
             android:text="@string/contact_info"
             android:id="@+id/view_owner"
+            android:onClick="ViewUserProfileButton"
             android:background="@color/buttonColor"
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
