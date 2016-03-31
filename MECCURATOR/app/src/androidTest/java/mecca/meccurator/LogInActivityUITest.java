@@ -34,7 +34,7 @@ public class LogInActivityUITest
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
-        solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
+        solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test1");
         solo.clickOnButton("Save");
         //solo.goBack();
 

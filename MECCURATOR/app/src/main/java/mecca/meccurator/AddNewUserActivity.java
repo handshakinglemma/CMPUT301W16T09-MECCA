@@ -49,6 +49,7 @@ public class AddNewUserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveUser(v);
+
             }
         });
         loadFromFile();
@@ -121,6 +122,7 @@ public class AddNewUserActivity extends AppCompatActivity {
 
         saveInFile();
         finish();
+
 
     }
 
