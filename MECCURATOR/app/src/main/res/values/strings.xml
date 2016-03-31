@@ -37,6 +37,7 @@
     <string name="item_bids"> View Bids On Item </string>
 
     <string name="title_activity_edit_user">EditUserActivity</string>
+    <string name="edit_info">Edit User</string>
     <string name="name">Name:</string>
     <string name="username">Username:</string>
     <string name="phone_number">Phone Number:</string>

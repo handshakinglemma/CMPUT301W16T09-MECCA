@@ -36,7 +36,6 @@
             android:hint="@string/enterSearch"
             android:id="@+id/editText2" />
 
-
     </LinearLayout>
 
     <ImageView
@@ -57,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/hello"
-            android:textColor="#9500ff"
+            android:textColor="@color/textColor"
             android:textSize="30dp" />
 
         <Button
@@ -77,7 +76,7 @@
             android:textSize="10dp"
             android:text="@string/logout"
             android:onClick="logOut"
-            android:background="#83d1ef"
+            android:background="@color/buttonColor"
             android:layout_gravity="right" />
 
     </LinearLayout>
@@ -89,7 +88,7 @@
         android:id="@+id/homeDescription"
         android:text="@string/homeDescription"
         android:textStyle="bold"
-        android:textColor="#9500ff" />
+        android:textColor="@color/textColor" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -107,7 +106,7 @@
             android:textSize="10dp"
             android:onClick="ViewMyNotificationsButton"
             android:layout_marginRight="5dp"
-            android:background="#83d1ef" />
+            android:background="@color/buttonColor" />
 
         <Button
             android:layout_width="0dp"
@@ -117,7 +116,7 @@
             android:text="@string/viewListings"
             android:onClick="ViewListingsButton"
             android:id="@+id/ViewListingsButtonID"
-            android:background="#83d1ef"
+            android:background="@color/buttonColor"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
             android:layout_gravity="right|center_vertical" />
@@ -128,7 +127,7 @@
             android:layout_weight="0.25"
             android:textSize="10dp"
             android:text="My Borrowed Items"
-            android:background="#83d1ef"
+            android:background="@color/buttonColor"
             android:onClick="ViewMyBorrowedItemsButton"
             android:layout_gravity="right|center_vertical"
             android:layout_marginRight="5dp"
@@ -141,7 +140,7 @@
             android:textSize="10dp"
             android:text="My Bids"
             android:onClick="ViewMyBidsButton"
-            android:background="#83d1ef"
+            android:background="@color/buttonColor"
             android:layout_marginLeft="5dp"
             android:layout_gravity="right|center_vertical" />
 
