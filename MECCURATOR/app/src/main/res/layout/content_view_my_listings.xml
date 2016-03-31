@@ -43,10 +43,9 @@
 
     <Button
         android:id="@+id/additembutton"
-        android:layout_width="298dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
-        android:layout_margin="@dimen/fab_margin"
         android:background="@color/buttonColor"
         android:onClick="CreateNewListingButton"
         android:text="@string/new_item"
