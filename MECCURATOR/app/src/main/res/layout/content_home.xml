@@ -143,12 +143,8 @@
             android:textSize="10dp"
             android:text="My Bids"
             android:onClick="ViewMyBidsButton"
-<<<<<<< Updated upstream
             android:background="@color/buttonColor"
-=======
             android:id="@+id/ViewBidsButtonID"
-            android:background="#83d1ef"
->>>>>>> Stashed changes
             android:layout_marginLeft="5dp"
             android:layout_gravity="right|center_vertical" />
 
