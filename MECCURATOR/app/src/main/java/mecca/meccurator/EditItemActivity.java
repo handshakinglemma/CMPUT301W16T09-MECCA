@@ -12,9 +12,11 @@ import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -66,7 +68,18 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
+        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+            Button button = (Button)findViewById(R.id.item_bids);
+            button.setText("Set Available");
+        }
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadValues();
     }
 
     public void deleteEntry(View view) {
@@ -97,6 +110,17 @@ public class EditItemActivity extends AppCompatActivity {
         EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
         EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
         ImageView inputImage = (ImageView) findViewById(R.id.imageView1);
+        TextView showStatus = (TextView) findViewById(R.id.enterStatus);
+
+
+        //make sure it's empty first
+        inputArtist.getText().clear();
+        inputDescription.getText().clear();
+        inputTitle.getText().clear();
+        inputMinPrice.getText().clear();
+        inputLengthDimensions.getText().clear();
+        inputWidthDimensions.getText().clear();
+
 
         /* append data into EditText box */
         inputArtist.append(ArtList.allArt.get(pos).getArtist());
@@ -105,6 +129,7 @@ public class EditItemActivity extends AppCompatActivity {
         inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
         inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
         inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
+        showStatus.setText(ArtList.allArt.get(pos).getStatus());
 
         thumbnail = ArtList.allArt.get(pos).getThumbnail();
         inputImage.setImageBitmap(thumbnail);

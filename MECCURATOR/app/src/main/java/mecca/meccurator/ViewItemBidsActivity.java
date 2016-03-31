@@ -86,6 +86,12 @@ public class ViewItemBidsActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        adapter.notifyDataSetChanged();
+    }
+
     // Code from https://github.com/joshua2ua/lonelyTwitter
     private void loadFromFile() {
         try {
