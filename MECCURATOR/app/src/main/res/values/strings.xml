@@ -12,7 +12,7 @@
         <item>Borrowed Items</item>
     </string-array>
 
-
+    <string name="contact_info"> Contact Info </string>
     <string name="title_activity_view_item">Item</string>
     <string name="new_item"> + Add a New Item </string>
     <string name="view_bids">View Bids</string>
@@ -66,7 +66,7 @@
     <string name="title_activity_search_results">Search Results</string>
     <string name="place_bid">Place Bid</string>
     <string name="title_activity_edit_bid_status">EditBidStatusActivity</string>
-    <string name="enterBid">Enter Bidding Price</string>
+    <string name="enterBid">Raise Bid: </string>
     <string name="enterSearch">Search text</string>
     <string name="hello">Hello,</string>
     <string name="user1">User1</string>

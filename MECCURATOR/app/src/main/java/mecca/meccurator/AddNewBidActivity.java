@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -55,20 +56,22 @@ public class AddNewBidActivity extends AppCompatActivity {
     private void loadValues() {
 
         /* get values to be edited and fill boxes */
-        EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
-        EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
-        EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
-        EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
-        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
+        TextView inputTitle = (TextView) findViewById(R.id.enterTitle);
+        TextView inputArtist = (TextView) findViewById(R.id.enterArtist);
+        TextView inputDescription = (TextView) findViewById(R.id.enterDescription);
+        TextView inputMinPrice = (TextView) findViewById(R.id.enterMinPrice);
+        TextView inputLengthDimensions = (TextView) findViewById(R.id.enterLengthDimensions);
+        TextView inputWidthDimensions = (TextView) findViewById(R.id.enterWidthDimensions);
+        TextView inputOwner = (TextView) findViewById(R.id.owner);
 
         /* append data into EditText box */
-        inputArtist.append(ArtList.allArt.get(pos).getArtist());
-        inputDescription.append(ArtList.allArt.get(pos).getDescription());
-        inputTitle.append(ArtList.allArt.get(pos).getTitle());
-        inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
-        inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
-        inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
+        inputArtist.setText(ArtList.allArt.get(pos).getArtist());
+        inputDescription.setText(ArtList.allArt.get(pos).getDescription());
+        inputTitle.setText(ArtList.allArt.get(pos).getTitle());
+        inputMinPrice.setText(Float.toString(ArtList.allArt.get(pos).getMinprice()));
+        inputLengthDimensions.setText(ArtList.allArt.get(pos).getLength());
+        inputWidthDimensions.setText(ArtList.allArt.get(pos).getWidth());
+        inputOwner.setText(ArtList.allArt.get(pos).getOwner());
     }
 
     private void saveInFile() {

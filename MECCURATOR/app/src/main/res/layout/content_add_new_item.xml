@@ -9,8 +9,7 @@
     android:paddingTop="16dp"
     tools:context="mecca.meccurator.AddNewItemActivity"
     tools:showIn="@layout/activity_add_new_item"
-    android:orientation="vertical"
-    android:weightSum="1">
+    android:orientation="vertical">
 
     <EditText
         android:layout_width="fill_parent"
@@ -26,9 +25,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"
         android:id="@+id/enterArtist"
         android:hint="@string/artist"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
         android:inputType="text" />
 
@@ -111,11 +110,11 @@
         android:layout_height="0dp"
         android:layout_weight="0.5"
         android:layout_marginTop="10dp"
-        android:layout_gravity="center"
+        android:gravity="center"
         android:hint="@string/description"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
-        android:inputType="text" />
+        android:inputType="text|textMultiLine" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -134,11 +133,31 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/enterMinPrice"
-            android:inputType="numberDecimal"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
+            android:inputType="numberDecimal" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/Status"
+            android:id="@+id/viewStatus"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="@string/newItemStatus"
+            android:id="@+id/enterStatus" />
+    </LinearLayout>
+
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
