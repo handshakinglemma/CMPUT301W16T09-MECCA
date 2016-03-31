@@ -39,11 +39,58 @@ public class ViewLoginActivity extends AppCompatActivity {
 
 
         Button mEmailSignInButton = (Button) findViewById(R.id.newUser);
+        Button viewHomeActivityButton = (Button) findViewById(R.id.login);
+
         mEmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddNewUserActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        viewHomeActivityButton.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Save username input as username_text
+                EditText inputUser = (EditText)findViewById(R.id.username);
+                String username = inputUser.getText().toString();
+
+                boolean match = false;
+
+                ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+                getUserListTask.execute("");
+                try {
+                    userList = new ArrayList<>();
+                    userList.addAll(getUserListTask.get());
+                    UserList.users = userList;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                for(User user: UserList.users){
+                    if (username.equals(user.getUsername())){
+                        match = true;
+
+                        Intent intent = new Intent(view.getContext(), HomeActivity.class);
+                        intent.putExtra("current_user", username);
+                        startActivity(intent);
+                    }
+                }
+
+                if (!match){  // Simplified boolean expression
+                    // If username is incorrect display error message then clear the input
+                    Context context = getApplicationContext();
+                    CharSequence saved = "Invalid Username!";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, saved, duration).show();
+
+                    //EditText inputUser = (EditText) findViewById(R.id.username);
+                    inputUser.setText("", EditText.BufferType.EDITABLE);
+                }
             }
         });
     }
@@ -97,7 +144,7 @@ public class ViewLoginActivity extends AppCompatActivity {
         startActivity(intent);
     }*/
 
-    // View my home activity
+    /*// View my home activity
     public void ViewHomeActivity(View view) {
 
         // Save username input as username_text
@@ -138,5 +185,5 @@ public class ViewLoginActivity extends AppCompatActivity {
             //EditText inputUser = (EditText) findViewById(R.id.username);
             inputUser.setText("", EditText.BufferType.EDITABLE);
         }
-    }
+    }*/
 }
