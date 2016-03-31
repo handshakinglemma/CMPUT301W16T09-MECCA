@@ -14,8 +14,6 @@ import com.robotium.solo.Solo;
 public class HomeActivityUITest extends
         ActivityInstrumentationTestCase2{
     Solo solo;
-   /* Instrumentation instrumentation;
-    Activity activity;*/
 
     public HomeActivityUITest(){
         super(ViewLoginActivity.class);
@@ -24,21 +22,20 @@ public class HomeActivityUITest extends
     @Override
     protected void setUp(){
         solo = new Solo(getInstrumentation(), getActivity());
-        /*instrumentation = getInstrumentation();
-        activity = getActivity();*/
+
         solo.assertCurrentActivity("Set up method did not work.", ViewLoginActivity.class);
 
-        solo.clickOnButton("SIGN UP");
+        solo.clickOnButton("Sign Up");
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
-        solo.clickOnButton("SAVE");
+        solo.clickOnButton("Save");
         solo.goBack();
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.username), "UserTest1");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnButton("Login");
         solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
     }
 
@@ -49,7 +46,7 @@ public class HomeActivityUITest extends
 
     //US 05.03.01
     public void testNotificationsButton() {
-        solo.clickOnButton("NOTIFICATIONS");
+        solo.clickOnButton("Notifications");
         //solo.clickOnView(solo.getView(R.id.ViewNotificationsButtonID));
         //solo.clickOnView(solo.getCurrentActivity().findViewById(R.id.ViewNotificationsButtonID));
         solo.waitForActivity(ViewNotificationsActivity.class, 2000);
@@ -58,19 +55,19 @@ public class HomeActivityUITest extends
 
     //US 06.01.01
     public void testBorrowedButton() {
-        solo.clickOnButton("MY BORROWED ITEMS");
+        solo.clickOnButton("My Borrowed Items");
         solo.assertCurrentActivity("Did not open My Borrowed Items", BorrowedItemsActivity.class);
     }
 
     //US 05.02.01
     public void testBidsButton() {
-        solo.clickOnButton("MY BIDS");
+        solo.clickOnButton("My Bids");
         solo.assertCurrentActivity("Did not open My Bids", ViewMyBidsActivity.class);
     }
 
     //US 01.02.01
     public void testMyListingsButton() {
-        solo.clickOnButton("MY LISTINGS");
+        solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("Did not open My Listings", ViewMyListingsActivity.class);
     }
 }
