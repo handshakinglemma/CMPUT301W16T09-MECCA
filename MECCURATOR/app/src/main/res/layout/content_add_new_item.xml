@@ -80,12 +80,13 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/enterLengthDimensions"
-            android:layout_weight="1"
+            android:layout_weight="0.25"
             android:textAlignment="center"
             android:inputType="numberDecimal"
+            android:maxLength="7"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -95,13 +96,13 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <EditText
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/enterWidthDimensions"
-            android:layout_weight="1"
+            android:layout_weight="0.25"
             android:textAlignment="center"
-            android:inputType="numberDecimal"/>
-
+            android:inputType="numberDecimal"
+            android:maxLength="7"/>
     </LinearLayout>
 
     <EditText

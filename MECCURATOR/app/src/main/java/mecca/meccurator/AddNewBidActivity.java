@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +29,7 @@ public class AddNewBidActivity extends AppCompatActivity {
 
     private int pos;
     private String current_user;
+    private String owner;
     private BidList bids;
     //ArtList myBids; //= new ArtList();
     //int userpos;]
@@ -43,7 +45,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         Intent newbid = getIntent();
         pos = newbid.getIntExtra("position", 0);
         current_user = newbid.getStringExtra("current_user");
-
+        owner = newbid.getStringExtra("owner");
     }
 
     @Override
@@ -91,6 +93,13 @@ public class AddNewBidActivity extends AppCompatActivity {
             // TODO Auto-generated catch block
             throw new RuntimeException();
         }
+    }
+
+    // click to view owner info
+    public void ViewUserProfileButton(View view) {
+        Intent intent = new Intent(this, ViewUserProfileActivity.class);
+        intent.putExtra("owner", owner);
+        startActivity(intent);
     }
 
     // TODO set notification flag on item and add notification to owner's notification list

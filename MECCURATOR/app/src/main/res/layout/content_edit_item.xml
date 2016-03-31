@@ -86,6 +86,7 @@
             android:id="@+id/enterLengthDimensions"
             android:textAlignment="center"
             android:inputType="numberDecimal"
+            android:maxLength="7"
             android:layout_marginRight="10dp"/>
 
         <TextView
@@ -100,7 +101,8 @@
             android:layout_weight="0.5"
             android:id="@+id/enterWidthDimensions"
             android:textAlignment="center"
-            android:inputType="numberDecimal"/>
+            android:inputType="numberDecimal"
+            android:maxLength="7"/>
 
     </LinearLayout>
 
