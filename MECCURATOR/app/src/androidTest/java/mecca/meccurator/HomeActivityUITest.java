@@ -28,12 +28,12 @@ public class HomeActivityUITest extends
         activity = getActivity();*/
         solo.assertCurrentActivity("Set up method did not work.", ViewLoginActivity.class);
 
-        solo.clickOnButton("SIGN UP");
+        solo.clickOnButton("Sign Up");
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
-        solo.clickOnButton("SAVE");
+        solo.clickOnButton("Save");
         solo.goBack();
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
 
@@ -58,7 +58,7 @@ public class HomeActivityUITest extends
 
     //US 06.01.01
     public void testBorrowedButton() {
-        solo.clickOnButton("MY BORROWED ITEMS");
+        solo.clickOnButton("My Borrowed Items");
         solo.assertCurrentActivity("Did not open My Borrowed Items", BorrowedItemsActivity.class);
     }
 

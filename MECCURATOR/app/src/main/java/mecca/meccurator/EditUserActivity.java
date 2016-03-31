@@ -3,11 +3,7 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -25,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
-import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -157,7 +152,7 @@ public class EditUserActivity extends AppCompatActivity {
         }
 
         /* add new entry to list of items */
-        User newestUser = new User(current_user, email);
+        User newestUser = new User(current_user, email, null);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);

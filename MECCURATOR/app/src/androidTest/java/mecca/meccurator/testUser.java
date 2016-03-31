@@ -12,7 +12,7 @@ public class testUser extends ActivityInstrumentationTestCase2 {
     }
 
     public void testGetUsername() {
-        User user = new User("coolperson", "emma@sunshine.com");
+        User user = new User("coolperson", "emma@sunshine.com", null);
         assertEquals("coolperson", user.getUsername());
 
         String returned = user.getUsername();
@@ -20,7 +20,7 @@ public class testUser extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSetUsername() {
-        User user = new User("coolperson", "emma@sunshine.com");
+        User user = new User("coolperson", "emma@sunshine.com", null);
         assertEquals("coolperson", user.getUsername());
 
         user.setUsername("awesomeperson");
@@ -28,7 +28,7 @@ public class testUser extends ActivityInstrumentationTestCase2 {
     }
 
     public void testGetEmail() {
-        User user = new User("coolperson", "emma@sunshine.com");
+        User user = new User("coolperson", "emma@sunshine.com", null);
         assertEquals("emma@sunshine.com", user.getEmail());
 
         String returned = user.getEmail();
@@ -36,7 +36,7 @@ public class testUser extends ActivityInstrumentationTestCase2 {
     }
 
     public void testSetEmail() {
-        User user = new User("coolperson", "emma@sunshine.com");
+        User user = new User("coolperson", "emma@sunshine.com", null);
         assertEquals("emma@sunshine.com", user.getEmail());
 
         user.setEmail("mcdonald@sunshine.com");

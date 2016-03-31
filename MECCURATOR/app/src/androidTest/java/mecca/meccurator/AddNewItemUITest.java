@@ -52,8 +52,9 @@ public class AddNewItemUITest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.enterMinPrice), "1.00");
         solo.enterText((EditText) solo.getView(R.id.enterLengthDimensions), "1");
         solo.enterText((EditText) solo.getView(R.id.enterArtist), "1");
-        solo.clickOnView(solo.getView(R.id.additembutton));
-        solo.assertCurrentActivity("Add Item button did not work.", AddNewItemActivity.class);
+        solo.clickOnButton("Save");
+        solo.waitForActivity("ViewMyListingsActivity", 2000);
+        solo.assertCurrentActivity("Add Item button did not work.", ViewMyListingsActivity.class);
 
 
     }

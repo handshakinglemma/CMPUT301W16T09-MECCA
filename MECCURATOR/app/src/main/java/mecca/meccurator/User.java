@@ -14,7 +14,10 @@ public class User {
 
     private String username;
     private String email;
-    protected ArtList myBids;
+    //protected NotificationList notifications;
+    protected ArrayList<String> allNotifications;
+
+
 
     @JestId
     protected String id;
@@ -28,9 +31,10 @@ public class User {
     }
 
     // TODO pass parameter photo
-    public User(String username, String email) {
+    public User(String username, String email, ArrayList<String> allNotifications) {
         this.username = username;
         this.email = email;
+        this.allNotifications = allNotifications;
     }
 
     public String getUsername() {
@@ -52,5 +56,13 @@ public class User {
     @Override
     public String toString(){
         return this.username;
+    }
+
+    public ArrayList<String> getAllNotifications() {
+        return allNotifications;
+    }
+
+    public void setAllNotifications(ArrayList<String> allNotifications) {
+        this.allNotifications = allNotifications;
     }
 }
