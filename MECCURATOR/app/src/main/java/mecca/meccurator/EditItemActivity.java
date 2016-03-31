@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,7 @@ public class EditItemActivity extends AppCompatActivity {
     private ImageView inputImage;
 
     static final int REQUEST_CAPTURING_IMAGE = 1234;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
