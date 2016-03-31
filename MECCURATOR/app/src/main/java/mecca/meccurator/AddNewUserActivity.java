@@ -3,6 +3,7 @@ package mecca.meccurator;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.Gson;
@@ -42,6 +43,14 @@ public class AddNewUserActivity extends AppCompatActivity {
         inputUsername = (EditText) findViewById(R.id.enterUsername);
         inputEmail = (EditText) findViewById(R.id.enterEmail);
 
+        final Button saveUser = (Button) findViewById(R.id.saveUser);
+
+        saveUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveUser(v);
+            }
+        });
         loadFromFile();
     }
 

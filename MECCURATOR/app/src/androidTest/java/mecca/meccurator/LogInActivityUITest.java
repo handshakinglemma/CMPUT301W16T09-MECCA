@@ -36,7 +36,7 @@ public class LogInActivityUITest
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
         solo.clickOnButton("Save");
-        solo.goBack();
+        //solo.goBack();
 
         //TO DO
         //TEST USER IS ADDED TO LIST
