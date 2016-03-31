@@ -26,7 +26,7 @@
     <LinearLayout
         android:layout_width="298dp"
         android:layout_height="0dp"
-        android:layout_weight="0.3"
+        android:layout_weight="0.4"
         android:orientation="horizontal"
         android:layout_gravity="bottom|center_horizontal"
         android:layout_marginTop="10dp">
@@ -46,15 +46,14 @@
             android:gravity="right"
             android:layout_gravity="bottom"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:id="@+id/owner_username"
+            android:id="@+id/bidder_username"
             android:text="@string/user1"
             android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="298dp"
-        android:layout_height="0dp"
-        android:layout_weight="0.7"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="top|center_horizontal"
         android:layout_marginTop="20dp">
@@ -72,8 +71,35 @@
             android:layout_weight="1"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:gravity="right"
-            android:id="@+id/owner_email"
+            android:id="@+id/bidder_email"
             android:hint="Email:"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="298dp"
+        android:layout_height="0dp"
+        android:layout_weight="0.6"
+        android:orientation="horizontal"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:text="@string/bid"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:gravity="right"
+            android:id="@+id/bid_offer"
+            android:hint="Bid:"
             android:textStyle="bold" />
 
     </LinearLayout>

@@ -30,13 +30,13 @@ public class LogInActivityUITest
     //US 03.01.01
     //As a user, I want a profile with a unique username and my contact information.
     public void testSignUpButton() {
-        solo.clickOnButton("SIGN UP");
+        solo.clickOnButton("Sign Up");
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "Email@Test1");
-        solo.clickOnButton("SAVE");
-        solo.goBack();
+        solo.clickOnButton("Save");
+        //solo.goBack();
 
         //TO DO
         //TEST USER IS ADDED TO LIST
@@ -45,7 +45,7 @@ public class LogInActivityUITest
 
         //Testing Log in
         solo.enterText((EditText) solo.getView(R.id.username), "UserTest1");
-        solo.clickOnButton("LOGIN");
+        solo.clickOnButton("Login");
         solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
 
 
