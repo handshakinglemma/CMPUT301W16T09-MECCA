@@ -1,18 +1,13 @@
 package mecca.meccurator;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.ArrayList;
-import java.util.concurrent.ExecutionException;
 
 /**
  * Displays user's home page.
@@ -24,8 +19,6 @@ public class HomeActivity extends AppCompatActivity {
     public String current_user;
     public String keyword;
     private EditText search;
-    int pos;
-    private ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,49 +35,36 @@ public class HomeActivity extends AppCompatActivity {
         Button button = (Button)findViewById(R.id.username2);
         button.setText(current_user);
 
-        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
-        getUserListTask.execute();
+        Button listings = (Button) findViewById(R.id.ViewListingsButtonID);
+        Button notifications = (Button) findViewById(R.id.ViewNotificationsButtonID);
+        Button borrowed = (Button) findViewById(R.id.ViewBorrowedButtonID);
+        Button bids = (Button) findViewById(R.id.ViewBidsButtonID);
 
-        try {
-            userList = new ArrayList<User>();
-            userList.addAll(getUserListTask.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        pos = 0;
-
-        for(User user: userList){
-            if (current_user.equals(user.getUsername())){
-                break;
+        listings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ViewListingsButton(v);
             }
-            ++pos;
-        }
+        });
+        notifications.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyNotificationsButton(v);
+            }
+        });
+        borrowed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyBorrowedItemsButton(v);
+            }
+        });
+        bids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyBidsButton(v);
+            }
+        });
 
 
-        Button notificationButton = (Button)findViewById(R.id.ViewNotificationsButtonID);
-        //http://stackoverflow.com/questions/2173936/how-to-set-background-color-of-a-view
-        if(UserList.users.get(pos).getNotificationFlag().equals("true")){
-            notificationButton.setBackgroundColor(Color.MAGENTA);
-        }else{
-            notificationButton.setBackgroundResource(R.color.buttonColor);
-        }
-
-
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Button notificationButton = (Button)findViewById(R.id.ViewNotificationsButtonID);
-        if(UserList.users.get(pos).getNotificationFlag().equals("true")){
-            notificationButton.setBackgroundColor(Color.MAGENTA);
-        }else{
-            notificationButton.setBackgroundResource(R.color.buttonColor);
-        }
     }
 
     @Override
