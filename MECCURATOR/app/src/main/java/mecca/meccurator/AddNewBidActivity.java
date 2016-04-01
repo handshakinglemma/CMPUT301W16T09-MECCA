@@ -40,7 +40,7 @@ public class AddNewBidActivity extends AppCompatActivity {
 
 
     //also make an add notification method
-    
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

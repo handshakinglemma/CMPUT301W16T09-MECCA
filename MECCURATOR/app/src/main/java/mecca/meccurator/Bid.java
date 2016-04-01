@@ -18,6 +18,7 @@ public class Bid {
         return bidder;
     }
 
+
     public void setBidder(String bidder) {
         this.bidder = bidder;
     }
