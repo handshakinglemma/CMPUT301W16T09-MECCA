@@ -176,7 +176,12 @@ public class Art {
         // Right, now this is customized for the MyListingsActivity's All listings listview
         //TODO customize this for the listview calling it
         // ie. some listviews should show different attributes
-        return title + "            " + description + " " + status;
+        String viewString = title;
+
+
+
+        viewString += "\n" + description;
+        return viewString;
     }
 
     public void setBids(BidList bids){

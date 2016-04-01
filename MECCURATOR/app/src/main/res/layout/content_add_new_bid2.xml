@@ -16,6 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/enterTitle"
+        android:textColor="#000"
         android:hint="@string/title"
         android:gravity="center"
         android:textSize="30dp"
