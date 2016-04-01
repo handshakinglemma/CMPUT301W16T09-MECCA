@@ -106,7 +106,12 @@ public class EditBidStatusActivity extends AppCompatActivity {
         art.setId(art_id); // set id locally
 
         saveInFile();
+        //after accepting the bid, go to edit item activity
+        Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
+        edit.putExtra("position", pos);
+        edit.putExtra("current_user", current_user);
         finish();
+        startActivity(edit);
     }
 
     public void setBidderProfile(ArrayList<User> userList) {
@@ -140,6 +145,10 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
         //removes that bid from the BidList
         art.getBids().remove(bidpos);
+
+        if(art.getBids() == null || art.getBids().isEmpty()){
+            art.setStatus("available");
+        }
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();

@@ -57,6 +57,7 @@ public class ViewItemBidsActivity extends AppCompatActivity {
                 bidStatus.putExtra("item_position", pos);
                 bidStatus.putExtra("bid_position", meta_position);
                 bidStatus.putExtra("current_user", current_user);
+                finish();
                 startActivity(bidStatus);
 
             }
