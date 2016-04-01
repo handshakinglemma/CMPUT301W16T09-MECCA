@@ -129,13 +129,6 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Button notifications = (Button) findViewById(R.id.ViewNotificationsButtonID);
-        if(UserList.users.get(pos).getNotificationFlag().equals("true")){
-            notifications.setBackgroundColor(Color.MAGENTA);
-        } else{
-            notifications.setBackgroundResource(R.color.buttonColor);
-        }
-
     }
 
     @Override
@@ -182,6 +175,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void ViewMyNotificationsButton(View view){
+        Button notifications = (Button) findViewById(R.id.ViewNotificationsButtonID);
+        notifications.setBackgroundResource(R.color.buttonColor);
         Intent intent = new Intent(this, ViewNotificationsActivity.class);
         intent.putExtra("current_user", current_user);
         startActivity(intent);
