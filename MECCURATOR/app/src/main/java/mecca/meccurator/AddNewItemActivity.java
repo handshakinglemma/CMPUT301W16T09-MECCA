@@ -216,11 +216,12 @@ public class AddNewItemActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
             Bundle extras = intent.getExtras();
             thumbnail = (Bitmap) extras.get("data");
-            //pictureButton.setImageBitmap(thumbnail);
+            inputImage.setImageBitmap(thumbnail);
+
             if(thumbnail != null){
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR1) {
                     if(thumbnail.getByteCount() < 65536){
-                        inputImage.setImageBitmap(thumbnail);
+
                     }
                     else{
 
@@ -237,9 +238,8 @@ public class AddNewItemActivity extends AppCompatActivity {
     }
 
     public void deletePhoto(View view) {
-
         thumbnail = null;
-        inputImage.setImageBitmap(thumbnail);
+        inputImage.setImageBitmap(null);
     }
 }
 
