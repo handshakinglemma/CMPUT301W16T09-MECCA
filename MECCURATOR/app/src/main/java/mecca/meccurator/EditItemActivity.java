@@ -75,6 +75,13 @@ public class EditItemActivity extends AppCompatActivity {
             public void onClick(View v) {deleteEntry(v);
             }
         });
+
+        Button viewBids = (Button) findViewById(R.id.item_bids);
+        viewBids.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {ViewItemBidsButton(v);}
+
+        });
     }
 
     @Override

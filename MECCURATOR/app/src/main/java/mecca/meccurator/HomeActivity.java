@@ -46,6 +46,8 @@ public class HomeActivity extends AppCompatActivity {
         Button borrowed = (Button) findViewById(R.id.ViewBorrowedButtonID);
         Button bids = (Button) findViewById(R.id.ViewBidsButtonID);
         Button profile = (Button) findViewById(R.id.username2);
+        Button search = (Button) findViewById(R.id.ViewSearchButtonID);
+        Button logOut = (Button) findViewById(R.id.logOut);
 
         listings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +78,19 @@ public class HomeActivity extends AppCompatActivity {
                 ViewMyProfileButton(v);
             }
         });
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewSearchActivity(v);
+            }
+        });
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logOutButton(v);
+            }
+        });
+
 
         ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
         getUserListTask.execute();
@@ -188,7 +203,7 @@ public class HomeActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void logOut(View view){
+    public void logOutButton(View view){
         Intent intent = new Intent(this, ViewLoginActivity.class);
         startActivity(intent);
         finish(); // This destroys the HomeActivity
