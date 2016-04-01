@@ -72,13 +72,13 @@ public class ArtAdapter extends ArrayAdapter<Art> {
             }
 
             if (s.equals("ViewMyBidsActivity")) {
-                artStatus.setText(ownerName);
-                artPerson.setText("bid");
+                artStatus.setText("bid");
+                artPerson.setText(ownerName);
             }
 
             if (s.equals("BorrowedItemsActivity")) {
-                artStatus.setText(ownerName);
-                artPerson.setText(empty);
+                artStatus.setText(empty);
+                artPerson.setText(ownerName);
             }
         }
 
