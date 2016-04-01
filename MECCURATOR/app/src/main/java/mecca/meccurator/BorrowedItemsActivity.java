@@ -34,9 +34,11 @@ import java.util.concurrent.ExecutionException;
  */
 public class BorrowedItemsActivity extends AppCompatActivity {
 
-    private ListView oldBorrowedItems;
-    public String current_user;
     protected static final String ARTFILE = "artfile.sav";
+
+    public String current_user;
+
+    private ListView oldBorrowedItems;
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
 
     @Override
@@ -96,8 +98,7 @@ public class BorrowedItemsActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        ArrayAdapter<Art> adapter = new ArrayAdapter<Art>(BorrowedItemsActivity.this,
-                R.layout.list_item, borrowedArt);
+        ArtAdapter adapter = new ArtAdapter(BorrowedItemsActivity.this, borrowedArt);
         oldBorrowedItems.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

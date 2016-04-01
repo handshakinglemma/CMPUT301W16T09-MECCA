@@ -176,11 +176,7 @@ public class Art {
         // Right, now this is customized for the MyListingsActivity's All listings listview
         //TODO customize this for the listview calling it
         // ie. some listviews should show different attributes
-        String viewString = title;
-
-
-
-        viewString += "\n" + description;
+        String viewString = title + "\n" + description;
         return viewString;
     }
 

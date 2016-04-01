@@ -43,11 +43,15 @@ import java.util.concurrent.ExecutionException;
 public class ViewMyListingsActivity extends AppCompatActivity implements OnItemSelectedListener {
 
     protected static final String ARTFILE = "artfile.sav";
+
+    public String current_user;
+
     private ListView oldArtListings;
-    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
-    public String current_user;
+
+    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,7 +153,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 }
 
                 // Update adapter
-                adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this, R.layout.list_item, selectedArt);
+                adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt);
                 oldArtListings.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
@@ -194,8 +198,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        adapter = new ArrayAdapter<Art>(ViewMyListingsActivity.this,
-                R.layout.list_item, selectedArt);
+        adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

@@ -40,14 +40,17 @@ import java.util.concurrent.ExecutionException;
 public class ViewSearchActivity extends AppCompatActivity {
 
     private static final String FILENAME = "file.sav";
+    protected static final String ARTFILE = "artfile.sav";
+
     public String keyword;
-    private ListView oldSearchListings;
-    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
-    private ArrayList<Art> selectedArt = new ArrayList<Art>();
     public String current_user;
     public String owner;
-    protected static final String ARTFILE = "artfile.sav";
+
+    private ListView oldSearchListings;
+    private ArrayList<Art> selectedArt = new ArrayList<Art>();
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
+
+    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,8 +171,8 @@ public class ViewSearchActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        adapter = new ArrayAdapter<Art>(ViewSearchActivity.this,
-                R.layout.list_item, selectedArt);
+        adapter = new ArtAdapter(ViewSearchActivity.this,
+                selectedArt);
         oldSearchListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

@@ -34,12 +34,15 @@ import java.util.concurrent.ExecutionException;
  */
 public class ViewMyBidsActivity extends AppCompatActivity {
 
-    private ListView oldBidsPlaced;
-    private ArrayAdapter<Art> adapter;
-    private ArrayList<Art> oldBids = new ArrayList<>();
-    String current_user;
-    private ArrayList<Art> allServerArt = new ArrayList<Art>();
     protected static final String ARTFILE = "artfile.sav";
+
+    String current_user;
+
+    private ListView oldBidsPlaced;
+    private ArrayList<Art> oldBids = new ArrayList<>();
+    private ArrayList<Art> allServerArt = new ArrayList<Art>();
+
+    private ArrayAdapter<Art> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,8 +112,7 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        adapter = new ArrayAdapter<Art>(ViewMyBidsActivity.this,
-                R.layout.list_item, oldBids);
+        adapter = new ArtAdapter(ViewMyBidsActivity.this, oldBids);
         oldBidsPlaced.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
