@@ -100,6 +100,14 @@ public class AddNewItemUITest extends ActivityInstrumentationTestCase2 {
         assertTrue(solo.searchEditText("ArtworkDescriptionTest1"));
     }
 
+    //US 05.05.01
+    public void testViewItemBids() {
+        testViewItem();
+        solo.assertCurrentActivity("Edit Item long click did not work", EditItemActivity.class);
+
+        solo.clickOnButton("Item Bids");
+        solo.assertCurrentActivity("Cannot view bids on Item", ViewItemBidsActivity.class);
+    }
     //US 01.04.01
     public void testEditItem() {
         testAddNewItem();
@@ -128,5 +136,74 @@ public class AddNewItemUITest extends ActivityInstrumentationTestCase2 {
 
         solo.clickOnButton("Delete");
         solo.assertCurrentActivity("Delete button did not work", ViewMyListingsActivity.class);
+    }
+
+    //US 03.03.01
+    public void testFindUsername() {
+        testAddNewItem();
+        solo.assertCurrentActivity("Add Item button did not work.", ViewMyListingsActivity.class);
+
+        solo.goBack();
+        solo.assertCurrentActivity("Go Back button did not work", HomeActivity.class);
+
+        solo.clickOnButton("Logout");
+        solo.assertCurrentActivity("Log out button did not work", ViewLoginActivity.class);
+
+        solo.clickOnButton("Sign Up");
+        solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest2");
+        solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test2");
+        solo.clickOnButton("Save");
+        solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.username), "UserTest2");
+        solo.clickOnButton("Login");
+        solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
+
+        View search = solo.getView(R.id.ViewSearchButtonID);
+        solo.enterText((EditText) solo.getView(R.id.editText2), "ArtworkDescriptionTest1");
+        solo.clickOnView(search);
+        solo.assertCurrentActivity("Did not search keyword", ViewSearchActivity.class);
+
+        solo.clickLongInList(0);
+        solo.assertCurrentActivity("Did not open Item profile", AddNewBidActivity.class);
+
+        solo.clickOnButton("Contact Info");
+        solo.assertCurrentActivity("Did not open contact info", ViewUserProfileActivity.class);
+
+    }
+
+    //US 04.01.01 and 04.02.01
+    public void testSearchResults() {
+        testAddNewItem();
+        solo.assertCurrentActivity("Add Item button did not work.", ViewMyListingsActivity.class);
+
+        solo.goBack();
+        solo.assertCurrentActivity("Go Back button did not work", HomeActivity.class);
+
+        solo.clickOnButton("Logout");
+        solo.assertCurrentActivity("Log out button did not work", ViewLoginActivity.class);
+
+        solo.clickOnButton("Sign Up");
+        solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest2");
+        solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test2");
+        solo.clickOnButton("Save");
+        solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.username), "UserTest2");
+        solo.clickOnButton("Login");
+        solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
+
+        View search = solo.getView(R.id.ViewSearchButtonID);
+        solo.enterText((EditText) solo.getView(R.id.editText2), "ArtworkDescriptionTest1");
+        solo.clickOnView(search);
+        solo.assertCurrentActivity("Did not search keyword", ViewSearchActivity.class);
+
+        assertTrue(solo.searchText("ArtworkTitleTest1"));
+        assertTrue(solo.searchText("ArtworkDescriptionTest1"));
+        assertTrue(solo.searchText("Avaiablle"));
     }
 }

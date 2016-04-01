@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.EditText;
 
 import com.robotium.solo.Solo;
@@ -66,5 +67,15 @@ public class HomeActivityUITest extends
     public void testMyListingsButton() {
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("Did not open My Listings", ViewMyListingsActivity.class);
+    }
+
+    //US 04.01.01
+    public void testMySearchButton() {
+        View search = solo.getView(R.id.ViewSearchButtonID);
+
+        solo.enterText((EditText) solo.getView(R.id.editText2), "Keyword1");
+        solo.clickOnView(search);
+        solo.assertCurrentActivity("Did not search keyword", ViewSearchActivity.class);
+
     }
 }
