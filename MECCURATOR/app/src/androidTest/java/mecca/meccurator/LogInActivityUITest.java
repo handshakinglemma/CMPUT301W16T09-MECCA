@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import android.test.ActivityInstrumentationTestCase2;
+import android.view.View;
 import android.widget.EditText;
 
 import com.robotium.solo.Solo;
@@ -28,7 +29,6 @@ public class LogInActivityUITest
     }
 
     //US 03.01.01
-    //As a user, I want a profile with a unique username and my contact information.
     public void testSignUpButton() {
         solo.clickOnButton("Sign Up");
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
@@ -43,12 +43,26 @@ public class LogInActivityUITest
 
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
 
-        //Testing Log in
+        //Testing Login works
         solo.enterText((EditText) solo.getView(R.id.username), "UserTest1");
         solo.clickOnButton("Login");
         solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
+    }
 
+    //US 03.02.01
+    public void testEditUserButton() {
+        testSignUpButton();
+        solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
 
+        View v = solo.getView(R.id.username2);
+        solo.clickOnView(v);
+        solo.assertCurrentActivity("View My profile button did not work", EditUserActivity.class);
 
+        solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest2");
+        solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test2");
+        solo.clickOnButton("Save");
+        solo.assertCurrentActivity("Edit User button did not work", HomeActivity.class);
+
+        assertTrue(solo.searchButton("UserTest2"));
     }
 }

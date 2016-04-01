@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -84,6 +85,16 @@ public class AddNewItemActivity extends AppCompatActivity {
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
+
+        final Button saveItemButton = (Button) findViewById(R.id.save);
+
+        saveItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveEntry(v);
+
+            }
+        });
 
 
 

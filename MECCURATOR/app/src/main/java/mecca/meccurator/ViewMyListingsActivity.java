@@ -1,22 +1,16 @@
 package mecca.meccurator;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Filter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -83,6 +77,16 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
 
         // Sets variable selectedArt and updates adapter
         setSelectedArt(allServerArt);
+
+        final Button addNewItem = (Button) findViewById(R.id.additembutton);
+
+        addNewItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateNewListingButton(v);
+
+            }
+        });
 
         // When item in listview is clicked launch EditItem Activity
         oldArtListings.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
