@@ -104,7 +104,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.25"
             android:layout_gravity="right|center_vertical"
-            android:text="NOTIFICATIONS"
+            android:text="Notifications"
             android:id="@+id/ViewNotificationsButtonID"
             android:textSize="10dp"
             android:onClick="ViewMyNotificationsButton"

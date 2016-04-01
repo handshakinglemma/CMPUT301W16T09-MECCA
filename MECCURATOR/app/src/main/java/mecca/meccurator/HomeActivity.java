@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
         Button notifications = (Button) findViewById(R.id.ViewNotificationsButtonID);
         Button borrowed = (Button) findViewById(R.id.ViewBorrowedButtonID);
         Button bids = (Button) findViewById(R.id.ViewBidsButtonID);
+        Button profile = (Button) findViewById(R.id.username2);
 
         listings.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +62,12 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ViewMyBidsButton(v);
+            }
+        });
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ViewMyProfileButton(v);
             }
         });
 

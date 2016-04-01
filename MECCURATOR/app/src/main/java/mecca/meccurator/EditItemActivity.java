@@ -1,14 +1,10 @@
 package mecca.meccurator;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.media.MediaBrowserCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -73,7 +69,12 @@ public class EditItemActivity extends AppCompatActivity {
             button.setText("Set Available");
         }
 
-
+        Button deleteItem = (Button) findViewById(R.id.delete);
+        deleteItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {deleteEntry(v);
+            }
+        });
     }
 
     @Override
