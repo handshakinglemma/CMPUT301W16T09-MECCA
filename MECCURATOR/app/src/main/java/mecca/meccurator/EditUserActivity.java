@@ -140,6 +140,10 @@ public class EditUserActivity extends AppCompatActivity {
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
         removeUserTask.execute(UserList.users.get(pos));
 
+        //get user data
+        ArrayList<String> ownerNotifs = UserList.users.get(pos).getAllNotifications();
+        String ownerFlag = UserList.users.get(pos).getNotificationFlag();
+
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
         /* get text from EditText */
@@ -152,7 +156,7 @@ public class EditUserActivity extends AppCompatActivity {
         }
 
         /* add new entry to list of items */
-        User newestUser = new User(current_user, email, null);
+        User newestUser = new User(current_user, email, ownerNotifs, ownerFlag);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);

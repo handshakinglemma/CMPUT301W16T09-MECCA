@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +34,8 @@ public class AddNewBidActivity extends AppCompatActivity {
     //ArtList myBids; //= new ArtList();
     int ownerpos;
     protected ArrayList<User> userList;
+
+    protected static final String TRUE = "true";
 
 
     //also make an add notification method
@@ -136,18 +137,14 @@ public class AddNewBidActivity extends AppCompatActivity {
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
         removeArtTask.execute(art);
 
-
-        //get user data
-        ArrayList<String> ownerNotifs = UserList.users.get(ownerpos).getAllNotifications();
-        String ownerEmail = UserList.users.get(ownerpos).getEmail();
-
         //Delete user from server
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
         removeUserTask.execute(UserList.users.get(ownerpos));
 
 
-
-
+        //get user data
+        ArrayList<String> ownerNotifs = UserList.users.get(ownerpos).getAllNotifications();
+        String ownerEmail = UserList.users.get(ownerpos).getEmail();
 
 
         float rate;
@@ -198,10 +195,11 @@ public class AddNewBidActivity extends AppCompatActivity {
         art.setId(art_id); // set id locally
 
 
+
         //Set user again w/ new notif
-        String addNotif = "New bid placed by " + current_user + " at " + String.valueOf(rate);
+        String addNotif = String.format("New bid placed on %s by %s", art.getTitle(), current_user);
         ownerNotifs.add(0,addNotif);
-        User addOwner = new User(owner,ownerEmail,ownerNotifs);
+        User addOwner = new User(owner,ownerEmail,ownerNotifs, TRUE);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(addOwner);

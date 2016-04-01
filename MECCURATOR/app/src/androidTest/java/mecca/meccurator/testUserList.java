@@ -13,7 +13,7 @@ public class testUserList extends ActivityInstrumentationTestCase2 {
 
     public void testAddUser() {
         UserList users = new UserList();
-        User user = new User("emma", "emma@ualberta.ca", null);
+        User user = new User("emma", "emma@ualberta.ca", null, "none");
         // add user and assert that it's been added
         users.addUser(user);
         assertTrue(users.hasUser(user));
@@ -21,7 +21,7 @@ public class testUserList extends ActivityInstrumentationTestCase2 {
 
     public void testHasUser() {
         UserList users = new UserList();
-        User user = new User("emma", "emma@ualberta.ca", null);
+        User user = new User("emma", "emma@ualberta.ca", null, "none");
         // assert that it has no users
         assertFalse(users.hasUser(user));
         // add a user
@@ -36,7 +36,7 @@ public class testUserList extends ActivityInstrumentationTestCase2 {
 
     public void testDeleteUser() {
         UserList users = new UserList();
-        User user = new User("emma", "emma@ualberta.ca", null);
+        User user = new User("emma", "emma@ualberta.ca", null, "none");
         users.addUser(user);
         assertTrue(users.hasUser(user));
 
