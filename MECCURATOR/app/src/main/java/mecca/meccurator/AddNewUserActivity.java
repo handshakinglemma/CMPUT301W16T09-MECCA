@@ -109,7 +109,7 @@ public class AddNewUserActivity extends AppCompatActivity {
         }
 
         // Everything checks out, add username and email to userlist
-        User newestUser = new User(username, email, null);
+        User newestUser = new User(username, email, null, "false");
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);

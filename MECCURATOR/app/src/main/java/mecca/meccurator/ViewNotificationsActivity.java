@@ -67,6 +67,26 @@ public class ViewNotificationsActivity extends AppCompatActivity {
             notificationList = UserList.users.get(pos).getAllNotifications();
         }
 
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(UserList.users.get(pos));
+
+        //set off notification flag
+        String email = UserList.users.get(pos).getEmail();
+        String flag = "false";
+        ArrayList<String> notifs = UserList.users.get(pos).getAllNotifications();
+
+         /* add new entry to list of items */
+        User newestUser = new User(current_user, email, notifs, flag);
+
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+
+        UserList.users.remove(pos);
+
+        UserList.users.add(pos, newestUser);
+
+
+
 
 
     }

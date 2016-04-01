@@ -1,6 +1,7 @@
 package mecca.meccurator;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,6 +9,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Displays user's home page.
@@ -19,6 +23,8 @@ public class HomeActivity extends AppCompatActivity {
     public String current_user;
     public String keyword;
     private EditText search;
+    int pos;
+    private ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,6 +77,49 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute();
+
+        try {
+            userList = new ArrayList<User>();
+            userList.addAll(getUserListTask.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        pos = 0;
+
+        for(User user: userList){
+            if (current_user.equals(user.getUsername())){
+                break;
+            }
+            ++pos;
+        }
+
+        if(UserList.users.get(pos).getNotificationFlag().equals("true")){
+            notifications.setBackgroundColor(Color.MAGENTA);
+        } else{
+            notifications.setBackgroundResource(R.color.buttonColor);
+        }
+
+
+
+
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Button notifications = (Button) findViewById(R.id.ViewNotificationsButtonID);
+        if(UserList.users.get(pos).getNotificationFlag().equals("true")){
+            notifications.setBackgroundColor(Color.MAGENTA);
+        } else{
+            notifications.setBackgroundResource(R.color.buttonColor);
+        }
 
     }
 
