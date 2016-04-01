@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -150,6 +152,20 @@ public class EditBidStatusActivity extends AppCompatActivity {
             art.setStatus("available");
         }
 
+        ArrayList<Bid> artbids;
+        float minprice = art.getBids().get(0).getRate();
+
+        artbids = art.getBids();
+        for (int i = 0; i < artbids.size(); i ++) {
+            if (artbids.get(i).getRate() > minprice) {
+                minprice = artbids.get(i).getRate();
+            }
+        }
+
+        art.setMinprice(minprice);
+
+
+
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
         addArtTask.execute(art);
@@ -168,6 +184,7 @@ public class EditBidStatusActivity extends AppCompatActivity {
         finish();
     }
 
+    //put method into bidlist class
     public void declineAllBids(){
 
         //empty the BidList
@@ -185,9 +202,6 @@ public class EditBidStatusActivity extends AppCompatActivity {
             out.flush();
             fos.close();
 
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             throw new RuntimeException();
@@ -210,8 +224,6 @@ public class EditBidStatusActivity extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             UserList.users = new ArrayList<User>();
 
-        } catch (IOException e) {
-            throw new RuntimeException();
         }
     }
 
