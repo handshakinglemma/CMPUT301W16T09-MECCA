@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context=".ViewUserProfileActivity"
     tools:showIn="@layout/activity_view_user"
     android:orientation="vertical">
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/textColor"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:textAlignment="center"
         android:text="@string/contact_info"
