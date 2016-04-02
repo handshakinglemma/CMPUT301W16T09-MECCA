@@ -94,17 +94,17 @@ public class ViewMyBidsActivity extends AppCompatActivity {
             for (Bid bid: artbids) {
                 if (current_user.equals(bid.getBidder())) {
                     oldBids.add(art);
-                    Context context = getApplicationContext();
+                    /*Context context = getApplicationContext();
                     CharSequence saved = bid.getBidder();
                     int duration = Toast.LENGTH_SHORT;
-                    Toast.makeText(context, saved, duration).show();
+                    Toast.makeText(context, saved, duration).show();*/
                     break;
-                } else {
+                } /*else {
                     Context context = getApplicationContext();
                     CharSequence saved = "Nothing!";
                     int duration = Toast.LENGTH_SHORT;
                     Toast.makeText(context, saved, duration).show();
-                }
+                }*/
             }
         }
 
