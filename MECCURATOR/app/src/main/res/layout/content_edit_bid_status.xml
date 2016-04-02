@@ -113,7 +113,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="decline"
+            android:text="Decline"
             android:id="@+id/declineBidButton"
             android:background="@color/buttonColor"
             android:onClick="declineBidButton"
@@ -124,7 +124,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
-            android:text="accept"
+            android:text="Accept"
             android:id="@+id/acceptBidButton"
             android:background="@color/buttonColor"
             android:onClick="acceptBidButton" />
