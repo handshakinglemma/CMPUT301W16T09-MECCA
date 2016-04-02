@@ -216,7 +216,7 @@ public class EditItemActivity extends AppCompatActivity {
         String description = inputDescription.getText().toString();
         String dimensionsLength = inputLengthDimensions.getText().toString();
         String dimensionsWidth = inputWidthDimensions.getText().toString();
-        String dimensions = dimensionsLength + "x" + dimensionsWidth;
+
         String status = art.getStatus();
         String owner = current_user;
         String borrower = art.getBorrower();
@@ -254,6 +254,8 @@ public class EditItemActivity extends AppCompatActivity {
             inputMinPrice.setError("Invalid Input...");
             return;
         }
+
+        String dimensions = dimensionsLength + "x" + dimensionsWidth;
 
 
         /* add new entry to list of items */
