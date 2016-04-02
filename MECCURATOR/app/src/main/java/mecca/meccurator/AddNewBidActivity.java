@@ -109,14 +109,16 @@ public class AddNewBidActivity extends AppCompatActivity {
         TextView inputWidthDimensions = (TextView) findViewById(R.id.enterWidthDimensions);
         TextView inputOwner = (TextView) findViewById(R.id.owner);
 
+        
         /* append data into EditText box */
-        inputArtist.setText(ArtList.allArt.get(pos).getArtist());
-        inputDescription.setText(ArtList.allArt.get(pos).getDescription());
-        inputTitle.setText(ArtList.allArt.get(pos).getTitle());
-        inputMinPrice.setText(Float.toString(ArtList.allArt.get(pos).getMinprice()));
-        inputLengthDimensions.setText(ArtList.allArt.get(pos).getLength());
-        inputWidthDimensions.setText(ArtList.allArt.get(pos).getWidth());
-        inputOwner.setText(ArtList.allArt.get(pos).getOwner());
+        Art art = ArtList.allArt.get(pos);
+        inputArtist.setText(art.getArtist());
+        inputDescription.setText(art.getDescription());
+        inputTitle.setText(art.getTitle());
+        inputMinPrice.setText(Float.toString(art.getMinprice()));
+        inputLengthDimensions.setText(art.getLength());
+        inputWidthDimensions.setText(art.getWidth());
+        inputOwner.setText(art.getOwner());
     }
 
     private void saveInFile() {

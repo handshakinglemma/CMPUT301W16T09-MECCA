@@ -31,7 +31,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class EditItemActivity extends AppCompatActivity {
 
-    int pos;
+    private int pos;
     public String current_user;
 
     private ImageButton pictureButton;
@@ -46,12 +46,11 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-
+        //get intent
         Intent edit = getIntent();
         pos = edit.getIntExtra("position", 0);
         current_user = edit.getStringExtra("current_user");
         inputImage = (ImageView) findViewById(R.id.imageView1);
-        loadValues();
 
         // http://developer.android.com/training/camera/photobasics.html
         pictureButton = (ImageButton) findViewById(R.id.pictureButton);
@@ -64,9 +63,11 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
+        Button viewBids = (Button) findViewById(R.id.item_bids);
+
+        //if the object is borrowed, change the text on the button
         if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
-            Button button = (Button)findViewById(R.id.item_bids);
-            button.setText("Set Available");
+            viewBids.setText("Set Available");
         }
 
         Button deleteItem = (Button) findViewById(R.id.delete);
@@ -76,12 +77,18 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
-        Button viewBids = (Button) findViewById(R.id.item_bids);
+
         viewBids.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {ViewItemBidsButton(v);}
 
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadValues();
     }
 
     @Override
@@ -126,7 +133,7 @@ public class EditItemActivity extends AppCompatActivity {
         TextView showStatus = (TextView) findViewById(R.id.enterStatus);
 
 
-        //make sure it's empty first
+        //make sure the EditText's are empty first
         inputArtist.getText().clear();
         inputDescription.getText().clear();
         inputTitle.getText().clear();
@@ -136,30 +143,35 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         /* append data into EditText box */
-        inputArtist.append(ArtList.allArt.get(pos).getArtist());
-        inputDescription.append(ArtList.allArt.get(pos).getDescription());
-        inputTitle.append(ArtList.allArt.get(pos).getTitle());
-        inputMinPrice.append(Float.toString(ArtList.allArt.get(pos).getMinprice()));
-        inputLengthDimensions.append(ArtList.allArt.get(pos).getLength());
-        inputWidthDimensions.append(ArtList.allArt.get(pos).getWidth());
+        Art art = ArtList.allArt.get(pos);
 
-        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
-            showStatus.setText(String.format("%s by %s", ArtList.allArt.get(pos).getStatus(), ArtList.allArt.get(pos).getBorrower()));
-            //make uneditable if bidded or borrowed
-            //TODO MAKE NEW FUNC AND PUT BIDDED TOO
+        inputArtist.append(art.getArtist());
+        inputDescription.append(art.getDescription());
+        inputTitle.append(art.getTitle());
+        inputMinPrice.append(Float.toString(art.getMinprice()));
+        inputLengthDimensions.append(art.getLength());
+        inputWidthDimensions.append(art.getWidth());
+
+        //set thumbnail
+        thumbnail = art.getThumbnail();
+        inputImage.setImageBitmap(thumbnail);
+
+        //if status is bidded or borrowed, make the object uneditable
+        if(art.getStatus().equals("borrowed") || art.getStatus().equals("bidded")){
             inputArtist.setKeyListener(null);
             inputDescription.setKeyListener(null);
             inputTitle.setKeyListener(null);
             inputMinPrice.setKeyListener(null);
             inputLengthDimensions.setKeyListener(null);
             inputWidthDimensions.setKeyListener(null);
-        } else{
-            showStatus.setText(ArtList.allArt.get(pos).getStatus());
         }
 
+        if(art.getStatus().equals("borrowed")){
+            showStatus.setText(String.format("%s by %s", art.getStatus(), art.getBorrower()));
+        } else{
+            showStatus.setText(art.getStatus());
+        }
 
-        thumbnail = ArtList.allArt.get(pos).getThumbnail();
-        inputImage.setImageBitmap(thumbnail);
     }
 
     protected void saveInFile() {
@@ -207,7 +219,7 @@ public class EditItemActivity extends AppCompatActivity {
         String dimensions = dimensionsLength + "x" + dimensionsWidth;
         String status = art.getStatus();
         String owner = current_user;
-        String borrower = "";
+        String borrower = art.getBorrower();
 
         // check for valid input
 
@@ -282,109 +294,9 @@ public class EditItemActivity extends AppCompatActivity {
         saveInFile();
         finish();
 
-    }
-
-    public void saveEntry(){
-
-        Art art =  ArtList.allArt.get(pos);
-
-        // Delete item from server
-        ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
-        removeArtTask.execute(art);
-
-        float minprice;
-
-        EditText inputTitle = (EditText) findViewById(R.id.enterTitle);
-        EditText inputArtist = (EditText) findViewById(R.id.enterArtist);
-        EditText inputDescription = (EditText) findViewById(R.id.enterDescription);
-        EditText inputMinPrice = (EditText) findViewById(R.id.enterMinPrice);
-        EditText inputLengthDimensions = (EditText) findViewById(R.id.enterLengthDimensions);
-        EditText inputWidthDimensions = (EditText) findViewById(R.id.enterWidthDimensions);
-
-        /* get text from EditText */
-        String title = inputTitle.getText().toString();
-        String artist = inputArtist.getText().toString();
-        String description = inputDescription.getText().toString();
-        String dimensionsLength = inputLengthDimensions.getText().toString();
-        String dimensionsWidth = inputWidthDimensions.getText().toString();
-        String dimensions = dimensionsLength + "x" + dimensionsWidth;
-        String status = art.getStatus();
-        String owner = current_user;
-        String borrower = "";
-
-        // check for valid input
-
-        if(title.equals("")){
-            inputTitle.setError("Empty Field!");
-            return;
-        }
-
-        if(artist.equals("")){
-            inputArtist.setError("Empty Field!");
-            return;
-        }
-
-        if(dimensionsLength.equals("")){
-            inputLengthDimensions.setError("Empty Field!");
-            return;
-        }
-
-        if(dimensionsWidth.equals("")){
-            inputWidthDimensions.setError("Empty Field!");
-            return;
-        }
-
-        if(description.equals("")){
-            inputDescription.setError("Empty Field!");
-            return;
-        }
-
-        try {
-            minprice = Float.parseFloat(inputMinPrice.getText().toString());
-        } catch(NumberFormatException wrong){
-            inputMinPrice.setError("Invalid Input...");
-            return;
-        }
-
-
-        /* add new entry to list of items */
-        //TODO: add owner and other attributes by pulling from lists also PHOTO
-        Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
-        newestArt.addThumbnail(thumbnail);
-        // Save bids
-        BidList bids_placed = art.getBidLists();
-        newestArt.setBids(bids_placed);  // Transfer over old bids
-
-        // Add the art to Elasticsearch
-        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
-        addArtTask.execute(newestArt);
-
-        String art_id = ""; // Initialize
-        try {
-            art_id = addArtTask.get();
-            Log.i("adds art_id is", art_id);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        //so this should be artwork.add(newestArt), when artwork is instantiated publicly
-        ArtList.allArt.remove(pos);
-
-        newestArt.setId(art_id); // set id locally
-
-        ArtList.allArt.add(pos, newestArt);
-
-        /* toast message */
-        // new func: displayToast or something?
-        Context context = getApplicationContext();
-        CharSequence saved = "Artwork Saved!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(context, saved, duration).show();
-
-        /* end add activity */
-        saveInFile();
 
     }
+
 
     // Click to view bids on this item
     public void ViewItemBidsButton(View view) {
@@ -395,7 +307,7 @@ public class EditItemActivity extends AppCompatActivity {
             art.setStatus("available");
             art.setBorrower("");
             //save entry and so it saves to the server
-            saveEntry();
+            saveEntry(view);
             Button button = (Button)findViewById(R.id.item_bids);
             button.setText("View Item Bids");
             loadValues();
@@ -423,8 +335,7 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void deletePhoto(View view) {
-
         thumbnail = null;
-        inputImage.setImageBitmap(thumbnail);
+        inputImage.setImageBitmap(null);
     }
 }

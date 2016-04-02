@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class EditBidStatusActivity extends AppCompatActivity {
 
-    int pos; //item position
+    private int pos; //item position
     int bidpos; //bidlist pos
     String current_user;
 
@@ -62,7 +62,7 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
         acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 acceptBidButton(v);
             }
         });
@@ -163,19 +163,22 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
         if(art.getBids() == null || art.getBids().isEmpty()){
             art.setStatus("available");
-        }
+        } else{
+            ArrayList<Bid> artbids;
+            float minprice = art.getBids().get(0).getRate();
 
-        ArrayList<Bid> artbids;
-        float minprice = art.getBids().get(0).getRate();
-
-        artbids = art.getBids();
-        for (int i = 0; i < artbids.size(); i ++) {
-            if (artbids.get(i).getRate() > minprice) {
-                minprice = artbids.get(i).getRate();
+            artbids = art.getBids();
+            for (int i = 0; i < artbids.size(); i ++) {
+                if (artbids.get(i).getRate() > minprice) {
+                    minprice = artbids.get(i).getRate();
+                }
             }
+
+            art.setMinprice(minprice);
+
         }
 
-        art.setMinprice(minprice);
+
 
 
 

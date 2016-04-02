@@ -32,7 +32,7 @@ public class ViewItemBidsActivity extends AppCompatActivity {
     private ArrayAdapter<Bid> adapter;
     private ArrayList<Bid> oldItemBids = new ArrayList<>();
     private String current_user;
-    int pos;
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
