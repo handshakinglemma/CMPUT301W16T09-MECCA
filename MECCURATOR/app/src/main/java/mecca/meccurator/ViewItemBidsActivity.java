@@ -71,7 +71,7 @@ public class ViewItemBidsActivity extends AppCompatActivity {
         loadFromFile();
 
         adapter = new ArrayAdapter<Bid>(ViewItemBidsActivity.this,
-                R.layout.list_item, oldItemBids);
+                R.layout.bid_item, oldItemBids);
         itemBidListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 

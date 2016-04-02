@@ -84,11 +84,6 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         UserList.users.remove(pos);
 
         UserList.users.add(pos, newestUser);
-
-
-
-
-
     }
 
     @Override
@@ -96,7 +91,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         super.onStart();
         // Update adapter
         adapter = new ArrayAdapter<String>(ViewNotificationsActivity.this,
-                R.layout.list_item, notificationList);
+                R.layout.notification_item, notificationList);
 
         oldNotificationListing.setAdapter(adapter);
 
@@ -109,9 +104,6 @@ public class ViewNotificationsActivity extends AppCompatActivity {
     once they're looked at notification button colour changes (in oncreate)
     "Bidder placed a $10 bid on item name"
     clicking on it takes u to the accept/decline page
-
-
-
-     */
+    */
 
 }

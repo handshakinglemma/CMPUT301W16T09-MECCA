@@ -18,7 +18,6 @@ public class Bid {
         return bidder;
     }
 
-
     public void setBidder(String bidder) {
         this.bidder = bidder;
     }
@@ -36,6 +35,6 @@ public class Bid {
         // Right, now this is customized for the MyListingsActivity's All listings listview
         //TODO customize this for the listview calling it
         // ie. some listviews should show different attributes
-        return bidder + " " + "$" + rate;
+        return bidder + ": " + "$" + rate;
     }
 }
