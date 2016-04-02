@@ -112,7 +112,7 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        adapter = new ArtAdapter(ViewMyBidsActivity.this, oldBids);
+        adapter = new ArtAdapter(ViewMyBidsActivity.this, oldBids, current_user);
         oldBidsPlaced.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

@@ -2,6 +2,7 @@ package mecca.meccurator;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,23 +20,27 @@ import java.util.List;
 public class ArtAdapter extends ArrayAdapter<Art> {
     LayoutInflater inflater;
     Context context;
-    public ArtAdapter(Context context, ArrayList<Art> collection) {
+    String currentUser;
+    public ArtAdapter(Context context, ArrayList<Art> collection, String currentUser) {
         super(context, 0, collection);
         inflater = LayoutInflater.from(context);
-        this.context=context;
+        this.context = context;
+        this.currentUser = currentUser;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
         Art art = getItem(position);
+        // Set variables
         String title = art.getTitle();
         String description = art.getDescription();
         String status = art.getStatus();
         String ownerName = art.getOwner();
-        String borrowerName = art.getBorrower();
-        // Bid
         String empty = " ";
+
+        String borrowerName;
+        String bidRate = new String();
 
         // Check if an existing view is being reused, otherwise inflate the view.
         if (convertView == null) {
@@ -51,35 +56,47 @@ public class ArtAdapter extends ArrayAdapter<Art> {
         artTitle.setText(title);
         artDescription.setText(description);
 
-        String identifyContext;
+        // If ViewSearchActivity, list_item shows owner and status
+        if (context instanceof ViewSearchActivity) {
+            // Show status and ownerName
+            artStatus.setText(status);
+            artPerson.setText(ownerName);
+        }
 
-        identifyContext = String.valueOf(context).replaceAll("\\W", " ");
-        ArrayList<String> contextWords = new ArrayList(Arrays.asList(identifyContext.split(" ")));
-        for( String s : contextWords) {
-            if (s.equals("ViewSearchActivity")) {
+        // If ViewMyListings, list_item shows available/bidded status or borrower
+        if (context instanceof ViewMyListingsActivity) {
+            if (status.toLowerCase().equals("borrowed")) {
+                // Set borrower
+                borrowerName = art.getBorrower();
+                // no status, show borrowerName
+                artStatus.setText(empty);
+                artPerson.setText(borrowerName);
+            } else {
+                // show status, no name
                 artStatus.setText(status);
-                artPerson.setText(ownerName);
+                artPerson.setText(empty);
             }
+        }
 
-            if (s.equals("ViewMyListingsActivity")) {
-                if (status.toLowerCase().equals("borrowed")) {
-                    artStatus.setText(empty);
-                    artPerson.setText(borrowerName);
-                } else {
-                    artStatus.setText(status);
-                    artPerson.setText(empty);
+        // If ViewMyBids, list_item shows owner and your bid
+        if (context instanceof ViewMyBidsActivity) {
+            // Find your bid
+            ArrayList<Bid> bids = art.getBids();
+            for (Bid bid : bids) {
+                if (bid.getBidder().equals(currentUser)) {
+                    bidRate = "$" + String.valueOf(bid.getRate());
                 }
             }
+            // show bidRate and ownerName
+            artStatus.setText(bidRate);
+            artPerson.setText(ownerName);
+        }
 
-            if (s.equals("ViewMyBidsActivity")) {
-                artStatus.setText("bid");
-                artPerson.setText(ownerName);
-            }
-
-            if (s.equals("BorrowedItemsActivity")) {
-                artStatus.setText(empty);
-                artPerson.setText(ownerName);
-            }
+        // If BorrowedItems, list_item shows owner
+        if (context instanceof BorrowedItemsActivity) {
+            // no status, show ownerName
+            artStatus.setText(empty);
+            artPerson.setText(ownerName);
         }
 
         return convertView;

@@ -98,10 +98,9 @@ public class BorrowedItemsActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        ArtAdapter adapter = new ArtAdapter(BorrowedItemsActivity.this, borrowedArt);
+        ArtAdapter adapter = new ArtAdapter(BorrowedItemsActivity.this, borrowedArt, current_user);
         oldBorrowedItems.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
     }
 
     public boolean pullAllServerArt() {

@@ -153,7 +153,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 }
 
                 // Update adapter
-                adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt);
+                adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt, current_user);
                 oldArtListings.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 
@@ -198,7 +198,7 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt);
+        adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt, current_user);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }

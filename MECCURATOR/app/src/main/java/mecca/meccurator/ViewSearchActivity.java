@@ -172,7 +172,7 @@ public class ViewSearchActivity extends AppCompatActivity {
 
         // Update adapter
         adapter = new ArtAdapter(ViewSearchActivity.this,
-                selectedArt);
+                selectedArt, current_user);
         Log.i("TODO", String.valueOf(ViewSearchActivity.this));
         oldSearchListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
