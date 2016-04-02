@@ -2,6 +2,7 @@ package mecca.meccurator;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.robotium.solo.Solo;
@@ -24,6 +25,13 @@ public class HomeActivityUITest extends
     protected void setUp(){
         solo = new Solo(getInstrumentation(), getActivity());
 
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            }
+        });
+
         solo.assertCurrentActivity("Set up method did not work.", ViewLoginActivity.class);
 
         solo.clickOnButton("Sign Up");
@@ -32,7 +40,8 @@ public class HomeActivityUITest extends
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
         solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test1");
         solo.clickOnButton("Save");
-        solo.goBack();
+        boolean saveView = solo.searchButton("Save");
+        if(saveView){ solo.goBack(); }
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.username), "UserTest1");

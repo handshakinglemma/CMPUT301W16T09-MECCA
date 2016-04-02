@@ -2,6 +2,7 @@ package mecca.meccurator;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.robotium.solo.Solo;
@@ -21,6 +22,12 @@ public class LogInActivityUITest
     protected void setUp() throws Exception {
         solo = new Solo(getInstrumentation(), getActivity());
         solo.assertCurrentActivity("Set up method did not work.", ViewLoginActivity.class);
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                getActivity().getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
+            }
+        });
     }
 
     @Override
@@ -29,18 +36,15 @@ public class LogInActivityUITest
     }
 
     //US 03.01.01
-    public void testSignUpButton() {
+    public void testSignUpButton() throws InterruptedException {
         solo.clickOnButton("Sign Up");
         solo.assertCurrentActivity("Did not open AddNewUserActivity", AddNewUserActivity.class);
 
         solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest1");
         solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test1");
         solo.clickOnButton("Save");
-        //solo.goBack();
-
-        //TO DO
-        //TEST USER IS ADDED TO LIST
-
+        boolean saveView = solo.searchButton("Save");
+        if(saveView){ solo.goBack(); }
         solo.assertCurrentActivity("Set up button did not work.", ViewLoginActivity.class);
 
         //Testing Login works
@@ -50,7 +54,7 @@ public class LogInActivityUITest
     }
 
     //US 03.02.01
-    public void testEditUserButton() {
+    public void testEditUserButton() throws InterruptedException {
         testSignUpButton();
         solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
 
@@ -58,11 +62,12 @@ public class LogInActivityUITest
         solo.clickOnView(v);
         solo.assertCurrentActivity("View My profile button did not work", EditUserActivity.class);
 
-        solo.enterText((EditText) solo.getView(R.id.enterUsername), "UserTest2");
+        solo.clearEditText((EditText) solo.getView(mecca.meccurator.R.id.enterEmail));
         solo.enterText((EditText) solo.getView(R.id.enterEmail), "Email@Test2");
         solo.clickOnButton("Save");
+        solo.waitForActivity("HomeActivity.class", 2000);
         solo.assertCurrentActivity("Edit User button did not work", HomeActivity.class);
 
-        assertTrue(solo.searchButton("UserTest2"));
+        assertTrue(solo.searchButton("UserTest1"));
     }
 }
