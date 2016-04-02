@@ -1,16 +1,12 @@
 package mecca.meccurator;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -60,6 +56,23 @@ public class EditBidStatusActivity extends AppCompatActivity {
         // /get intent from ItemBidsActivity w/ username and position
 
         setBidderProfile(allServerUsers);
+
+        Button acceptButton = (Button) findViewById(R.id.acceptBidButton);
+        Button declineButton = (Button) findViewById(R.id.declineBidButton);
+
+        acceptButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                acceptBidButton(v);
+            }
+        });
+
+        declineButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                declineBidButton(v);
+            }
+        });
     }
 
     @Override

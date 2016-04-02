@@ -75,10 +75,18 @@ public class AddNewBidActivity extends AppCompatActivity {
         }
 
         Button userProfile = (Button) findViewById(R.id.view_owner);
+        Button saveBid = (Button) findViewById(R.id.item_bids);
+
         userProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ViewUserProfileButton(v);
+            }
+        });
+        saveBid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                saveBidButton(v);
             }
         });
     }

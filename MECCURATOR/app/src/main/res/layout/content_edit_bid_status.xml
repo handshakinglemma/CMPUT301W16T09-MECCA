@@ -114,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="decline"
-            android:id="@+id/button"
+            android:id="@+id/declineBidButton"
             android:background="@color/buttonColor"
             android:onClick="declineBidButton"
             android:gravity="center"
@@ -125,7 +125,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:text="accept"
-            android:id="@+id/button2"
+            android:id="@+id/acceptBidButton"
             android:background="@color/buttonColor"
             android:onClick="acceptBidButton" />
     </LinearLayout>
