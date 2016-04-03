@@ -165,13 +165,13 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Did not accept the bid", EditItemActivity.class);
 
         solo.goBack();
+        solo.goBack();
+        solo.waitForActivity("ViewMyListingsActivity", 2000);
         solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
-
-        deleteItem();
     }
 
     //DECLINE BUTTON CRASHES
-    /*public void testDeclineButton() {
+    public void testDeclineButton() {
         testNotificationButton();
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
@@ -188,9 +188,9 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.clickLongInList(0);
         solo.assertCurrentActivity("Did not view Bid", EditBidStatusActivity.class);
 
-        //solo.clickOnButton("Decline");
-        //FIND OUT WHY IT Fails
-    }*/
+        solo.clickOnButton("Decline");
+        solo.assertCurrentActivity("Did not open Item profile", EditItemActivity.class);
+    }
 
     //US 06.02.02
     public void testViewBorrowed() {
@@ -207,7 +207,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         assertEquals(false, solo.searchText("Bidded"));
     }
 
-    public void testResetAvailabilityButton() {
+    /*public void testResetAvailabilityButton() {
         testNotificationButton();
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
@@ -230,7 +230,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.clickOnView(solo.getView(R.id.item_bids));
         //solo.assertCurrentActivity();
 
-    }
+    }*/
 
 
 }
