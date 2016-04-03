@@ -101,7 +101,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Delete button did not work", ViewMyListingsActivity.class);
     }
 
-    public void testBidOnItem() {
+    public void BidOnItem() {
         AddNewItem();
         solo.assertCurrentActivity("Add Item button did not work.", ViewMyListingsActivity.class);
         solo.goBack();
@@ -126,26 +126,14 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Did not return to ViewSearchActivity", ViewSearchActivity.class);
 
         solo.goBack();
-        solo.assertCurrentActivity("Did not return to ViewSearchActivity", ViewSearchActivity.class);
+        solo.assertCurrentActivity("Did not return to ViewSearchActivity", HomeActivity.class);
         solo.clickOnButton("Logout");
         solo.assertCurrentActivity("Log out button did not work", ViewLoginActivity.class);
     }
 
-    public void testNotificationButton() {
-        testBidOnItem();
+    public void AcceptBid() {
+        BidOnItem();
         logIn("UserTest1");
-
-        solo.clickOnButton("Notifications");
-        solo.assertCurrentActivity("Did not open Notifications Activity", ViewNotificationsActivity.class);
-
-        assertTrue(solo.searchText("UserTest2"));
-        assertTrue(solo.searchText("ArtworkTitleTest1"));
-        solo.goBack();
-        solo.assertCurrentActivity("Did not go back", HomeActivity.class);
-    }
-
-    public void testAcceptBid() {
-        testNotificationButton();
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
 
@@ -170,9 +158,29 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
     }
 
-    //DECLINE BUTTON CRASHES
+    public void testAcceptBid() {
+        AcceptBid();
+        solo.pressSpinnerItem(0, 4);
+        solo.waitForText("Borrowed Items");
+        solo.clickLongInList(0);
+        solo.assertCurrentActivity("Did not open Item profile", EditItemActivity.class);
+
+        solo.clickOnButton("Set Available");
+        solo.assertCurrentActivity("ViewMyListingsActivity", ViewMyListingsActivity.class);
+
+        deleteItem();
+
+    }
+
     public void testDeclineButton() {
-        testNotificationButton();
+        BidOnItem();
+        logIn("UserTest1");
+
+        solo.clickOnButton("Notifications");
+        solo.assertCurrentActivity("Did not open Notifications Activity", ViewNotificationsActivity.class);
+        solo.goBack();
+        solo.assertCurrentActivity("Did not go back to home Activity", HomeActivity.class);
+
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
 
@@ -190,6 +198,11 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
 
         solo.clickOnButton("Decline");
         solo.assertCurrentActivity("Did not open Item profile", EditItemActivity.class);
+
+        solo.goBack();
+        solo.assertCurrentActivity("ViewMyListingsActivity", ViewMyListingsActivity.class);
+
+        deleteItem();
     }
 
     //US 06.02.02
@@ -207,30 +220,19 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         assertEquals(false, solo.searchText("Bidded"));
     }
 
-    /*public void testResetAvailabilityButton() {
-        testNotificationButton();
-        solo.clickOnButton("My Listings");
-        solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
+    public void testResetAvailabilityButton() {
+        AcceptBid();
 
-        View spinner = solo.getView(Spinner.class, 0);
-        solo.clickOnView(spinner);
-        solo.clickOnView(solo.getView(TextView.class, 3));
+        solo.pressSpinnerItem(0, 4);
+        solo.waitForText("Borrowed Items");
         solo.clickLongInList(0);
         solo.assertCurrentActivity("Did not open Item profile", EditItemActivity.class);
 
-        solo.clickOnButton("Item Bids");
-        solo.assertCurrentActivity("Did not open Item Bids", ViewItemBidsActivity.class);
+        solo.clickOnButton("Set Available");
+        solo.assertCurrentActivity("ViewMyListingsActivity", ViewMyListingsActivity.class);
 
-        solo.clickLongInList(0);
-        solo.assertCurrentActivity("Did not view Bid", EditBidStatusActivity.class);
-
-        solo.clickOnButton("Accept");
-        solo.assertCurrentActivity("Did not accept the bid", EditItemActivity.class);
-
-        solo.clickOnView(solo.getView(R.id.item_bids));
-        //solo.assertCurrentActivity();
-
-    }*/
+        deleteItem();
+    }
 
 
 }
