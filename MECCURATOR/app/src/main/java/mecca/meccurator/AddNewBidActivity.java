@@ -228,7 +228,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         //Set user again w/ new notif
         String addNotif = String.format("New bid placed on %s by %s", art.getTitle(), current_user);
         ownerNotifs.add(0,addNotif);
-        User addOwner = new User(owner,ownerEmail,ownerNotifs, TRUE);
+        User addOwner = new User(owner,ownerEmail,ownerNotifs, TRUE, null);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(addOwner);

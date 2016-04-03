@@ -17,6 +17,7 @@ public class User {
     //protected NotificationList notifications;
     protected ArrayList<String> allNotifications;
     protected String notificationFlag;
+    protected ArrayList<String> watchList;
 
 
 
@@ -32,11 +33,12 @@ public class User {
     }
 
     // TODO pass parameter photo
-    public User(String username, String email, ArrayList<String> allNotifications, String notificationFlag) {
+    public User(String username, String email, ArrayList<String> allNotifications, String notificationFlag, ArrayList<String> watchList) {
         this.username = username;
         this.email = email;
         this.allNotifications = allNotifications;
         this.notificationFlag = notificationFlag;
+        this.watchList = watchList;
     }
 
     public String getUsername() {
@@ -69,6 +71,18 @@ public class User {
 
     public void setAllNotifications(ArrayList<String> allNotifications) {
         this.allNotifications = allNotifications;
+    }
+
+    public ArrayList<String> getWatchList() {
+
+        if(watchList == null){
+            watchList = new ArrayList<String>();
+        }
+        return watchList;
+    }
+
+    public void setWatchList(ArrayList<String> watchList) {
+        this.watchList = watchList;
     }
 
     public String getNotificationFlag() {

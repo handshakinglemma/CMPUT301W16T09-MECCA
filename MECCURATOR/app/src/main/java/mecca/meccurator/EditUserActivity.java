@@ -13,17 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -156,7 +150,7 @@ public class EditUserActivity extends AppCompatActivity {
         }
 
         /* add new entry to list of items */
-        User newestUser = new User(current_user, email, ownerNotifs, ownerFlag);
+        User newestUser = new User(current_user, email, ownerNotifs, ownerFlag, null);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);

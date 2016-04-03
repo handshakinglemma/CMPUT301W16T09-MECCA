@@ -2,10 +2,7 @@ package mecca.meccurator;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -82,7 +79,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         ArrayList<String> notifs = UserList.users.get(pos).getAllNotifications();
 
          /* add new entry to list of items */
-        User newestUser = new User(current_user, email, notifs, flag);
+        User newestUser = new User(current_user, email, notifs, flag, null);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);
@@ -105,6 +102,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
 
     private void viewWatchList(View v) {
         Intent intent = new Intent(this, ViewWatchListActivity.class);
+        intent.putExtra("current_user", current_user);
         startActivity(intent);
     }
 
