@@ -7,7 +7,10 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,14 +26,17 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
+
 public class EditBidStatusActivity extends AppCompatActivity {
 
     int pos; //item position
     int bidpos; //bidlist pos
     String current_user;
 
+
     private User bidderProfile;
     private ArrayList<User> allServerUsers = new ArrayList<User>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,11 +128,18 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
         saveInFile();
         //after accepting the bid, go to edit item activity
-        Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
-        edit.putExtra("position", pos);
-        edit.putExtra("current_user", current_user);
+        //Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
+        //edit.putExtra("position", pos);
+        //edit.putExtra("current_user", current_user);
+        //finish();
+        //startActivity(edit);
+
+        // after accepting bid, go to place picker activity
+        Intent map = new Intent(getApplicationContext(), PlacePickerActivity.class);
+        map.putExtra("art_id", art_id);
         finish();
-        startActivity(edit);
+        startActivity(map);
+
     }
 
     public void setBidderProfile(ArrayList<User> userList) {
