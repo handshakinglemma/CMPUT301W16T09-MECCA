@@ -140,7 +140,7 @@ public class Art {
     }
 
     public String getWidth(){
-        return getDimensions().substring(getDimensions().indexOf("x"));
+        return getDimensions().substring(getDimensions().indexOf("x") + 1);
     }
 
     public void setDimensions(String dimensions) {
