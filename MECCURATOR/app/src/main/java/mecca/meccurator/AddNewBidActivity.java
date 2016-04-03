@@ -2,6 +2,8 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -28,6 +30,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class AddNewBidActivity extends AppCompatActivity {
 
+    boolean connected;
     private int pos;
     private String current_user;
     private String owner;
@@ -50,8 +53,6 @@ public class AddNewBidActivity extends AppCompatActivity {
         pos = newbid.getIntExtra("position", 0);
         current_user = newbid.getStringExtra("current_user");
         owner = newbid.getStringExtra("owner");
-
-
 
         ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
         getUserListTask.execute();
@@ -94,6 +95,17 @@ public class AddNewBidActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+
         loadValues();
 
     }
@@ -213,8 +225,6 @@ public class AddNewBidActivity extends AppCompatActivity {
 
         art.setId(art_id); // set id locally
 
-
-
         //Set user again w/ new notif
         String addNotif = String.format("New bid placed on %s by %s", art.getTitle(), current_user);
         ownerNotifs.add(0,addNotif);
@@ -227,8 +237,6 @@ public class AddNewBidActivity extends AppCompatActivity {
 
         UserList.users.add(ownerpos, addOwner);
 
-
-
         /* toast message */
         // new func: displayToast or something?
         Context context = getApplicationContext();
@@ -239,5 +247,15 @@ public class AddNewBidActivity extends AppCompatActivity {
         /* end add activity */
         saveInFile();
         finish();
+    }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
     }
 }

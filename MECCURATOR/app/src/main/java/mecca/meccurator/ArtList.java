@@ -9,7 +9,7 @@ public class ArtList {
 
     //TODO: singleton
     public static ArrayList<Art> allArt = new ArrayList<Art>();
-
+    public static ArrayList<Art> offLineArt = new ArrayList<Art>();
 
     private ArrayList<Art> AllArt = new ArrayList<Art>();
 
@@ -35,7 +35,6 @@ public class ArtList {
 
     public void deleteItem(Art art) {
         AllArt.remove(art);
-        
     }
 
     // Use this to determine index of art item in AllArt

@@ -3,6 +3,8 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
@@ -35,6 +39,9 @@ public class AddNewItemActivity extends AppCompatActivity {
 
     /* file that item listings are saved in */
     protected static final String ARTFILE = "artfile.sav";
+    protected static final String OFFLINEART = "offlineart.sav";
+
+    boolean connected;
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -95,9 +102,6 @@ public class AddNewItemActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
     public void saveEntry(View view){
@@ -116,7 +120,6 @@ public class AddNewItemActivity extends AppCompatActivity {
         String borrower = "";
 
         // check for valid input
-
         if(title.equals("")){
             inputTitle.setError("Empty Field!");
             return;
@@ -126,7 +129,6 @@ public class AddNewItemActivity extends AppCompatActivity {
             inputArtist.setError("Empty Field!");
             return;
         }
-
 
         if(dimensionsLength.equals("")){
             inputLengthDimensions.setError("Empty Field!");
@@ -150,24 +152,36 @@ public class AddNewItemActivity extends AppCompatActivity {
             return;
         }
 
-
-
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
         newestArt.addThumbnail(thumbnail);
 
-        // Add the art to Elasticsearch
-        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
-        addArtTask.execute(newestArt);
-
+        isConnected();
         String art_id = ""; // Initialize
-        try {
-            art_id = addArtTask.get();
-            Log.i("adds art_id is", art_id);
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
+
+        if (connected) {
+            // Add the art to Elasticsearch
+            ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+            addArtTask.execute(newestArt);
+
+            try {
+                art_id = addArtTask.get();
+                Log.i("adds art_id is", art_id);
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        } else {
+            try {
+                // add it to the offLineArt file
+                ArtList.offLineArt.add(newestArt);
+            } catch (NullPointerException e) {
+                ArtList offLineArt = new ArtList();
+                ArtList.offLineArt.add(newestArt);
+            }
         }
+
+        ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
 
         try{
             ArtList.allArt.add(newestArt);
@@ -175,8 +189,6 @@ public class AddNewItemActivity extends AppCompatActivity {
             ArtList allArt = new ArtList();
             ArtList.allArt.add(newestArt);
         }
-
-        ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
 
         /* toast message */
         // new func: displayToast or something?
@@ -186,6 +198,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         Toast.makeText(context, saved, duration).show();
 
         /* end add activity */
+        saveOffline();
         saveInFile();
         finish();
     }
@@ -197,6 +210,25 @@ public class AddNewItemActivity extends AppCompatActivity {
             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
             Gson gson = new Gson();
             gson.toJson(ArtList.allArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
+    }
+
+    private void saveOffline() {
+        try {
+            FileOutputStream fos = openFileOutput(OFFLINEART, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(ArtList.offLineArt, out);
             out.flush();
             fos.close();
 
@@ -241,6 +273,14 @@ public class AddNewItemActivity extends AppCompatActivity {
         thumbnail = null;
         inputImage.setImageBitmap(null);
     }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+    }
 }
-
-
