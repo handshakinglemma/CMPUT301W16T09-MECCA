@@ -50,8 +50,6 @@ public class EditBidStatusActivity extends AppCompatActivity {
         bidpos = intent.getIntExtra("bid_position", 0);
         current_user = intent.getStringExtra("current_user");
 
-        loadValues();
-
         String bidder = ArtList.allArt.get(pos).getBidLists().getBid(bidpos).getBidder();
         Float bidOffer = ArtList.allArt.get(pos).getBidLists().getBid(bidpos).getRate();
 
@@ -66,6 +64,10 @@ public class EditBidStatusActivity extends AppCompatActivity {
         // /get intent from ItemBidsActivity w/ username and position
 
         setBidderProfile(allServerUsers);
+
+        //loadValues();
+
+
 
         Button acceptButton = (Button) findViewById(R.id.acceptBidButton);
         Button declineButton = (Button) findViewById(R.id.declineBidButton);
@@ -88,7 +90,20 @@ public class EditBidStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        //loadValues();
+        Log.i("TODO", "OnStart");
+        Art art = ArtList.allArt.get(pos);
+        if ( art.getLatLng()!= null){
+            addItemToServer();
+            Log.i("TODO", "Call home intent ");
+            //after accepting the bid, go to edit item activity
+            Intent edit = new Intent(getApplicationContext(), HomeActivity.class);
+            edit.putExtra("position", pos);
+            edit.putExtra("current_user", current_user);
+            //finish();
+            startActivity(edit);
+        } else {
+            loadValues();
+        }
 
     }
 
@@ -105,6 +120,18 @@ public class EditBidStatusActivity extends AppCompatActivity {
         // Delete item from server
         ElasticsearchArtController.RemoveArtTask removeArtTask = new ElasticsearchArtController.RemoveArtTask();
         removeArtTask.execute(art);
+
+        Log.i("TODO", "Call map intent ");
+        // after accepting bid, go to place picker activity
+        Intent map = new Intent(getApplicationContext(), PlacePickerActivity.class);
+        map.putExtra("position", pos);
+        //startActivityForResult(map, 2);
+        startActivity(map);
+    }
+
+    public void addItemToServer(){
+        //change variable names
+        Art art = ArtList.allArt.get(pos);
 
         Bid currentbid = art.getBids().get(bidpos);
 
@@ -131,14 +158,13 @@ public class EditBidStatusActivity extends AppCompatActivity {
         }
 
         art.setId(art_id); // set id locally
+        saveInFile();
 
-        Log.i("TODO", "Call map intent ");
-        // after accepting bid, go to place picker activity
-        Intent map = new Intent(getApplicationContext(), PlacePickerActivity.class);
-        map.putExtra("position", pos);
-        //startActivityForResult(map, 2);
-        startActivity(map);
+
+
+
     }
+
 
     /*@Override
     protected void onActivityResult(int requestCode,
@@ -163,9 +189,14 @@ public class EditBidStatusActivity extends AppCompatActivity {
     }*/
 
     public void setBidderProfile(ArrayList<User> userList) {
+        Log.i("TODO", "bidderProfile function");
+        Log.i("userList size", String.valueOf(userList.size()));
+        Log.i("userList", String.valueOf(userList));
         for (User u : userList) {
+            Log.i("user", String.valueOf(u));
             if( u.getUsername().equals(ArtList.allArt.get(pos).getBidLists().getBid(bidpos).getBidder())) {
                 bidderProfile = u;
+                Log.i("TODO", "match bidderProfile");
                 break;
             }
         }

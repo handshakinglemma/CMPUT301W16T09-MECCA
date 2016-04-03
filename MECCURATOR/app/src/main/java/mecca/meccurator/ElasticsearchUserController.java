@@ -74,6 +74,7 @@ public class ElasticsearchUserController {
                     DocumentResult execute = client.execute(index);
                     if (execute.isSucceeded()) {
                         user.setId(execute.getId());
+                        Log.i("TODO", "Insert User was SUCCESSFUL");
                     } else {
                         Log.i("TODO", "Insert User failed");
                     }
