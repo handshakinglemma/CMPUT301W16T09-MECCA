@@ -33,7 +33,7 @@ public class PlacePickerActivity extends AppCompatActivity {
     public TextView mAddress;
     private TextView mAttributions;
     private static final LatLngBounds BOUNDS_MOUNTAIN_VIEW = new LatLngBounds(
-            new LatLng(37.398160, -122.180831), new LatLng(37.430610, -121.972090));
+            new LatLng(53.506975,-113.6306705 ), new LatLng(53.539425, -113.4219295));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
