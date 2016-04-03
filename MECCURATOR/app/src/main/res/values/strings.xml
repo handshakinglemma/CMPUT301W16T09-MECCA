@@ -80,5 +80,6 @@
     <string name="title_activity_place_picker">PlacePickerActivity</string>
     <string name="title_activity_view_watch_list">ViewWatchListActivity</string>
     <string name="watchlist">Watch List</string>
+    <string name="title_activity_view_meetup_location">ViewMeetupLocationActivity</string>
 
 </resources>

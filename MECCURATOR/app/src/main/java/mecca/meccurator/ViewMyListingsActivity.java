@@ -49,7 +49,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ListView oldArtListings;
     private ArrayList<Art> selectedArt = new ArrayList<Art>();
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
-
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
 

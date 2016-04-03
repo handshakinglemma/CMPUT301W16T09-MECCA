@@ -25,11 +25,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyA3MgecVsGLCp_1DH_3nBiQwtapbI5qffo" />
@@ -140,23 +138,23 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.ViewItemBidsActivity" />
         </activity>
-
         <activity
             android:name=".PlacePickerActivity"
             android:label="@string/title_activity_place_picker"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewWatchListActivity"
             android:label="@string/title_activity_view_watch_list"
             android:parentActivityName=".ViewNotificationsActivity"
             android:theme="@style/AppTheme.NoActionBar">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.ViewNotificationsActivity" />
         </activity>
-
+        <activity
+            android:name=".ViewMeetupLocationActivity"
+            android:label="@string/title_activity_view_meetup_location"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

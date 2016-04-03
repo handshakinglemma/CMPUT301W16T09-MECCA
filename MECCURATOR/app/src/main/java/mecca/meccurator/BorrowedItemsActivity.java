@@ -37,9 +37,10 @@ public class BorrowedItemsActivity extends AppCompatActivity {
     protected static final String ARTFILE = "artfile.sav";
 
     public String current_user;
-
+    private ArrayList<Art> borrowedArt = new ArrayList<Art>();
     private ListView oldBorrowedItems;
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
+    private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +70,28 @@ public class BorrowedItemsActivity extends AppCompatActivity {
 
         // Sets variable selectedArt and updates adapter
         setSelectedArt(allServerArt);
+
+        // When item in listview is clicked launch EditItem Activity
+        oldBorrowedItems.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
+                Log.i("TODO", "Item clicked");
+                Log.i("clicked pos", String.valueOf(pos));
+                Art art_clicked = adapter.getItem(pos);
+                Log.i("clicked art", art_clicked.toString());
+                Log.i("ID of clicked art", art_clicked.getId());
+                int meta_position = ArtList.allArt.indexOf(art_clicked);
+                Log.i("meta pos", String.valueOf(meta_position));
+                Log.i("art is", ArtList.allArt.get(meta_position).toString());
+                Intent meetupLocation = new Intent(getApplicationContext(), ViewMeetupLocationActivity.class);
+                meetupLocation.putExtra("pos", meta_position);
+                finish();
+                startActivity(meetupLocation);
+                return true;
+            }
+
+        });
     }
 
     // Code from https://github.com/joshua2ua/lonelyTwitter
@@ -86,7 +109,7 @@ public class BorrowedItemsActivity extends AppCompatActivity {
     public void setSelectedArt (ArrayList<Art> artlist){
 
         // Filter all art by if user is borrowing item
-        ArrayList<Art> borrowedArt = new ArrayList<>();
+        borrowedArt = new ArrayList<>();
         // Selected art is only those items that the current_user is a borrower
         for (Art a: artlist) {
             if ((a.getBorrower().toLowerCase().trim().equals(current_user.toLowerCase().trim()))) {
@@ -98,7 +121,7 @@ public class BorrowedItemsActivity extends AppCompatActivity {
         Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
-        ArtAdapter adapter = new ArtAdapter(BorrowedItemsActivity.this, borrowedArt, current_user);
+        adapter = new ArtAdapter(BorrowedItemsActivity.this, borrowedArt, current_user);
         oldBorrowedItems.setAdapter(adapter);
         adapter.notifyDataSetChanged();
     }
