@@ -1,7 +1,11 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,6 +15,18 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -21,11 +37,18 @@ import java.util.concurrent.ExecutionException;
  */
 public class HomeActivity extends AppCompatActivity {
 
+    protected static final String ARTFILE = "artfile.sav";
+
     public String current_user;
     public String keyword;
     private EditText search;
     private int pos;
+    boolean connected = false;
+
+    private ArrayList<Art> allServerArt = new ArrayList<Art>();
+
     protected ArrayList<User> userList;
+    protected ArrayList<Art> allArt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +58,6 @@ public class HomeActivity extends AppCompatActivity {
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
-
 
         // Idea of how to have button with changing text from here:
         // https://stackoverflow.com/questions/16806376/how-to-change-the-text-of-button-using-a-variable-or-return-value-from-function
@@ -92,7 +114,6 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
-
         ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
         getUserListTask.execute();
 
@@ -107,10 +128,6 @@ public class HomeActivity extends AppCompatActivity {
 
         pos = 0;
 
-        Log.i("TODO", "OnCreate Home Activity");
-        Log.i("userList size", String.valueOf(userList.size()));
-        Log.i("userList", String.valueOf(userList));
-
         for(User user: userList){
             if (current_user.equals(user.getUsername())){
                 break;
@@ -118,24 +135,53 @@ public class HomeActivity extends AppCompatActivity {
             ++pos;
         }
 
-        Log.i("userList", String.valueOf(pos));
-
         if(userList.get(pos).getNotificationFlag().equals("true")){
             notifications.setBackgroundColor(Color.MAGENTA);
         } else{
             notifications.setBackgroundResource(R.color.buttonColor);
         }
 
+        // Pull all server art
+        boolean success = false;
+        while (!success){
+            success = pullAllServerArt();
+        }
 
-
-
-
-
+        // Save all server art locally
+        saveInFile();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        checkIfConnected();
+        Log.i("TODO", String.valueOf(ArtList.offLineArt));
+
+        String art_id = "";
+        if (connected && !ArtList.offLineArt.isEmpty()) {
+            Log.i("TODO", "Add offLineArt to ElasticSearch");
+            for (Art art : ArtList.offLineArt) {
+                ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+                addArtTask.execute(art);
+
+                ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
+
+                ArtList.offLineArt.remove(art);
+            }
+        }
+    }
+
+    // Checks if we are connected to the internet or not.
+    private boolean checkIfConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+        return connected;
     }
 
     @Override
@@ -178,7 +224,6 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewMyBidsActivity.class);
         intent.putExtra("current_user", current_user);
         startActivity(intent);
-
     }
 
     public void ViewMyNotificationsButton(View view){
@@ -209,5 +254,46 @@ public class HomeActivity extends AppCompatActivity {
         Intent intent = new Intent(this, ViewLoginActivity.class);
         startActivity(intent);
         finish(); // This destroys the HomeActivity
+    }
+
+    public boolean pullAllServerArt() {
+
+        // Get ALL art from server
+        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
+        getArtListTask.execute("");
+        try {
+            allServerArt = new ArrayList<Art>();
+            allServerArt.addAll(getArtListTask.get());
+            return true;
+
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            try {
+                Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }
+            return false;
+        }
+    }
+
+    protected void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(ARTFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(allServerArt, out);
+            out.flush();
+            fos.close();
+
+        } catch (FileNotFoundException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
     }
 }

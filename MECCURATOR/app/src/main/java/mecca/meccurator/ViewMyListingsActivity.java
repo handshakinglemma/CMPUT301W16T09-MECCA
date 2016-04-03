@@ -66,15 +66,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         current_user = intentRcvEdit.getStringExtra("current_user");
         oldArtListings = (ListView) findViewById(R.id.oldArtListings);
 
-        // Pull all server art
-        boolean success = false;
-        while (!success){
-            success = pullAllServerArt();
-        }
-
-        // Save all server art locally
-        saveInFile();
-
         // Load locally saved art
         // Only need to do this once for the lifetime of this activity
         loadFromFile();
@@ -201,28 +192,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
         adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt, current_user);
         oldArtListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-    }
-
-    public boolean pullAllServerArt() {
-
-        // Get ALL art from server
-        ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
-        getArtListTask.execute("");
-        try {
-            allServerArt = new ArrayList<Art>();
-            allServerArt.addAll(getArtListTask.get());
-            return true;
-
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-            try {
-                Thread.sleep(1000); // Sleep for 1 sec
-                Log.i("TODO", "Sleeping for one sec");
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
-            return false;
-        }
     }
 
     protected void saveInFile() {

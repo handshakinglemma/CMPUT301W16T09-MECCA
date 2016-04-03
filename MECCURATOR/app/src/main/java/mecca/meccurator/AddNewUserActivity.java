@@ -1,10 +1,14 @@
 package mecca.meccurator;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +32,7 @@ import java.util.concurrent.ExecutionException;
 public class AddNewUserActivity extends AppCompatActivity {
 
     /* file that users are saved in */
+    boolean connected;
     protected static final String USERFILE = "userfile.sav";
     private ArrayList<User> userList;
 
@@ -53,6 +58,21 @@ public class AddNewUserActivity extends AppCompatActivity {
             }
         });
         loadFromFile();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
     }
 
     public void saveUser(View view) {
@@ -165,4 +185,15 @@ public class AddNewUserActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+    }
+
 }
