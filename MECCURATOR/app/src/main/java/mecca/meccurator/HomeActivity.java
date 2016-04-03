@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -106,6 +107,10 @@ public class HomeActivity extends AppCompatActivity {
 
         pos = 0;
 
+        Log.i("TODO", "OnCreate Home Activity");
+        Log.i("userList size", String.valueOf(userList.size()));
+        Log.i("userList", String.valueOf(userList));
+
         for(User user: userList){
             if (current_user.equals(user.getUsername())){
                 break;
@@ -113,7 +118,9 @@ public class HomeActivity extends AppCompatActivity {
             ++pos;
         }
 
-        if(UserList.users.get(pos).getNotificationFlag().equals("true")){
+        Log.i("userList", String.valueOf(pos));
+
+        if(userList.get(pos).getNotificationFlag().equals("true")){
             notifications.setBackgroundColor(Color.MAGENTA);
         } else{
             notifications.setBackgroundResource(R.color.buttonColor);

@@ -165,29 +165,6 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
     }
 
-
-    /*@Override
-    protected void onActivityResult(int requestCode,
-                                    int resultCode, Intent data) {
-
-        if (requestCode == 2
-                && resultCode == Activity.RESULT_OK) {
-
-
-            saveInFile();
-
-            Log.i("TODO", "Immediately before call back to Home ");
-
-            //after accepting the bid, go to edit item activity
-            Intent edit = new Intent(getApplicationContext(), HomeActivity.class);
-            edit.putExtra("position", pos);
-            edit.putExtra("current_user", current_user);
-            finish();
-            startActivity(edit);
-
-        }
-    }*/
-
     public void setBidderProfile(ArrayList<User> userList) {
         Log.i("TODO", "bidderProfile function");
         Log.i("userList size", String.valueOf(userList.size()));
@@ -203,6 +180,7 @@ public class EditBidStatusActivity extends AppCompatActivity {
     }
 
     protected void loadValues(){
+        Log.i("TODO", "loadValues");
         //load the bidder and rate into textviews
         TextView bidderUsername = (TextView) findViewById(R.id.bidder_username);
         TextView bidderEmail = (TextView) findViewById(R.id.bidder_email);
