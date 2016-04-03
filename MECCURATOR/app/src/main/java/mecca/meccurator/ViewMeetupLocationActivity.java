@@ -9,8 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMapOptions;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -29,6 +32,7 @@ public class ViewMeetupLocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_meetup_location);
 
+
         // Get username from HomeActivity
         Intent intentRcvEdit = getIntent();
         pos = intentRcvEdit.getIntExtra("pos", 0);
@@ -42,6 +46,9 @@ public class ViewMeetupLocationActivity extends AppCompatActivity {
                 googleMap = ((MapFragment) getFragmentManager().
                         findFragmentById(R.id.map)).getMap();
             }
+
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(meetingLocation, 15));
+
             googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             Marker TP = googleMap.addMarker(new MarkerOptions().
                     position(meetingLocation).title("Meetup Location"));
