@@ -333,6 +333,7 @@ public class EditItemActivity extends AppCompatActivity {
         if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
             art.setStatus("available");
             art.setBorrower("");
+            art.setLatLng(null); // reset LatLng to null
             //save entry and so it saves to the server
             saveEntry(view);
             Button button = (Button)findViewById(R.id.item_bids);
