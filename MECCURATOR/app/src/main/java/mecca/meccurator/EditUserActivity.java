@@ -31,8 +31,7 @@ import java.util.concurrent.ExecutionException;
 public class EditUserActivity extends AppCompatActivity {
 
     private ArrayList<User> userList;
-    public String current_user;
-    private String email;
+    private String current_user;
     private static final String USEREDITFILE = "userfile.sav";
     private int pos;
 
@@ -54,9 +53,7 @@ public class EditUserActivity extends AppCompatActivity {
         try {
             userList = new ArrayList<User>();
             userList.addAll(getUserListTask.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -86,27 +83,6 @@ public class EditUserActivity extends AppCompatActivity {
         loadValues();
     }
 
-    // Code from https://github.com/joshua2ua/lonelyTwitter
-    private void loadFromFile() {
-        try {
-        FileInputStream fis = openFileInput(AddNewUserActivity.USERFILE);
-        BufferedReader in = new BufferedReader(new InputStreamReader(fis));
-
-        Gson gson = new Gson();
-        // took from https://google-gson.googlecode.com/svn/trunk/gson/docs/javadocs/com/google/gson/Gson.htmlon Jan-20-2016
-
-        Type listType = new TypeToken<ArrayList<User>>() {
-        }.getType();
-        UserList.users = gson.fromJson(in, listType);
-
-        } catch (FileNotFoundException e) {
-        UserList.users = new ArrayList<User>();
-
-        } catch (IOException e) {
-        throw new RuntimeException();
-        }
-    }
-
     // NOT IMPLEMENTED AS A BUTTON
     // NOT sure if having a delete user button is useful (it's definitely not necessary)
     public void deleteUser(View view) {
@@ -119,7 +95,7 @@ public class EditUserActivity extends AppCompatActivity {
         finish();
     }
 
-    protected void loadValues() {
+    private void loadValues() {
         /* get values to be edited and fill boxes */
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
@@ -127,7 +103,7 @@ public class EditUserActivity extends AppCompatActivity {
         inputEmail.append(UserList.users.get(pos).getEmail());
     }
 
-    protected void saveInFile() {
+    private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(USEREDITFILE, 0);
 
@@ -137,9 +113,6 @@ public class EditUserActivity extends AppCompatActivity {
             out.flush();
             fos.close();
 
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
-            throw new RuntimeException();
         } catch (IOException e) {
             // TODO Auto-generated catch block
             throw new RuntimeException();
@@ -148,12 +121,14 @@ public class EditUserActivity extends AppCompatActivity {
 
     public void saveUser(View view){
 
+        User user = UserList.users.get(pos);
+
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
-        removeUserTask.execute(UserList.users.get(pos));
+        removeUserTask.execute(user);
 
         //get user data
-        ArrayList<String> ownerNotifs = UserList.users.get(pos).getAllNotifications();
-        String ownerFlag = UserList.users.get(pos).getNotificationFlag();
+        ArrayList<String> ownerNotifs = user.getAllNotifications();
+        String ownerFlag = user.getNotificationFlag();
 
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 

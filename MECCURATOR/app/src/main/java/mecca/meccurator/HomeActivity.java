@@ -23,8 +23,8 @@ public class HomeActivity extends AppCompatActivity {
     public String current_user;
     public String keyword;
     private EditText search;
-    int pos;
-    private ArrayList<User> userList;
+    private int pos;
+    protected ArrayList<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

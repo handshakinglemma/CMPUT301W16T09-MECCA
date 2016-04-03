@@ -67,6 +67,11 @@ public class ViewNotificationsActivity extends AppCompatActivity {
             notificationList = UserList.users.get(pos).getAllNotifications();
         }
 
+        //limit size of notification list to keep removing old elements
+        while (notificationList.size() > 10){
+            notificationList.remove(notificationList.size() - 1);
+        }
+
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
         removeUserTask.execute(UserList.users.get(pos));
 
@@ -98,12 +103,5 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /*
-    rn = someone places a bid, notification sent to owner
-    max size = 10
-    once they're looked at notification button colour changes (in oncreate)
-    "Bidder placed a $10 bid on item name"
-    clicking on it takes u to the accept/decline page
-    */
 
 }
