@@ -54,25 +54,13 @@ public class AddNewBidActivity extends AppCompatActivity {
         current_user = newbid.getStringExtra("current_user");
         owner = newbid.getStringExtra("owner");
 
-        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
-        getUserListTask.execute();
-
-        try {
-            userList = new ArrayList<User>();
-            userList.addAll(getUserListTask.get());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
         ownerpos = 0;
 
-        for(User user: userList){
+        for(User user: UserList.users){
             if (owner.equals(user.getUsername())){
                 break;
             }
-            ++ownerpos;
+            ownerpos++;
         }
 
         Button userProfile = (Button) findViewById(R.id.view_owner);
@@ -105,9 +93,7 @@ public class AddNewBidActivity extends AppCompatActivity {
             Toast.makeText(context, saved, duration).show();
             finish();
         }
-
         loadValues();
-
     }
 
     private void loadValues() {
@@ -120,7 +106,6 @@ public class AddNewBidActivity extends AppCompatActivity {
         TextView inputLengthDimensions = (TextView) findViewById(R.id.enterLengthDimensions);
         TextView inputWidthDimensions = (TextView) findViewById(R.id.enterWidthDimensions);
         TextView inputOwner = (TextView) findViewById(R.id.owner);
-
         
         /* append data into EditText box */
         Art art = ArtList.allArt.get(pos);

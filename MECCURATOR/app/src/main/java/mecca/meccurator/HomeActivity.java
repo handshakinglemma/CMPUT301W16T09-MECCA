@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
 
         checkIfConnected();
-        Log.i("TODO", "onResume" + String.valueOf(ArtList.offLineArt));
+        Log.i("TODO", String.valueOf(ArtList.offLineArt));
 
         String art_id = "";
         if (connected && !ArtList.offLineArt.isEmpty()) {
