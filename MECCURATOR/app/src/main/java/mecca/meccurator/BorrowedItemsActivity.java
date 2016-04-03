@@ -55,15 +55,6 @@ public class BorrowedItemsActivity extends AppCompatActivity {
 
         oldBorrowedItems = (ListView) findViewById(R.id.oldBorrowedItems);
 
-        // Pull all server art
-        boolean success = false;
-        while (!success){
-            success = pullAllServerArt();
-        }
-
-        // Save all server art locally
-        saveInFile();
-
         // Load locally saved art
         // Only need to do this once for the lifetime of this activity
         loadFromFile();

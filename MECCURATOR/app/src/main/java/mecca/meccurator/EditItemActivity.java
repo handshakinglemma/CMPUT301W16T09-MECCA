@@ -3,6 +3,8 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
@@ -33,13 +35,13 @@ public class EditItemActivity extends AppCompatActivity {
 
     private int pos;
     public String current_user;
+    boolean connected;
 
     private ImageButton pictureButton;
     private Bitmap thumbnail;
     private ImageView inputImage;
 
     static final int REQUEST_CAPTURING_IMAGE = 1234;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +101,17 @@ public class EditItemActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+
         loadValues();
     }
 
@@ -351,5 +364,15 @@ public class EditItemActivity extends AppCompatActivity {
     public void deletePhoto(View view) {
         thumbnail = null;
         inputImage.setImageBitmap(null);
+    }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
     }
 }

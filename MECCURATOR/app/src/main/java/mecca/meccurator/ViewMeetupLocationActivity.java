@@ -1,6 +1,9 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,11 +25,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 // Reference: http://www.tutorialspoint.com/android/android_google_maps.htm
 public class ViewMeetupLocationActivity extends AppCompatActivity {
 
+    boolean connected;
     private LatLng meetingLocation;
     private GoogleMap googleMap;
     private int pos;
     static final LatLng TutorialsPoint = new LatLng(21 , 57);
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +59,30 @@ public class ViewMeetupLocationActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    protected void onStart() {
+        super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+    }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+    }
 }
 

@@ -2,6 +2,8 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -26,7 +28,10 @@ import java.util.concurrent.ExecutionException;
  * Displays the login bar. User can choose to login or signup. User must login to proceed to home
  */
 public class ViewLoginActivity extends AppCompatActivity {
+
     private static final String USERFILENAME = "userfile.sav";
+
+    boolean connected;
     private EditText username;
     private String username_text;
 
@@ -36,7 +41,6 @@ public class ViewLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_login);
-
 
         Button mEmailSignInButton = (Button) findViewById(R.id.newUser);
         Button viewHomeActivityButton = (Button) findViewById(R.id.login);
@@ -59,38 +63,50 @@ public class ViewLoginActivity extends AppCompatActivity {
 
                 boolean match = false;
 
-                ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
-                getUserListTask.execute("");
-                try {
-                    userList = new ArrayList<>();
-                    userList.addAll(getUserListTask.get());
-                    UserList.users = userList;
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
-                for(User user: UserList.users){
-                    if (username.equals(user.getUsername())){
-                        match = true;
-
-                        Intent intent = new Intent(view.getContext(), HomeActivity.class);
-                        intent.putExtra("current_user", username);
-                        startActivity(intent);
-
-                    }
-                }
-
-                if (!match){  // Simplified boolean expression
+                isConnected();
+                if(!connected) {
                     // If username is incorrect display error message then clear the input
                     Context context = getApplicationContext();
-                    CharSequence saved = "Invalid Username!";
+                    CharSequence saved = "Offline";
                     int duration = Toast.LENGTH_SHORT;
                     Toast.makeText(context, saved, duration).show();
 
                     //EditText inputUser = (EditText) findViewById(R.id.username);
                     inputUser.setText("", EditText.BufferType.EDITABLE);
+                } else {
+                    ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+                    getUserListTask.execute("");
+                    try {
+                        userList = new ArrayList<>();
+                        userList.addAll(getUserListTask.get());
+                        UserList.users = userList;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    }
+
+                    for (User user : UserList.users) {
+                        if (username.equals(user.getUsername())) {
+                            match = true;
+
+                            Intent intent = new Intent(view.getContext(), HomeActivity.class);
+                            intent.putExtra("current_user", username);
+                            startActivity(intent);
+                        }
+                    }
+
+
+                    if (!match) {  // Simplified boolean expression
+                        // If username is incorrect display error message then clear the input
+                        Context context = getApplicationContext();
+                        CharSequence saved = "Invalid Username!";
+                        int duration = Toast.LENGTH_SHORT;
+                        Toast.makeText(context, saved, duration).show();
+
+                        //EditText inputUser = (EditText) findViewById(R.id.username);
+                        inputUser.setText("", EditText.BufferType.EDITABLE);
+                    }
                 }
             }
         });
@@ -137,6 +153,16 @@ public class ViewLoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // This destroys the HomeActivity
         //what it should do on back
+    }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
     }
 
     /*// Create a new user
