@@ -28,6 +28,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -40,6 +41,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     /* file that item listings are saved in */
     protected static final String ARTFILE = "artfile.sav";
     protected static final String OFFLINEART = "offlineart.sav";
+    private ArrayList<User> userList;
 
     boolean connected;
 
@@ -54,6 +56,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     private ImageView inputImage;
     /* also need an input field for photos but idk anything yet so */
     private String current_user;
+    private int userpos;
 
     private Bitmap thumbnail;
 
@@ -102,6 +105,25 @@ public class AddNewItemActivity extends AppCompatActivity {
 
             }
         });
+
+        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
+        getUserListTask.execute();
+
+        try {
+            userList = new ArrayList<User>();
+            userList.addAll(getUserListTask.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        /*userpos = 0;
+
+        for(User user: userList){
+            if (current_user.equals(user.getUsername())){
+                break;
+            }
+            ++userpos;
+        }*/
     }
 
     public void saveEntry(View view){
@@ -157,6 +179,17 @@ public class AddNewItemActivity extends AppCompatActivity {
         Art newestArt = new Art(status, owner, borrower, description, artist, title, dimensions, minprice, thumbnail);
         newestArt.addThumbnail(thumbnail);
 
+        userpos = 0;
+        ArrayList watchlist;
+        for(userpos = 0; userpos < userList.size();userpos++){
+            watchlist = userList.get(userpos).getWatchList();
+            if(watchlist.contains(artist) && !userList.get(userpos).getUsername().equals(current_user)){
+                addNotification(artist);
+            }
+        }
+
+
+
         isConnected();
         String art_id = ""; // Initialize
 
@@ -202,6 +235,35 @@ public class AddNewItemActivity extends AppCompatActivity {
         saveInFile();
         finish();
     }
+
+    private void addNotification(String artist) {
+
+        //get user data
+        ArrayList<String> notifications = UserList.users.get(userpos).getAllNotifications();
+        String email = UserList.users.get(userpos).getEmail();
+        String username =  UserList.users.get(userpos).getUsername();
+        String flag =  "true";
+        ArrayList<String> watchlist = UserList.users.get(userpos).getWatchList();
+
+
+        //Delete user from server
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(UserList.users.get(userpos));
+
+        String newNotification = current_user + " has added an item by " + artist;
+        notifications.add(0, newNotification);
+
+        /* add new entry to list of items */
+        User newestUser = new User(username, email, notifications, flag, watchlist);
+
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+
+        UserList.users.remove(userpos);
+
+        UserList.users.add(userpos, newestUser);
+    }
+
 
     private void saveInFile() {
         try {

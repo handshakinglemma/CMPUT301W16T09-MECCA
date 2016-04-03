@@ -113,6 +113,7 @@ public class ViewWatchListActivity extends AppCompatActivity {
         ArrayList<String> ownerNotifs = user.getAllNotifications();
         String ownerFlag = user.getNotificationFlag();
         String email = user.getEmail();
+        String username = user.getUsername();
 
         if(artist.equals("")){
             newArtist.setError("Empty Field!");
@@ -122,7 +123,7 @@ public class ViewWatchListActivity extends AppCompatActivity {
         watchList.add(artist);
 
         /* add new entry to list of items */
-        User newestUser = new User(current_user, email, ownerNotifs, ownerFlag, watchList);
+        User newestUser = new User(username, email, ownerNotifs, ownerFlag, watchList);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);

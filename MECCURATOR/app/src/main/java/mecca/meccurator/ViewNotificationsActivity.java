@@ -3,6 +3,7 @@ package mecca.meccurator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -51,13 +52,17 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         }
 
         pos = 0;
-
+        Log.i("userList", String.valueOf(userList));
         for(User user: userList){
             if (current_user.equals(user.getUsername())){
                 break;
             }
             ++pos;
         }
+
+        Log.i("pos", String.valueOf(pos));
+
+        Log.i("user", String.valueOf(UserList.users.get(pos)));
 
         if(UserList.users.get(pos).getAllNotifications() == null){
             notificationList = new ArrayList<String>();
@@ -79,7 +84,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         ArrayList<String> notifs = UserList.users.get(pos).getAllNotifications();
 
          /* add new entry to list of items */
-        User newestUser = new User(current_user, email, notifs, flag, null);
+        User newestUser = new User(UserList.users.get(pos).getUsername(), email, notifs, flag, null);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);
