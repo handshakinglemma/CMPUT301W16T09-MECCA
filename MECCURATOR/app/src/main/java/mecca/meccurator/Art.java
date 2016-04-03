@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
@@ -29,6 +31,7 @@ public class Art {
     private String dimensions;
     protected BidList bids;
     private float minprice;
+    private LatLng latLng;
 
     public Art(String status, String owner, String borrower, String description,
                String artist, String title, String dimensions, float minprice, Bitmap thumbnail) {
@@ -42,6 +45,7 @@ public class Art {
         this.dimensions = dimensions;
         this.minprice = minprice;
         this.bids = getBidLists();
+        this.latLng = null;
 
     }
 
@@ -182,6 +186,14 @@ public class Art {
 
     public void setBids(BidList bids){
         this.bids = bids;
+    }
+
+    public void setLatLng(LatLng maplatLng){
+        this.latLng = maplatLng;
+    }
+
+    public LatLng getLatLng(){
+        return this.latLng;
     }
 
     public ArrayList<Bid> getBids(){

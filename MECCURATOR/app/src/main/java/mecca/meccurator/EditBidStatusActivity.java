@@ -1,5 +1,6 @@
 package mecca.meccurator;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,10 +30,10 @@ import java.util.concurrent.ExecutionException;
 
 public class EditBidStatusActivity extends AppCompatActivity {
 
-    private int pos; //item position
+    protected int pos; //item position
     int bidpos; //bidlist pos
     String current_user;
-
+    public String address;
 
     private User bidderProfile;
     private ArrayList<User> allServerUsers = new ArrayList<User>();
@@ -41,12 +42,15 @@ public class EditBidStatusActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.i("TODO", "OnCreate");
         setContentView(R.layout.activity_edit_bid_status);
 
         Intent intent = getIntent();
         pos = intent.getIntExtra("item_position", 0);
         bidpos = intent.getIntExtra("bid_position", 0);
         current_user = intent.getStringExtra("current_user");
+
+        loadValues();
 
         String bidder = ArtList.allArt.get(pos).getBidLists().getBid(bidpos).getBidder();
         Float bidOffer = ArtList.allArt.get(pos).getBidLists().getBid(bidpos).getRate();
@@ -84,7 +88,7 @@ public class EditBidStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        loadValues();
+        //loadValues();
 
     }
 
@@ -92,6 +96,8 @@ public class EditBidStatusActivity extends AppCompatActivity {
     //and u have an accept decline buttons
 
     public void acceptBidButton(View view){
+
+        Log.i("TODO", "Accept bid");
 
         //change variable names
         Art art = ArtList.allArt.get(pos);
@@ -126,21 +132,35 @@ public class EditBidStatusActivity extends AppCompatActivity {
 
         art.setId(art_id); // set id locally
 
-        saveInFile();
-        //after accepting the bid, go to edit item activity
-        //Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
-        //edit.putExtra("position", pos);
-        //edit.putExtra("current_user", current_user);
-        //finish();
-        //startActivity(edit);
-
+        Log.i("TODO", "Call map intent ");
         // after accepting bid, go to place picker activity
         Intent map = new Intent(getApplicationContext(), PlacePickerActivity.class);
-        map.putExtra("art_id", art_id);
-        finish();
+        map.putExtra("position", pos);
+        //startActivityForResult(map, 2);
         startActivity(map);
-
     }
+
+    /*@Override
+    protected void onActivityResult(int requestCode,
+                                    int resultCode, Intent data) {
+
+        if (requestCode == 2
+                && resultCode == Activity.RESULT_OK) {
+
+
+            saveInFile();
+
+            Log.i("TODO", "Immediately before call back to Home ");
+
+            //after accepting the bid, go to edit item activity
+            Intent edit = new Intent(getApplicationContext(), HomeActivity.class);
+            edit.putExtra("position", pos);
+            edit.putExtra("current_user", current_user);
+            finish();
+            startActivity(edit);
+
+        }
+    }*/
 
     public void setBidderProfile(ArrayList<User> userList) {
         for (User u : userList) {
@@ -190,10 +210,6 @@ public class EditBidStatusActivity extends AppCompatActivity {
             art.setMinprice(minprice);
 
         }
-
-
-
-
 
         // Add the art to Elasticsearch
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
