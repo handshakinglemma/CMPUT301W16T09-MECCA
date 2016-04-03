@@ -68,29 +68,32 @@ public class ViewNotificationsActivity extends AppCompatActivity {
             notificationList = UserList.users.get(pos).getAllNotifications();
         }
 
-        //limit size of notification list to keep removing old elements
+        // Limit size of notification list to keep removing old elements
         while (notificationList.size() > 10){
             notificationList.remove(notificationList.size() - 1);
         }
 
-        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
-        removeUserTask.execute(UserList.users.get(pos));
-
-        //set off notification flag
+        // Set off notification flag
         String email = UserList.users.get(pos).getEmail();
         String flag = "false";
         ArrayList<String> notifs = UserList.users.get(pos).getAllNotifications();
 
-         /* add new entry to list of items */
+        // Create edited user
         User newestUser = new User(current_user, email, notifs, flag);
 
-        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
-        addUserTask.execute(newestUser);
+        // Remove user
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(UserList.users.get(pos));
 
         UserList.users.remove(pos);
 
+        // Add edited user
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+
         UserList.users.add(pos, newestUser);
 
+        // Set Notification button
         Button viewWatchList = (Button) findViewById(R.id.watchList);
         viewWatchList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +102,6 @@ public class ViewNotificationsActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
 
     private void viewWatchList(View v) {
