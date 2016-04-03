@@ -1,6 +1,9 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -34,6 +38,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class ViewUserProfileActivity extends AppCompatActivity {
 
+    boolean connected;
     private static final String USERFILE = "userfile.sav";
     private String owner;
     private User ownerProfile;
@@ -70,6 +75,17 @@ public class ViewUserProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+
         loadFromFile();
     }
 
@@ -147,6 +163,16 @@ public class ViewUserProfileActivity extends AppCompatActivity {
                 ie.printStackTrace();
             }
             return false;
+        }
+    }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
         }
     }
 }

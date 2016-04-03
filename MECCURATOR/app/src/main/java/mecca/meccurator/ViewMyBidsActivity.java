@@ -55,15 +55,6 @@ public class ViewMyBidsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         current_user = intent.getStringExtra("current_user");
 
-        // Pull all server art
-        boolean success = false;
-        while (!success){
-            success = pullAllServerArt();
-        }
-
-        // Save all server art locally
-        saveInFile();
-
         // Load locally saved art
         // Only need to do this once for the lifetime of this activity
         loadFromFile();

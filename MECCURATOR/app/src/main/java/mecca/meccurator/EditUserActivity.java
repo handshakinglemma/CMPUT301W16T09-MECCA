@@ -2,6 +2,8 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,6 +32,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class EditUserActivity extends AppCompatActivity {
 
+    boolean connected;
     private ArrayList<User> userList;
     private String current_user;
     private static final String USEREDITFILE = "userfile.sav";
@@ -80,6 +83,17 @@ public class EditUserActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+
         loadValues();
     }
 
@@ -161,5 +175,15 @@ public class EditUserActivity extends AppCompatActivity {
         /* end add activity */
         saveInFile();
         finish();
+    }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
     }
 }

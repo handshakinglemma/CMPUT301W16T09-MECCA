@@ -51,7 +51,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     private ArrayList<Art> allServerArt = new ArrayList<Art>();
     private ArrayAdapter<Art> adapter; // Adapter used for displaying the ListView items
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -146,8 +145,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
                 adapter = new ArtAdapter(ViewMyListingsActivity.this, selectedArt, current_user);
                 oldArtListings.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
-
-                Toast.makeText(parent.getContext(), "Selected: " + choiceSelected, Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -161,7 +158,6 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
     protected void onStart() {
 
         super.onStart();
-        Log.i("TODO", "ON START");
         // Sets variable selectedArt and updates adapter
         setSelectedArt(ArtList.allArt);
     }

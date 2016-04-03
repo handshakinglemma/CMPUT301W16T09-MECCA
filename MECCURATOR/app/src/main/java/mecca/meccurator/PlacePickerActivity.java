@@ -1,7 +1,10 @@
 package mecca.meccurator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -26,6 +30,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 // code for tutorial: https://github.com/Truiton/PlacePicker
 // solution to issue: https://stackoverflow.com/questions/30434238/place-picker-automatically-close-after-launch
 public class PlacePickerActivity extends AppCompatActivity {
+    boolean connected;
     protected final Place meetingSpot = null;
     private static final int PLACE_PICKER_REQUEST = 1;
     protected int pos;
@@ -55,6 +60,20 @@ public class PlacePickerActivity extends AppCompatActivity {
         } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
             Log.i("TODO", "map Not working");
+        }
+    }
+
+    protected void onStart() {
+        super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
         }
     }
 
@@ -88,5 +107,14 @@ public class PlacePickerActivity extends AppCompatActivity {
 
     }
 
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+    }
 
 }

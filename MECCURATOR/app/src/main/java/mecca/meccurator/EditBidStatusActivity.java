@@ -1,7 +1,10 @@
 package mecca.meccurator;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -30,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 
 public class EditBidStatusActivity extends AppCompatActivity {
 
+    boolean connected;
     protected int pos; //item position
     int bidpos; //bidlist pos
     String current_user;
@@ -90,7 +94,17 @@ public class EditBidStatusActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i("TODO", "OnStart");
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+
         Art art = ArtList.allArt.get(pos);
         if ( art.getLatLng()!= null){
             addItemToServer();
@@ -302,4 +316,15 @@ public class EditBidStatusActivity extends AppCompatActivity {
             return false;
         }
     }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+    }
+
 }

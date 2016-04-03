@@ -264,8 +264,6 @@ public class AddNewItemActivity extends AppCompatActivity {
                     }
                 }
             }
-
-
         }
     }
 

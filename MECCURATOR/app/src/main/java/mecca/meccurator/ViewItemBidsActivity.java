@@ -1,6 +1,9 @@
 package mecca.meccurator;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,6 +32,7 @@ import java.util.ArrayList;
  */
 public class ViewItemBidsActivity extends AppCompatActivity {
 
+    boolean connected;
     private ListView itemBidListings;
     private ArrayAdapter<Bid> adapter;
     private ArrayList<Bid> oldItemBids = new ArrayList<>();
@@ -38,7 +43,6 @@ public class ViewItemBidsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_item_bids);
-
 
         itemBidListings = (ListView) findViewById(R.id.itemBidListings);
 
@@ -68,13 +72,23 @@ public class ViewItemBidsActivity extends AppCompatActivity {
     protected void onStart() {
         // TODO Auto-generated method stub
         super.onStart();
+
+        isConnected();
+        if (!connected) {
+            /* toast message */
+            Context context = getApplicationContext();
+            CharSequence saved = "Offline";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            finish();
+        }
+
         loadFromFile();
 
         adapter = new ArrayAdapter<Bid>(ViewItemBidsActivity.this,
                 R.layout.bid_item, oldItemBids);
         itemBidListings.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-
     }
 
     @Override
@@ -115,4 +129,15 @@ public class ViewItemBidsActivity extends AppCompatActivity {
             throw new RuntimeException();
         }
     }
+
+    public void isConnected() {
+        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            connected = true;
+        } else {
+            connected = false;
+        }
+    }
+
 }
