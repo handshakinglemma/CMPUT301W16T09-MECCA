@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -67,6 +68,11 @@ public class ViewNotificationsActivity extends AppCompatActivity {
             notificationList = UserList.users.get(pos).getAllNotifications();
         }
 
+        //limit size of notification list to keep removing old elements
+        while (notificationList.size() > 10){
+            notificationList.remove(notificationList.size() - 1);
+        }
+
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
         removeUserTask.execute(UserList.users.get(pos));
 
@@ -84,6 +90,22 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         UserList.users.remove(pos);
 
         UserList.users.add(pos, newestUser);
+
+        Button viewWatchList = (Button) findViewById(R.id.watchList);
+        viewWatchList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewWatchList(v);
+
+            }
+        });
+
+
+    }
+
+    private void viewWatchList(View v) {
+        Intent intent = new Intent(this, ViewWatchListActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -98,12 +120,5 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
     }
 
-    /*
-    rn = someone places a bid, notification sent to owner
-    max size = 10
-    once they're looked at notification button colour changes (in oncreate)
-    "Bidder placed a $10 bid on item name"
-    clicking on it takes u to the accept/decline page
-    */
 
 }

@@ -66,14 +66,25 @@ public class EditItemActivity extends AppCompatActivity {
         Button viewBids = (Button) findViewById(R.id.item_bids);
 
         //if the object is borrowed, change the text on the button
-        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+        final Art art = ArtList.allArt.get(pos);
+
+        if(art.getStatus().equals("borrowed")){
             viewBids.setText("Set Available");
         }
 
         Button deleteItem = (Button) findViewById(R.id.delete);
         deleteItem.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {deleteEntry(v);
+            public void onClick(View v) {
+                if(art.getStatus().equals("borrowed") || art.getStatus().equals("bidded")){
+                    Context context = getApplicationContext();
+                    CharSequence text = "CANNOT DELETE BIDDED OR BORROWED ITEM";
+                    int duration = Toast.LENGTH_SHORT;
+                    Toast.makeText(context, text, duration).show();
+
+                }else{
+                    deleteEntry(v);
+                }
             }
         });
 
@@ -93,10 +104,11 @@ public class EditItemActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
+
         super.onResume();
         loadValues();
-
-        if(ArtList.allArt.get(pos).getStatus().equals("borrowed")){
+        Art art = ArtList.allArt.get(pos);
+        if(art.getStatus().equals("borrowed")){
             Button button = (Button)findViewById(R.id.item_bids);
             button.setText("Set Available");
         }

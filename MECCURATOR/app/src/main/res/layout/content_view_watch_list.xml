@@ -7,15 +7,15 @@
     android:orientation="vertical"
     android:padding="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="mecca.meccurator.ViewNotificationsActivity"
-    tools:showIn="@layout/activity_view_notifications">
+    tools:context="mecca.meccurator.ViewWatchListActivity"
+    tools:showIn="@layout/activity_view_watch_list">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:text="@string/title_activity_view_notifications"
+        android:text="@string/watchlist"
         android:textSize="35sp"
         android:textColor="@color/textColor"
         android:gravity="center" />
@@ -28,11 +28,32 @@
         android:scrollbars="vertical"
         tools:listitem="@android:layout/simple_expandable_list_item_2"/>
 
-    <Button
-        android:layout_width="309dp"
-        android:layout_height="wrap_content"
-        android:text="Watch List"
-        android:id="@+id/watchList"
-        android:layout_gravity="center_horizontal" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_weight="1.5" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/saveArtist"
+            android:layout_gravity="right"
+            android:layout_weight="0.32" />
+
+    </LinearLayout>
+
 
 </LinearLayout>
+
+
+
+

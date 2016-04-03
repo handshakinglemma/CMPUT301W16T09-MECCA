@@ -7,7 +7,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-feature android:name="android.hardware.camera" android:required="true" />
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
 
     <application
         android:allowBackup="true"
@@ -32,7 +34,7 @@
         <activity
             android:name=".HomeActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ViewMyListingsActivity"
             android:label="@string/title_activity_view_art_listings"
@@ -120,6 +122,15 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="mecca.meccurator.ViewItemBidsActivity" />
+        </activity>
+        <activity
+            android:name=".ViewWatchListActivity"
+            android:label="@string/title_activity_view_watch_list"
+            android:parentActivityName=".ViewNotificationsActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="mecca.meccurator.ViewNotificationsActivity" />
         </activity>
     </application>
 
