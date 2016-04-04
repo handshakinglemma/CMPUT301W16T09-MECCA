@@ -212,6 +212,8 @@ public class AddNewItemActivity extends AppCompatActivity {
                 ArtList offLineArt = new ArtList();
                 ArtList.offLineArt.add(newestArt);
             }
+
+            saveOffline();
         }
 
         ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
@@ -231,7 +233,6 @@ public class AddNewItemActivity extends AppCompatActivity {
         Toast.makeText(context, saved, duration).show();
 
         /* end add activity */
-        saveOffline();
         saveInFile();
         finish();
     }

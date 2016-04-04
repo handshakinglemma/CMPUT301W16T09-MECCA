@@ -121,7 +121,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         TextView inputWidthDimensions = (TextView) findViewById(R.id.enterWidthDimensions);
         TextView inputOwner = (TextView) findViewById(R.id.owner);
 
-        
+
         /* append data into EditText box */
         Art art = ArtList.allArt.get(pos);
         inputArtist.setText(art.getArtist());

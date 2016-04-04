@@ -56,8 +56,6 @@ public class ViewSearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        Log.i("TODO", "ON CREATE");
-
         setContentView(R.layout.activity_view_search);
         oldSearchListings = (ListView) findViewById(R.id.oldSearchListings);
 
@@ -79,12 +77,8 @@ public class ViewSearchActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
                 // Need to find position of art in ArtList.allArt
-                Log.i("clicked pos", String.valueOf(pos));
                 Art art_clicked = adapter.getItem(pos);
-                Log.i("clicked art", art_clicked.toString());
-                Log.i("ID of clicked art", art_clicked.getId());
                 int meta_position = ArtList.allArt.indexOf(art_clicked);
-                Log.i("meta pos", String.valueOf(meta_position));
                 owner = art_clicked.getOwner();
 
                 Intent newbid = new Intent(getApplicationContext(), AddNewBidActivity.class);
@@ -140,7 +134,6 @@ public class ViewSearchActivity extends AppCompatActivity {
 
                         String desc = a.getDescription().toLowerCase().trim().replaceAll("\\W", " ");
                         ArrayList<String> compare = new ArrayList(Arrays.asList(desc.split(" ")));
-                        Log.i("TODO", "Split description:");
 
                         for (String c : compare) {
                             Log.i("TODO", "*" + c + "*");
@@ -155,9 +148,6 @@ public class ViewSearchActivity extends AppCompatActivity {
                 selectedArt = new ArrayList<>();
             }
         }
-
-        Log.i("Size of selected Art", String.valueOf(selectedArt.size()));
-        Log.i("Size of All art", String.valueOf(ArtList.allArt.size()));
 
         // Update adapter
         adapter = new ArtAdapter(ViewSearchActivity.this,
@@ -203,5 +193,4 @@ public class ViewSearchActivity extends AppCompatActivity {
             ArtList.allArt = new ArrayList<Art>();
         }
     }
-
 }
