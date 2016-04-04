@@ -190,8 +190,6 @@ public class AddNewItemActivity extends AppCompatActivity {
             }
         }
 
-
-
         isConnected();
         Log.i("connected", String.valueOf(connected));
         String art_id = ""; // Initialize
@@ -208,6 +206,7 @@ public class AddNewItemActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
+            //Log.i("TODO",String.valueOf(connected));
             try {
                 // add it to the offLineArt file
                 ArtList.offLineArt.add(newestArt);
@@ -268,7 +267,6 @@ public class AddNewItemActivity extends AppCompatActivity {
 
         UserList.users.add(userpos, newestUser);
     }
-
 
     private void saveInFile() {
         try {
