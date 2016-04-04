@@ -25,7 +25,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
     public String current_user;
     protected String email;
     protected static final String USEREDITFILE = "userfile.sav";
-    int pos;
+    private int pos;
     protected ArrayList<String> notificationList;
 
     @Override

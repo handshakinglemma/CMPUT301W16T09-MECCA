@@ -19,6 +19,7 @@ public class testArt extends ActivityInstrumentationTestCase2 {
     //           String artist, String title, String dimensions, float minprice) {
 
     Bitmap thumbnail;
+
     public void testSetStatus() {
         Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
                 "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbnail);
@@ -241,5 +242,14 @@ public class testArt extends ActivityInstrumentationTestCase2 {
         bidList.addBid(bid2);
         // make sure they're the same bidList
         assertEquals(art.getBidLists(), expected);
+    }
+
+    public void testGetThumbnail(){
+
+        Art art = new Art("unavailable", "Mercy", "Chaitali", "A bunch of colourful scribbles",
+                "Mercy", "Taste the Rainbow", "8x11 in", 1, thumbnail);
+
+        assertEquals(art.getThumbnail(), null);
+
     }
 }
