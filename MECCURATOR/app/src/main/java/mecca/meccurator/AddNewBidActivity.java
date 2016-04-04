@@ -98,6 +98,9 @@ public class AddNewBidActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Check if the app is connected to wifi before loading values.
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -163,7 +166,10 @@ public class AddNewBidActivity extends AppCompatActivity {
         }
     }
 
-    // click to view owner info
+    /**
+     * Click UserProfileButton to view user's profile.
+     * @param view
+     */
     public void ViewUserProfileButton(View view) {
         Intent intent = new Intent(this, ViewUserProfileActivity.class);
         intent.putExtra("owner", owner);
@@ -263,6 +269,9 @@ public class AddNewBidActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Returns true if phone is connected to wifi; false otherwise.
+     */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
