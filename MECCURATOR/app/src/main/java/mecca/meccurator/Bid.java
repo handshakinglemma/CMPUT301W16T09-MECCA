@@ -1,5 +1,7 @@
 package mecca.meccurator;
 
+import java.math.BigDecimal;
+
 /**
  * Each bid is associated with a bid list and this bid list is associated with one art item.
  */
@@ -11,7 +13,7 @@ public class Bid {
     /* each bid has a bidder who made the bid and a rate */
     public Bid(String bidder, float rate) {
         this.bidder = bidder;
-        this.rate = rate;
+        this.rate = round(rate);
     }
 
     public String getBidder() {
@@ -27,7 +29,7 @@ public class Bid {
     }
 
     public void setRate(float rate) {
-        this.rate = rate;
+        this.rate = round(rate);
     }
 
     @Override
@@ -37,4 +39,14 @@ public class Bid {
         // ie. some listviews should show different attributes
         return bidder + ": " + "$" + rate;
     }
+
+    /**
+     * method taken from http://stackoverflow.com/questions/8911356/whats-the-best-practice-to-round-a-float-to-2-decimals on Apr-04-16
+     * @param price to be rounded
+     * @return rounded price
+     */
+    public static float round(float price) {
+        return BigDecimal.valueOf(price).setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
 }
