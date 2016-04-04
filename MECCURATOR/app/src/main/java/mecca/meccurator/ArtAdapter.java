@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * Adapter for Art.
  * Created by cjvenhuis on 2016-04-01.
  */
 public class ArtAdapter extends ArrayAdapter<Art> {
