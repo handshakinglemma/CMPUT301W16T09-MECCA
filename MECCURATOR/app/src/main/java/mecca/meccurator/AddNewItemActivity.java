@@ -43,7 +43,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     protected static final String OFFLINEART = "offlineart.sav";
     private ArrayList<User> userList;
 
-    boolean connected;
+    private boolean connected;
 
     /* initialize all input fields */
     private EditText inputTitle;
@@ -129,6 +129,15 @@ public class AddNewItemActivity extends AppCompatActivity {
 
     public void saveEntry(View view){
 
+        isConnected();
+        if(!connected && ArtList.offLineArt.size()>0) {
+            Context context = getApplicationContext();
+            CharSequence saved = "Already added offline art!";
+            int duration = Toast.LENGTH_SHORT;
+            Toast.makeText(context, saved, duration).show();
+            return;
+        }
+
         Log.i("TODO", "saveEntry");
 
         float minprice;
@@ -195,7 +204,6 @@ public class AddNewItemActivity extends AppCompatActivity {
                 return;
             }
         }
-
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
