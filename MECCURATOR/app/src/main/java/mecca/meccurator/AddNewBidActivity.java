@@ -2,6 +2,7 @@ package mecca.meccurator;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +41,11 @@ public class AddNewBidActivity extends AppCompatActivity {
     //ArtList myBids; //= new ArtList();
     int ownerpos;
     protected ArrayList<User> userList;
-
     protected static final String TRUE = "true";
+
+    private ImageButton pictureButton;
+    private Bitmap thumbnail;
+    private ImageView inputImage;
 
 
     //also make an add notification method
@@ -120,6 +126,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         TextView inputLengthDimensions = (TextView) findViewById(R.id.enterLengthDimensions);
         TextView inputWidthDimensions = (TextView) findViewById(R.id.enterWidthDimensions);
         TextView inputOwner = (TextView) findViewById(R.id.owner);
+        ImageView inputImage = (ImageView) findViewById(R.id.imageView1);
 
 
         /* append data into EditText box */
@@ -131,6 +138,10 @@ public class AddNewBidActivity extends AppCompatActivity {
         inputLengthDimensions.setText(art.getLength());
         inputWidthDimensions.setText(art.getWidth());
         inputOwner.setText(art.getOwner());
+
+        //set thumbnail
+        thumbnail = art.getThumbnail();
+        inputImage.setImageBitmap(thumbnail);
     }
 
     private void saveInFile() {
@@ -202,6 +213,8 @@ public class AddNewBidActivity extends AppCompatActivity {
         bids = art.getBidLists();
         bids.addBid(bid);
         art.setBids(bids);
+
+        art.addThumbnail(thumbnail);
 
         //after this SAVE to ur own bids
         //and send a notif to the owner
