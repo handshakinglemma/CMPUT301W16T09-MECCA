@@ -7,6 +7,7 @@ import android.util.Base64;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import io.searchbox.annotations.JestId;
@@ -43,7 +44,7 @@ public class Art {
         this.title = title;
         this.thumbnail = thumbnail;
         this.dimensions = dimensions;
-        this.minprice = minprice;
+        this.minprice = round(minprice);
         this.bids = getBidLists();
         this.latLng = null;
 
@@ -152,7 +153,7 @@ public class Art {
     }
 
     public void setMinprice(float minprice) {
-        this.minprice = minprice;
+        this.minprice = round(minprice);
     }
 
     // Can eventually use this to set SeachResultActivity's listview view?
@@ -215,4 +216,14 @@ public class Art {
         return bids;
 
     }
+
+    /**
+     * method taken from http://stackoverflow.com/questions/8911356/whats-the-best-practice-to-round-a-float-to-2-decimals on Apr-04-16
+     * @param price to be rounded
+     * @return rounded price
+     */
+    public static float round(float price) {
+        return BigDecimal.valueOf(price).setScale(2,BigDecimal.ROUND_HALF_UP).floatValue();
+    }
+
 }
