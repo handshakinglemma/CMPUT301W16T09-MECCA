@@ -82,9 +82,11 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         String email = UserList.users.get(pos).getEmail();
         String flag = "false";
         ArrayList<String> notifs = UserList.users.get(pos).getAllNotifications();
+        ArrayList<String> watchlist = UserList.users.get(pos).getWatchList();
+        
 
          /* add new entry to list of items */
-        User newestUser = new User(UserList.users.get(pos).getUsername(), email, notifs, flag, null);
+        User newestUser = new User(UserList.users.get(pos).getUsername(), email, notifs, flag, watchlist);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);
