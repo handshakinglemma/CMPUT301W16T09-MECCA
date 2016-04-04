@@ -139,7 +139,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
 
         View spinner = solo.getView(Spinner.class, 0);
         solo.clickOnView(spinner);
-        solo.clickOnView(solo.getView(TextView.class, 3));
+        solo.clickOnView(solo.getView(TextView.class, 2));
         solo.clickLongInList(0);
         solo.assertCurrentActivity("Did not open Item profile", EditItemActivity.class);
 
@@ -147,19 +147,23 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Did not open Item Bids", ViewItemBidsActivity.class);
 
         solo.clickLongInList(0);
-        solo.assertCurrentActivity("Did not view Bid", EditBidStatusActivity.class);
+        solo.assertCurrentActivity("Did not view Bid", PlacePickerActivity.class);
 
         solo.clickOnButton("Accept");
-        solo.assertCurrentActivity("Did not accept the bid", EditItemActivity.class);
+        solo.waitForActivity("PlacePickerActivity", 2000);
+        solo.clickLongOnScreen(339, 838);
 
-        solo.goBack();
-        solo.goBack();
-        solo.waitForActivity("ViewMyListingsActivity", 2000);
-        solo.assertCurrentActivity("Did not open My listings", ViewMyListingsActivity.class);
+        solo.waitForActivity("HomeActivity", 2000);
+        solo.assertCurrentActivity("Did not open home activity", HomeActivity.class);
     }
-
+    
     public void testAcceptBid() {
         AcceptBid();
+        solo.assertCurrentActivity("Did not open home activity", HomeActivity.class);
+
+        solo.clickOnButton("My Listings");
+        solo.assertCurrentActivity("Did not open My Listings", ViewMyListingsActivity.class);
+
         solo.pressSpinnerItem(0, 4);
         solo.waitForText("Borrowed Items");
         solo.clickLongInList(0);
@@ -186,7 +190,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
 
         View spinner = solo.getView(Spinner.class, 0);
         solo.clickOnView(spinner);
-        solo.clickOnView(solo.getView(TextView.class, 3));
+        solo.clickOnView(solo.getView(TextView.class, 2));
         solo.clickLongInList(0);
         solo.assertCurrentActivity("Did not open Item profile", EditItemActivity.class);
 
@@ -213,15 +217,40 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         View spinner = solo.getView(Spinner.class, 0);
         solo.clickOnView(spinner);
         solo.waitForText("Bidded Items");
-        solo.clickOnView(solo.getView(TextView.class, 4));
+        solo.clickOnView(solo.getView(TextView.class, 3));
 
         assertTrue(solo.searchText("Borrowed Items"));
         assertEquals(false, solo.searchText("Available"));
         assertEquals(false, solo.searchText("Bidded"));
     }
 
-    public void testResetAvailabilityButton() {
+    public void testGeoLocationBorrower() {
         AcceptBid();
+        solo.assertCurrentActivity("Did not open home activity", HomeActivity.class);
+
+        solo.clickOnButton("Logout");
+        solo.assertCurrentActivity("Log out button did not work", ViewLoginActivity.class);
+
+        logIn("UserTest2");
+        solo.clickOnButton("My Borrowed Items");
+        solo.assertCurrentActivity("Did not take me to my borrowed items", BorrowedItemsActivity.class);
+
+        assertTrue(solo.searchText("ArtworkTitleTest1"));
+        solo.clickLongInList(0);
+        solo.waitForActivity("ViewMeetupLocationActivity", 2000);
+        solo.assertCurrentActivity("Opened Meetup location", ViewMeetupLocationActivity.class);
+
+        solo.goBackToActivity("BorrowedItemsActivity");
+        solo.goBack();
+        solo.assertCurrentActivity("Did not go back to HomeActivity", HomeActivity.class);
+
+        solo.clickOnButton("Logout");
+        solo.assertCurrentActivity("Log out button did not work", ViewLoginActivity.class);
+
+        logIn("UserTest1");
+
+        solo.clickOnButton("My Listings");
+        solo.assertCurrentActivity("Did not open My Listings", ViewMyListingsActivity.class);
 
         solo.pressSpinnerItem(0, 4);
         solo.waitForText("Borrowed Items");
@@ -233,6 +262,4 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
 
         deleteItem();
     }
-
-
 }
