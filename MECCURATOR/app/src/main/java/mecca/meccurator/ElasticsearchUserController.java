@@ -76,7 +76,7 @@ public class ElasticsearchUserController {
                         user.setId(execute.getId());
                         Log.i("TODO", "Insert User was SUCCESSFUL");
                     } else {
-                        Log.i("TODO", "Insert User failed");
+                        Log.i("TODO", "Insert User FAILED");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

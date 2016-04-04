@@ -66,6 +66,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_item);
+        Log.i("TODO", "AddNewItemActivity OnCreate");
 
         /**
          * declare all input fields
@@ -219,7 +220,8 @@ public class AddNewItemActivity extends AppCompatActivity {
             saveOffline();
         }
 
-        ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
+        //ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
+        newestArt.setId(art_id);
 
         try{
             ArtList.allArt.add(newestArt);
@@ -241,6 +243,8 @@ public class AddNewItemActivity extends AppCompatActivity {
     }
 
     private void addNotification(String artist) {
+
+        Log.i("TODO", "addNotification");
 
         //get user data
         ArrayList<String> notifications = UserList.users.get(userpos).getAllNotifications();
@@ -269,6 +273,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     }
 
     private void saveInFile() {
+        Log.i("TODO", "saveInFile");
         try {
             FileOutputStream fos = openFileOutput(ARTFILE, 0);
 
@@ -288,6 +293,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     }
 
     private void saveOffline() {
+        Log.i("TODO", "saveOffline");
         try {
             FileOutputStream fos = openFileOutput(OFFLINEART, 0);
 
@@ -309,6 +315,7 @@ public class AddNewItemActivity extends AppCompatActivity {
     // http://developer.android.com/training/camera/photobasics.html
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent){
+        Log.i("TODO", "onActivityResult");
         //// TODO: 16-03-25 ADD SIZE CHECKING 
         if (requestCode == REQUEST_CAPTURING_IMAGE && resultCode == RESULT_OK){
             Bundle extras = intent.getExtras();

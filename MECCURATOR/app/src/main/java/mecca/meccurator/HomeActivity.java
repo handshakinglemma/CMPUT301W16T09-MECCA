@@ -251,6 +251,7 @@ public class HomeActivity extends AppCompatActivity {
     public void addOffLineArt(){
         // attempt to add offLineArt to the server
         // should already be in allArt but we need to set the id.
+        Log.i("TODO", "offLineArt size " + ArtList.offLineArt.size());
         for (Art art : ArtList.offLineArt) {
             String art_id = "";
             ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
