@@ -276,7 +276,7 @@ public class HomeActivity extends AppCompatActivity {
 
             ArtList.offLineArt.remove(art);
             Log.i("TODO", String.valueOf(ArtList.offLineArt.size()));
-            Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - ArtList.offLineArt.size()));
+            Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - 1 - ArtList.offLineArt.size()));
         }
     }
 
