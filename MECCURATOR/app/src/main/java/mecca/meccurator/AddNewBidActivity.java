@@ -119,6 +119,9 @@ public class AddNewBidActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Load values into text views from ArtList.allArt.get(pos)
+     */
     private void loadValues() {
 
         /* get values to be edited and fill boxes */
@@ -147,6 +150,9 @@ public class AddNewBidActivity extends AppCompatActivity {
         inputImage.setImageBitmap(thumbnail);
     }
 
+    /**
+     * Save the ArtList.allArt to file
+     */
     private void saveInFile() {
         try {
             FileOutputStream fos = openFileOutput(AddNewItemActivity.ARTFILE, 0);
@@ -177,6 +183,11 @@ public class AddNewBidActivity extends AppCompatActivity {
     }
 
     // TODO set notification flag on item and add notification to owner's notification list
+
+    /**
+     * saveBidButton updates the item bids and sends a notification to the user.
+     * @param view
+     */
     public void saveBidButton(View view){
 
         Art art =  ArtList.allArt.get(pos);
