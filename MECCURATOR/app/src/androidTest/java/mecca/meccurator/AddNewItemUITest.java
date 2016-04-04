@@ -270,4 +270,29 @@ public class AddNewItemUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Did not open my listings", ViewMyListingsActivity.class);
         DeleteItem();
     }
+
+    public void testOffline() {
+        solo.setWiFiData(false);
+
+        solo.clickOnButton("My Listings");
+        solo.assertCurrentActivity("My Listings button did not work.", ViewMyListingsActivity.class);
+
+        View v = solo.getView(R.id.additembutton);
+        solo.clickOnView(v);
+        solo.assertCurrentActivity("Add New Item button did not work", AddNewItemActivity.class);
+
+        solo.enterText((EditText) solo.getView(mecca.meccurator.R.id.enterTitle), "ArtworkTitleTest1");
+        solo.enterText((EditText) solo.getView(R.id.enterArtist), "ArtworkArtistTest1");
+        solo.enterText((EditText) solo.getView(R.id.enterDescription), "ArtworkDescriptionTest1");
+        solo.enterText((EditText) solo.getView(R.id.enterMinPrice), "1.00");
+        solo.enterText((EditText) solo.getView(R.id.enterLengthDimensions), "1");
+        solo.enterText((EditText) solo.getView(R.id.enterWidthDimensions), "1");
+
+        solo.clickOnButton("Save");
+        solo.waitForActivity("ViewMyListingsActivity.class", 2000);
+        solo.assertCurrentActivity("Add Item button did not work.", ViewMyListingsActivity.class);
+
+        solo.setWiFiData(true);
+        DeleteItem();
+    }
 }
