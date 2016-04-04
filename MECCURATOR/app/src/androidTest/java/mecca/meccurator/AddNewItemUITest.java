@@ -271,6 +271,7 @@ public class AddNewItemUITest extends ActivityInstrumentationTestCase2 {
         DeleteItem();
     }
 
+    //US 08.01.01
     public void testOffline() {
         solo.setWiFiData(false);
 

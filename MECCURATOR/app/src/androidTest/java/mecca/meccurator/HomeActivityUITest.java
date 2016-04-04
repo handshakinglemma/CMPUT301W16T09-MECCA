@@ -88,6 +88,7 @@ public class HomeActivityUITest extends
 
     }
 
+    //WOW FACTOR Use Case: 11.01.01
     public void testWatchButton() {
         testNotificationsButton();
         solo.clickOnButton("Watch List");
