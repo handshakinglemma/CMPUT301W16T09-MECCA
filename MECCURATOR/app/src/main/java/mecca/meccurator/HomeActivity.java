@@ -158,7 +158,7 @@ public class HomeActivity extends AppCompatActivity {
 
         Log.i("TODO", "Home onResume");
         checkIfConnected();
-        if(connected && !ArtList.offLineArt.isEmpty()) {
+        while(connected && !ArtList.offLineArt.isEmpty()) {
             addOffLineArt();
         }
     }
@@ -251,41 +251,34 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void addOffLineArt() {
-        try {
-            Thread.sleep(1000); // Sleep for 1 sec
-            Log.i("TODO", "Sleeping for one sec");
-        } catch (InterruptedException ie) {
-            ie.printStackTrace();
-        }
         // attempt to add offLineArt to the server
         // should already be in allArt but we need to set the id.
-        Log.i("TODO", "offLineArt size " + ArtList.offLineArt.size());
-        for (Art art : ArtList.offLineArt) {
-            String art_id = "";
-            ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
-            addArtTask.execute(art);
+        String art_id = "";
+        Art art = ArtList.offLineArt.get(0);
+        Log.i("TODO", "First piece of art: " + art.getTitle() + ", Size of list is: " + ArtList.offLineArt.size());
 
-            try {
-                art_id = addArtTask.get();
-                Log.i("TODO", "art id: " + art_id);
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-                Log.i("TODO", "Art id not gotten");
-                try {
-                    Thread.sleep(1000); // Sleep for 1 sec
-                    Log.i("TODO", "Sleeping for one sec");
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                }
-            }
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(art);
 
-            if (!art_id.equals("")) {
-                Log.i("TODO", "Should remove and add art");
-                ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
-                //art.setId(art_id); SHOULD USE THIS INSTEAD?
-                // remove art from offLineArt once it's add to the server
-                ArtList.offLineArt.remove(art);
-            }
+        Log.i("TODO", "Art added: " + art.getTitle());
+
+        try {
+            art_id = addArtTask.get();
+            Log.i("TODO", "art id: " + art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            Log.i("TODO", "Art id not gotten");
+        }
+
+        Log.i("TODO", "IndexOf: " + String.valueOf(ArtList.allArt.indexOf(art)));
+
+        if (!art_id.equals("")) {
+            ArtList.allArt.get(ArtList.allArt.indexOf(art)).setId(art_id);
+            // remove art from offLineArt once it's add to the server
+
+            ArtList.offLineArt.remove(art);
+            Log.i("TODO", String.valueOf(ArtList.offLineArt.size()));
+            Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - 1 - ArtList.offLineArt.size()));
         }
     }
 

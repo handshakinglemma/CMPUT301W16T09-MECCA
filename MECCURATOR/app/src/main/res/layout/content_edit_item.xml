@@ -133,6 +133,8 @@
         android:textAlignment="center"
         android:maxLines="2"
         android:minLines="2"
+        android:singleLine="false"
+        android:maxLength="90"
         android:imeOptions="actionNext" />
 
     <LinearLayout

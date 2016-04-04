@@ -123,17 +123,18 @@
 
     <EditText
         android:id="@+id/enterDescription"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:gravity="center|bottom"
         android:hint="@string/description"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
         android:minLines="2"
         android:maxLines="2"
-        android:inputType="text"
-        android:imeOptions="actionNext"/>
+        android:maxLength="90"
+        android:inputType="textImeMultiLine"
+        android:imeOptions="actionNext" />
 
     <LinearLayout
         android:layout_width="fill_parent"

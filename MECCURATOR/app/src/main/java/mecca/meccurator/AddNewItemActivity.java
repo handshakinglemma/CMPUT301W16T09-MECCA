@@ -240,8 +240,8 @@ public class AddNewItemActivity extends AppCompatActivity {
             saveOffline();
         }
 
-        //ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
-        newestArt.setId(art_id);
+        ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
+        //newestArt.setId(art_id);
 
         try{
             ArtList.allArt.add(newestArt);
