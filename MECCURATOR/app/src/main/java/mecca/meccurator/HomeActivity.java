@@ -258,17 +258,18 @@ public class HomeActivity extends AppCompatActivity {
 
             try {
                 art_id = addArtTask.get();
-                //Log.i("TODO", "art id: " + art_id);
+                Log.i("TODO", "art id: " + art_id);
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
-                //Log.i("TODO", "Art id not gotten");
+                Log.i("TODO", "Art id not gotten");
             }
 
-             ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
-            // remove art from offLineArt once it's add to the server
-            //Log.i("TODO", "Art Id set");
-            ArtList.offLineArt.remove(art);
-            //Log.i("TODO", "offLineArt emptied");
+            if (!art_id.equals("")) {
+                Log.i("TODO", "Should remove and add art");
+                ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
+                // remove art from offLineArt once it's add to the server
+                ArtList.offLineArt.remove(art);
+            }
         }
     }
 
