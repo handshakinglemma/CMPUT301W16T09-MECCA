@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
  * the dropdown menu. Filters include:
  * <ul>
  *     <li>View all my items.</li>
- *     <li>View only my itmes with bids.</li>
+ *     <li>View only my items with bids.</li>
  *     <li>View only my borrowed items.</li>
  *     <li>View only my available items.</li>
  * </ul>
