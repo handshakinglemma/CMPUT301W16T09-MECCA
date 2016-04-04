@@ -253,7 +253,7 @@ public class HomeActivity extends AppCompatActivity {
         // should already be in allArt but we need to set the id.
         String art_id = "";
         Art art = ArtList.offLineArt.get(0);
-        Log.i("TODO", "First piece of art: " + art.getTitle());
+        Log.i("TODO", "First piece of art: " + art.getTitle() + ", Size of list is: " + ArtList.offLineArt.size());
 
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
         addArtTask.execute(art);
@@ -270,10 +270,11 @@ public class HomeActivity extends AppCompatActivity {
 
         Log.i("TODO", "IndexOf: " + String.valueOf(ArtList.allArt.indexOf(art)));
 
-        ArtList.allArt.get(ArtList.allArt.size() - ArtList.offLineArt.size()).setId(art_id);
+        ArtList.allArt.get(ArtList.allArt.indexOf(art)).setId(art_id);
         // remove art from offLineArt once it's add to the server
 
         ArtList.offLineArt.remove(art);
+        Log.i("TODO", String.valueOf(ArtList.offLineArt.size()));
         Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - ArtList.offLineArt.size()));
     }
 
