@@ -270,12 +270,14 @@ public class HomeActivity extends AppCompatActivity {
 
         Log.i("TODO", "IndexOf: " + String.valueOf(ArtList.allArt.indexOf(art)));
 
-        ArtList.allArt.get(ArtList.allArt.indexOf(art)).setId(art_id);
-        // remove art from offLineArt once it's add to the server
+        if (!art_id.equals("")) {
+            ArtList.allArt.get(ArtList.allArt.indexOf(art)).setId(art_id);
+            // remove art from offLineArt once it's add to the server
 
-        ArtList.offLineArt.remove(art);
-        Log.i("TODO", String.valueOf(ArtList.offLineArt.size()));
-        Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - ArtList.offLineArt.size()));
+            ArtList.offLineArt.remove(art);
+            Log.i("TODO", String.valueOf(ArtList.offLineArt.size()));
+            Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - ArtList.offLineArt.size()));
+        }
     }
 
     public boolean pullAllServerArt() {
