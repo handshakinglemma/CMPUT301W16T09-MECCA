@@ -89,16 +89,7 @@ public class ViewWatchListActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                watchList.remove(position);
-                adapter.notifyDataSetChanged();
-                save(view);
-
-                /* toast message */
-                Context context = getApplicationContext();
-                CharSequence saved = "Artist Deleted!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast.makeText(context, saved, duration).show();
-
+                delete(view, position);
                 return true;
             }
 
@@ -106,6 +97,45 @@ public class ViewWatchListActivity extends AppCompatActivity {
 
 
 
+    }
+
+    private void delete(View view, int position) {
+
+        User user = UserList.users.get(userpos);
+
+
+
+        //remove user from the server
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(user);
+
+        //get user data
+        ArrayList<String> ownerNotifs = user.getAllNotifications();
+        String ownerFlag = user.getNotificationFlag();
+        String email = user.getEmail();
+        String username = user.getUsername();
+
+        watchList.remove(position);
+
+         /* add new entry to list of items */
+        User newestUser = new User(username, email, ownerNotifs, ownerFlag, watchList);
+
+        //add new user to server
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+
+        //remove old user from userList and addin updated version
+        UserList.users.remove(userpos);
+        UserList.users.add(userpos, newestUser);
+
+        saveInFile();
+        adapter.notifyDataSetChanged();
+
+                /* toast message */
+        Context context = getApplicationContext();
+        CharSequence saved = "Artist Deleted!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, saved, duration).show();
     }
 
     @Override
