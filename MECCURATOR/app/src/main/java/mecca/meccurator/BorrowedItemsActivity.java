@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Displays a list of all items currently being borrowed by the user
+ * Displays a list of all items currently being borrowed by the user.
  */
 public class BorrowedItemsActivity extends AppCompatActivity {
 
@@ -85,7 +85,9 @@ public class BorrowedItemsActivity extends AppCompatActivity {
         });
     }
 
-    // Code from https://github.com/joshua2ua/lonelyTwitter
+    /**
+     *Code from https://github.com/joshua2ua/lonelyTwitter
+     */
     @Override
     protected void onStart() {
         // TODO Auto-generated method stub
@@ -96,7 +98,9 @@ public class BorrowedItemsActivity extends AppCompatActivity {
         setSelectedArt(ArtList.allArt);
     }
 
-    // Sets variable selectedArt and updates adapter
+    /**
+     * Sets variable selectedArt and updates adapter.
+     */
     public void setSelectedArt (ArrayList<Art> artlist){
 
         // Filter all art by if user is borrowing item
