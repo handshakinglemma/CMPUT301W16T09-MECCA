@@ -64,6 +64,7 @@ public class PhotoUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
     }
 
+    //US 09.01.01, 09.04.01
     public void testTakePhoto() {
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("My Listings button did not work.", ViewMyListingsActivity.class);
@@ -78,6 +79,7 @@ public class PhotoUITest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Add New Item button did not work", AddNewItemActivity.class);
     }
 
+    //US 09.02.01
     public void testDeleteButton() {
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("My Listings button did not work.", ViewMyListingsActivity.class);
@@ -89,6 +91,7 @@ public class PhotoUITest extends ActivityInstrumentationTestCase2 {
         assertTrue(solo.searchText("Cancel Photo"));
     }
 
+    //US 09.03.01
     public void testViewButton() {
         //Test Owners has an Image view
         solo.clickOnButton("My Listings");

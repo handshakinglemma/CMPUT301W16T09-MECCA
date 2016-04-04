@@ -67,6 +67,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Login");
         solo.assertCurrentActivity("Log in button did not work.", HomeActivity.class);
     }
+
     public void AddNewItem() {
         solo.clickOnButton("My Listings");
         solo.assertCurrentActivity("My Listings button did not work.", ViewMyListingsActivity.class);
@@ -156,8 +157,13 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
         solo.waitForActivity("HomeActivity", 2000);
         solo.assertCurrentActivity("Did not open home activity", HomeActivity.class);
     }
-    
-    public void testAcceptBid() {
+
+    //This tst case tests the following use cases:
+    // First its makes a bid: US 05.01.01
+    //Then views the bids on it in order to accept it: US 05.05.01
+    // Then in order to reset the bid, it views a list of its items being borrowed: US 06.02.01
+    // it resets the bid to Available: US 07.01.01
+    public void testAcceptingResettingGeoLocationBid() {
         AcceptBid();
         solo.assertCurrentActivity("Did not open home activity", HomeActivity.class);
 
@@ -176,6 +182,7 @@ public class AddNewBidUITest extends ActivityInstrumentationTestCase2 {
 
     }
 
+    //US 05.07.01
     public void testDeclineButton() {
         BidOnItem();
         logIn("UserTest1");
