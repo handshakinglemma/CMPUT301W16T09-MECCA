@@ -60,6 +60,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
             ++pos;
         }
 
+
         Log.i("pos", String.valueOf(pos));
 
         Log.i("user", String.valueOf(UserList.users.get(pos)));
@@ -74,6 +75,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         while (notificationList.size() > 10){
             notificationList.remove(notificationList.size() - 1);
         }
+
 
         // Set off notification flag
         String email = UserList.users.get(pos).getEmail();

@@ -38,6 +38,13 @@ public class UserList {
 
     }
 
+    public void getUser(int index) {
+        users.get(index);
+
+    }
+
+
+
     public ArrayList<User> getUsers(){
         return users;
     }

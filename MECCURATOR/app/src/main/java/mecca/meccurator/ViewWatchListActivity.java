@@ -93,9 +93,9 @@ public class ViewWatchListActivity extends AppCompatActivity {
         oldWatchList.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                watchList.remove(pos);
+                watchList.remove(position);
                 adapter.notifyDataSetChanged();
                 /* toast message */
                 // new func: displayToast or something?
