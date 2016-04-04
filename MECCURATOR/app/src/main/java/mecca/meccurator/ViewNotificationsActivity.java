@@ -118,6 +118,10 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         saveInFile();
     }
 
+    /**
+     * Takes the user to ViewWatchListActivity
+     * @param v
+     */
     private void viewWatchList(View v) {
         Intent intent = new Intent(this, ViewWatchListActivity.class);
         intent.putExtra("current_user", current_user);

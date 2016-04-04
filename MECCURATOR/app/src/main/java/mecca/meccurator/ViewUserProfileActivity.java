@@ -75,7 +75,7 @@ public class ViewUserProfileActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
+        // if not connected we don't start the activity
         isConnected();
         if (!connected) {
             /* toast message */
@@ -95,6 +95,10 @@ public class ViewUserProfileActivity extends AppCompatActivity {
         loadFromFile(); /// Need to update
     }
 
+    /**
+     * setUserProfile finds the owner profile details of the given username
+     * @param userList
+     */
     public void setUserProfile(ArrayList<User> userList) {
         for (User u : userList) {
             if( u.getUsername().equals(owner)) {
@@ -144,6 +148,10 @@ public class ViewUserProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * pullAllServerUsers pulls all the user information from elasticsearch
+     * @return
+     */
     public boolean pullAllServerUsers() {
 
         // Get ALL art from server
@@ -166,6 +174,10 @@ public class ViewUserProfileActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
+     */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||

@@ -22,7 +22,8 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Used to view a list of artists the current user is watching
+ * Used to view a list of artists the current user is watching and
+ * add or delete artists from the watchlist.
  */
 
 public class ViewWatchListActivity extends AppCompatActivity {
@@ -71,7 +72,6 @@ public class ViewWatchListActivity extends AppCompatActivity {
 
         watchList = UserList.users.get(userpos).getWatchList();
 
-
         Button save = (Button) findViewById(R.id.saveArtist);
 
         save.setOnClickListener(new View.OnClickListener() {
@@ -81,8 +81,6 @@ public class ViewWatchListActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         oldWatchList.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
 
@@ -94,16 +92,16 @@ public class ViewWatchListActivity extends AppCompatActivity {
             }
 
         });
-
-
-
     }
 
+    /**
+     * delete allows the user to remove a watchlist item by pressing and holding it.
+     * @param view
+     * @param position
+     */
     private void delete(View view, int position) {
 
         User user = UserList.users.get(userpos);
-
-
 
         //remove user from the server
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
@@ -131,7 +129,7 @@ public class ViewWatchListActivity extends AppCompatActivity {
         saveInFile();
         adapter.notifyDataSetChanged();
 
-                /* toast message */
+        /* toast message */
         Context context = getApplicationContext();
         CharSequence saved = "Artist Deleted!";
         int duration = Toast.LENGTH_SHORT;
@@ -150,10 +148,12 @@ public class ViewWatchListActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * save allows a user to enter an artist name into their watchlist so that
+     * they're be updated when new art from that artist is listed by another user.
+     * @param v
+     */
     private void save(View v) {
-
-
         //get the artist to add to watchlist from EditText
         EditText newArtist = (EditText) findViewById(R.id.editArtist);
         String artist = newArtist.getText().toString();
@@ -199,9 +199,6 @@ public class ViewWatchListActivity extends AppCompatActivity {
         /* end add activity */
         saveInFile();
         adapter.notifyDataSetChanged();
-
-
-
     }
 
     private void saveInFile() {
