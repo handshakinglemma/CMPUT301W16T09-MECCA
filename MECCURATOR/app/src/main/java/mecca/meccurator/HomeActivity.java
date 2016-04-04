@@ -156,23 +156,32 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
 
         checkIfConnected();
-        Log.i("TODO", String.valueOf(ArtList.offLineArt));
 
-        String art_id = "";
+        // attempt to add offLineArt to the server
+        // should already be in allArt but we need to set the id.
         if (connected && !ArtList.offLineArt.isEmpty()) {
-            Log.i("TODO", "Add offLineArt to ElasticSearch");
             for (Art art : ArtList.offLineArt) {
+                String art_id = "";
                 ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
                 addArtTask.execute(art);
 
-                ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
+                try {
+                    art_id = addArtTask.get();
+                } catch (InterruptedException | ExecutionException e) {
+                    e.printStackTrace();
+                }
 
+                ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
+                // remove art from offLineArt once it's add to the server
                 ArtList.offLineArt.remove(art);
             }
         }
     }
 
     // Checks if we are connected to the internet or not.
+    // Code taken from the top answer of the following question:
+    // http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
+    // and is the same for every other activity.
     private boolean checkIfConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
