@@ -382,6 +382,10 @@ public class AddNewItemActivity extends AppCompatActivity {
         inputImage.setImageBitmap(null);
     }
 
+    /**
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
+     */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||

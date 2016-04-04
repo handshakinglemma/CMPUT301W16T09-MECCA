@@ -163,10 +163,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-    // Checks if we are connected to the internet or not.
-    // Code taken from the top answer of the following question:
-    // http://stackoverflow.com/questions/5474089/how-to-check-currently-internet-connection-is-available-or-not-in-android
-    // and is the same for every other activity.
+    /**
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
+     */
     private boolean checkIfConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||

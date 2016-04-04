@@ -119,7 +119,8 @@ public class PlacePickerActivity extends AppCompatActivity {
     }
 
     /**
-     * If phone has wifi, isConnected returns true, otherwise it returns false.
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
      */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);

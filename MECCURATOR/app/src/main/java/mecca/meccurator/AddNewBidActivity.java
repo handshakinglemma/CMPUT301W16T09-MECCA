@@ -270,7 +270,8 @@ public class AddNewBidActivity extends AppCompatActivity {
     }
 
     /**
-     * Returns true if phone is connected to wifi; false otherwise.
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
      */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);

@@ -22,7 +22,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-// Reference: http://www.tutorialspoint.com/android/android_google_maps.htm
+/**
+ * ViewMeetUpLocationActivity is launched when a user clicks on an item in the BorrowedItemsActivity
+ * The Google map launches and the item pickup location is displayed to the user.
+ * To return to the home page, the user clicks the phone's back button
+ * Code Reference: http://www.tutorialspoint.com/android/android_google_maps.htm
+ */
 public class ViewMeetupLocationActivity extends AppCompatActivity {
 
     boolean connected;
@@ -75,6 +80,10 @@ public class ViewMeetupLocationActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
+     */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||

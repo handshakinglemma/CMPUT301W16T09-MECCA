@@ -53,18 +53,18 @@ public class ViewLoginActivity extends AppCompatActivity {
             }
         });
 
-        viewHomeActivityButton.setOnClickListener( new View.OnClickListener() {
+        viewHomeActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 // Save username input as username_text
-                EditText inputUser = (EditText)findViewById(R.id.username);
+                EditText inputUser = (EditText) findViewById(R.id.username);
                 String username = inputUser.getText().toString();
 
                 boolean match = false;
 
                 isConnected();
-                if(!connected) {
+                if (!connected) {
                     // If username is incorrect display error message then clear the input
                     Context context = getApplicationContext();
                     CharSequence saved = "Offline";
@@ -155,62 +155,19 @@ public class ViewLoginActivity extends AppCompatActivity {
         //what it should do on back
     }
 
+    /**
+     * isConnected checks whether we are connected to the internet through
+     * wife or mobile networks
+     */
     public void isConnected() {
-        ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 manager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
             connected = true;
         } else {
             connected = false;
         }
     }
-
-    /*// Create a new user
-    public void CreateNewUserButton(View view) {
-        Intent intent = new Intent(this, AddNewUserActivity.class);
-        startActivity(intent);
-    }*/
-
-    /*// View my home activity
-    public void ViewHomeActivity(View view) {
-
-        // Save username input as username_text
-        EditText inputUser = (EditText)findViewById(R.id.username);
-        String username = inputUser.getText().toString();
-
-        boolean match = false;
-
-        ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
-        getUserListTask.execute("");
-        try {
-            userList = new ArrayList<>();
-            userList.addAll(getUserListTask.get());
-            UserList.users = userList;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-
-        for(User user: UserList.users){
-            if (username.equals(user.getUsername())){
-                match = true;
-
-                Intent intent = new Intent(this, HomeActivity.class);
-                intent.putExtra("current_user", username);
-                startActivity(intent);
-            }
-        }
-
-        if (!match){  // Simplified boolean expression
-            // If username is incorrect display error message then clear the input
-            Context context = getApplicationContext();
-            CharSequence saved = "Invalid Username!";
-            int duration = Toast.LENGTH_SHORT;
-            Toast.makeText(context, saved, duration).show();
-
-            //EditText inputUser = (EditText) findViewById(R.id.username);
-            inputUser.setText("", EditText.BufferType.EDITABLE);
-        }
-    }*/
 }
+
+
