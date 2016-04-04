@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.i("TODO", "Home onCreate");
 
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
@@ -155,6 +156,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Log.i("TODO", "Home onResume");
         checkIfConnected();
         if(connected && !ArtList.offLineArt.isEmpty()) {
             addOffLineArt();
@@ -249,6 +251,12 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void addOffLineArt(){
+        try {
+            Thread.sleep(1000); // Sleep for 1 sec
+            Log.i("TODO", "Sleeping for one sec");
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }
         // attempt to add offLineArt to the server
         // should already be in allArt but we need to set the id.
         Log.i("TODO", "offLineArt size " + ArtList.offLineArt.size());
@@ -263,11 +271,18 @@ public class HomeActivity extends AppCompatActivity {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
                 Log.i("TODO", "Art id not gotten");
+                try {
+                    Thread.sleep(1000); // Sleep for 1 sec
+                    Log.i("TODO", "Sleeping for one sec");
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
             }
 
             if (!art_id.equals("")) {
                 Log.i("TODO", "Should remove and add art");
                 ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
+                //art.setId(art_id); SHOULD USE THIS INSTEAD?
                 // remove art from offLineArt once it's add to the server
                 ArtList.offLineArt.remove(art);
             }
@@ -275,6 +290,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public boolean pullAllServerArt() {
+        Log.i("TODO", "pullAllServerArt");
 
         // Get ALL art from server
         ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();
