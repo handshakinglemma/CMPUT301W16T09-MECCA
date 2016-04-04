@@ -121,7 +121,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         TextView inputWidthDimensions = (TextView) findViewById(R.id.enterWidthDimensions);
         TextView inputOwner = (TextView) findViewById(R.id.owner);
 
-        
+
         /* append data into EditText box */
         Art art = ArtList.allArt.get(pos);
         inputArtist.setText(art.getArtist());
@@ -176,6 +176,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         //get user data
         ArrayList<String> ownerNotifs = UserList.users.get(ownerpos).getAllNotifications();
         String ownerEmail = UserList.users.get(ownerpos).getEmail();
+        ArrayList<String> ownerWatchList = UserList.users.get(ownerpos).getWatchList();
 
 
         float rate;
@@ -228,7 +229,7 @@ public class AddNewBidActivity extends AppCompatActivity {
         //Set user again w/ new notif
         String addNotif = String.format("New bid placed on %s by %s", art.getTitle(), current_user);
         ownerNotifs.add(0,addNotif);
-        User addOwner = new User(owner,ownerEmail,ownerNotifs, TRUE, null);
+        User addOwner = new User(owner,ownerEmail,ownerNotifs, TRUE, ownerWatchList);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(addOwner);

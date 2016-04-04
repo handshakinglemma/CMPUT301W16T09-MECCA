@@ -137,6 +137,7 @@ public class EditUserActivity extends AppCompatActivity {
         //get user data
         ArrayList<String> ownerNotifs = user.getAllNotifications();
         String ownerFlag = user.getNotificationFlag();
+        ArrayList<String> ownerWatchList = user.getWatchList();
 
         EditText inputEmail = (EditText) findViewById(R.id.enterEmail);
 
@@ -150,7 +151,7 @@ public class EditUserActivity extends AppCompatActivity {
         }
 
         /* add new entry to list of items */
-        User newestUser = new User(current_user, email, ownerNotifs, ownerFlag, null);
+        User newestUser = new User(current_user, email, ownerNotifs, ownerFlag, ownerWatchList);
 
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);
