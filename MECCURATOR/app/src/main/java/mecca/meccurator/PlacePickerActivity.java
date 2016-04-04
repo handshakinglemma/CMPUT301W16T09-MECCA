@@ -24,11 +24,16 @@ import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
-
-// how to manually import dependancies https://stackoverflow.com/questions/32807587/com-android-build-transform-api-transformexception
-// code from tutorial: http://www.truiton.com/2015/04/using-new-google-places-api-android/
-// code for tutorial: https://github.com/Truiton/PlacePicker
-// solution to issue: https://stackoverflow.com/questions/30434238/place-picker-automatically-close-after-launch
+/**
+ * Called by EditBidStatusActivity.
+ * Map Loads University as default map location
+ * User can select new location by dragging the map around then clicking the "select" button
+ * After location is picked, calls HomeActivity
+ * how to manually import dependancies https://stackoverflow.com/questions/32807587/com-android-build-transform-api-transformexception
+ * code from tutorial: http://www.truiton.com/2015/04/using-new-google-places-api-android/
+ * code for tutorial: https://github.com/Truiton/PlacePicker
+ * solution to issue: https://stackoverflow.com/questions/30434238/place-picker-automatically-close-after-launch
+ */
 public class PlacePickerActivity extends AppCompatActivity {
     boolean connected;
     protected final Place meetingSpot = null;
@@ -77,6 +82,12 @@ public class PlacePickerActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * When user clicks location, LatLng is saved as an art attribute
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode,
                                     int resultCode, Intent data) {
@@ -107,6 +118,9 @@ public class PlacePickerActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * If phone has wifi, isConnected returns true, otherwise it returns false.
+     */
     public void isConnected() {
         ConnectivityManager manager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(manager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
