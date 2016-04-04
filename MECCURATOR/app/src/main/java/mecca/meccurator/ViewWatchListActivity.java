@@ -3,11 +3,9 @@ package mecca.meccurator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,19 +13,17 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
+
+/**
+ * Used to view a list of artists the current user is watching
+ */
 
 public class ViewWatchListActivity extends AppCompatActivity {
 
@@ -44,24 +40,29 @@ public class ViewWatchListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_watch_list);
 
+        //get the intent from the notification activity
         Intent intentRcvEdit = getIntent();
         current_user = intentRcvEdit.getStringExtra("current_user");
 
         oldWatchList = (ListView) findViewById(R.id.oldWatchList);
 
+        //load in the userlist from the server
         ElasticsearchUserController.GetUserListTask getUserListTask = new ElasticsearchUserController.GetUserListTask();
         getUserListTask.execute();
 
+        //set userList to be user from the server
         try {
             userList = new ArrayList<User>();
             userList.addAll(getUserListTask.get());
+            UserList.users = userList;
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
 
+        //get the index of the user in userList
         userpos = 0;
 
-        for(User user: userList){
+        for(User user: UserList.users){
             if (current_user.equals(user.getUsername())){
                 break;
             }
@@ -73,7 +74,6 @@ public class ViewWatchListActivity extends AppCompatActivity {
 
         Button save = (Button) findViewById(R.id.saveArtist);
 
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +82,60 @@ public class ViewWatchListActivity extends AppCompatActivity {
             }
         });
 
+
+
+        oldWatchList.setOnItemLongClickListener(new android.widget.AdapterView.OnItemLongClickListener() {
+
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+                delete(view, position);
+                return true;
+            }
+
+        });
+
+
+
+    }
+
+    private void delete(View view, int position) {
+
+        User user = UserList.users.get(userpos);
+
+
+
+        //remove user from the server
+        ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
+        removeUserTask.execute(user);
+
+        //get user data
+        ArrayList<String> ownerNotifs = user.getAllNotifications();
+        String ownerFlag = user.getNotificationFlag();
+        String email = user.getEmail();
+        String username = user.getUsername();
+
+        watchList.remove(position);
+
+         /* add new entry to list of items */
+        User newestUser = new User(username, email, ownerNotifs, ownerFlag, watchList);
+
+        //add new user to server
+        ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
+        addUserTask.execute(newestUser);
+
+        //remove old user from userList and addin updated version
+        UserList.users.remove(userpos);
+        UserList.users.add(userpos, newestUser);
+
+        saveInFile();
+        adapter.notifyDataSetChanged();
+
+                /* toast message */
+        Context context = getApplicationContext();
+        CharSequence saved = "Artist Deleted!";
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(context, saved, duration).show();
     }
 
     @Override
@@ -100,12 +154,13 @@ public class ViewWatchListActivity extends AppCompatActivity {
     private void save(View v) {
 
 
+        //get the artist to add to watchlist from EditText
         EditText newArtist = (EditText) findViewById(R.id.editArtist);
-
         String artist = newArtist.getText().toString();
 
         User user = UserList.users.get(userpos);
 
+        //remove user from the server
         ElasticsearchUserController.RemoveUserTask removeUserTask = new ElasticsearchUserController.RemoveUserTask();
         removeUserTask.execute(user);
 
@@ -115,6 +170,7 @@ public class ViewWatchListActivity extends AppCompatActivity {
         String email = user.getEmail();
         String username = user.getUsername();
 
+        //input checking
         if(artist.equals("")){
             newArtist.setError("Empty Field!");
             return;
@@ -125,15 +181,15 @@ public class ViewWatchListActivity extends AppCompatActivity {
         /* add new entry to list of items */
         User newestUser = new User(username, email, ownerNotifs, ownerFlag, watchList);
 
+        //add new user to server
         ElasticsearchUserController.AddUserTask addUserTask = new ElasticsearchUserController.AddUserTask();
         addUserTask.execute(newestUser);
 
+        //remove old user from userList and addin updated version
         UserList.users.remove(userpos);
-
         UserList.users.add(userpos, newestUser);
 
         /* toast message */
-        // new func: displayToast or something?
         Context context = getApplicationContext();
         CharSequence saved = "Artist Saved!";
         int duration = Toast.LENGTH_SHORT;

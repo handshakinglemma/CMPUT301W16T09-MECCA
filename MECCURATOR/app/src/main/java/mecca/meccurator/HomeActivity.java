@@ -54,6 +54,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        Log.i("TODO", "Home onCreate");
 
         // Get username from ViewLoginActivity
         Intent intentRcvEdit = getIntent();
@@ -155,6 +156,7 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        Log.i("TODO", "Home onResume");
         checkIfConnected();
         while(connected && !ArtList.offLineArt.isEmpty()) {
             addOffLineArt();
@@ -248,17 +250,25 @@ public class HomeActivity extends AppCompatActivity {
         finish(); // This destroys the HomeActivity
     }
 
-    public void addOffLineArt(){
+    public void addOffLineArt() {
         // attempt to add offLineArt to the server
         // should already be in allArt but we need to set the id.
         String art_id = "";
         Art art = ArtList.offLineArt.get(0);
-        Log.i("TODO", "First piece of art: " + art.getTitle());
+        Log.i("TODO", "offLineArt size: " + ArtList.offLineArt.size() + ", First piece of art: " + ArtList.offLineArt.get(0).getTitle());
 
         ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
         addArtTask.execute(art);
 
-        Log.i("TODO", "Art added: " + art.getTitle());
+        Log.i("TODO", "Art add attempt: " + art.getTitle());
+
+        /*try {
+            Thread.sleep(1000); // Sleep for 1 sec
+            addArtTask.execute(art);
+            Log.i("TODO", "Sleeping for one sec");
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        }*/
 
         try {
             art_id = addArtTask.get();
@@ -266,18 +276,33 @@ public class HomeActivity extends AppCompatActivity {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
             Log.i("TODO", "Art id not gotten");
+            /*try {
+                Thread.sleep(1000); // Sleep for 1 sec
+                Log.i("TODO", "Sleeping for one sec");
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
+            }*/
         }
 
-        Log.i("TODO", "IndexOf: " + String.valueOf(ArtList.allArt.indexOf(art)));
+        // *This is the index we want to use when saving art_id*
+        /*Log.i("TODO", "IndexOf(art): " + String.valueOf(ArtList.allArt.indexOf(art)) +
+                ", art at index: " + String.valueOf(ArtList.allArt.get(ArtList.allArt.indexOf(art)).getTitle()));*/
 
-        ArtList.allArt.get(ArtList.allArt.size() - ArtList.offLineArt.size()).setId(art_id);
-        // remove art from offLineArt once it's add to the server
+        //ArtList.allArt.get(ArtList.allArt.indexOf(art)).setId(art_id);
+        //Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.indexOf(art)));
 
-        ArtList.offLineArt.remove(art);
-        Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - ArtList.offLineArt.size()));
+        art.setId(art_id);
+
+        ArtList.offLineArt.remove(0);
+
+        /*if (!art_id.equals("")) {
+            //art.setId(art_id); SHOULD USE THIS INSTEAD?
+            // remove art from offLineArt once it's add to the server
+        }*/
     }
 
     public boolean pullAllServerArt() {
+        Log.i("TODO", "pullAllServerArt");
 
         // Get ALL art from server
         ElasticsearchArtController.GetArtListTask getArtListTask = new ElasticsearchArtController.GetArtListTask();

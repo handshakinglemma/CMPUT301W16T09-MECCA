@@ -9,6 +9,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
+
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
@@ -25,7 +31,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
     public String current_user;
     protected String email;
     protected static final String USEREDITFILE = "userfile.sav";
-    int pos;
+    private int pos;
     protected ArrayList<String> notificationList;
 
     @Override
@@ -45,6 +51,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         try {
             userList = new ArrayList<User>();
             userList.addAll(getUserListTask.get());
+            UserList.users = userList;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -53,12 +60,13 @@ public class ViewNotificationsActivity extends AppCompatActivity {
 
         pos = 0;
         Log.i("userList", String.valueOf(userList));
-        for(User user: userList){
+        for(User user: UserList.users){
             if (current_user.equals(user.getUsername())){
                 break;
             }
             ++pos;
         }
+
 
         Log.i("pos", String.valueOf(pos));
 
@@ -73,6 +81,7 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         // Limit size of notification list to keep removing old elements
         while (notificationList.size() > 10){
             notificationList.remove(notificationList.size() - 1);
+
         }
 
         // Set off notification flag
@@ -105,6 +114,8 @@ public class ViewNotificationsActivity extends AppCompatActivity {
 
             }
         });
+
+        saveInFile();
     }
 
     private void viewWatchList(View v) {
@@ -123,6 +134,22 @@ public class ViewNotificationsActivity extends AppCompatActivity {
         oldNotificationListing.setAdapter(adapter);
 
         adapter.notifyDataSetChanged();
+    }
+
+    private void saveInFile() {
+        try {
+            FileOutputStream fos = openFileOutput(USEREDITFILE, 0);
+
+            BufferedWriter out = new BufferedWriter(new OutputStreamWriter(fos));
+            Gson gson = new Gson();
+            gson.toJson(UserList.users, out);
+            out.flush();
+            fos.close();
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            throw new RuntimeException();
+        }
     }
 
 

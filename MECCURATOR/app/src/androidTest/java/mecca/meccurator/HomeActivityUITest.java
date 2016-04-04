@@ -87,4 +87,14 @@ public class HomeActivityUITest extends
         solo.assertCurrentActivity("Did not search keyword", ViewSearchActivity.class);
 
     }
+
+    public void testWatchButton() {
+        testNotificationsButton();
+        solo.clickOnButton("Watch List");
+        solo.assertCurrentActivity("Did not open watch list", ViewWatchListActivity.class);
+
+        solo.enterText((EditText) solo.getView(R.id.editArtist), "WatchTest1");
+        solo.clickOnButton("Save");
+        solo.searchText("WatchTest1");
+    }
 }
