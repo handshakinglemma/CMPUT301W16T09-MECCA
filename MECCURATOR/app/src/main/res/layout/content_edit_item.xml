@@ -19,7 +19,8 @@
         android:id="@+id/enterTitle"
         android:hint="@string/Title"
         android:gravity="center"
-        android:textSize="30dp" />
+        android:textSize="30dp"
+        android:maxLength="24"/>
 
     <EditText
         android:layout_width="fill_parent"
@@ -29,7 +30,9 @@
         android:hint="@string/artist"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center"
-        android:inputType="text"/>
+        android:inputType="text"
+        android:maxLength="24"
+        android:nextFocusDown="@+id/enterLengthDimensions"/>
 
     <ImageView
         android:id="@+id/imageView1"
@@ -85,8 +88,9 @@
             android:layout_weight="0.5"
             android:id="@+id/enterLengthDimensions"
             android:textAlignment="center"
-            android:inputType="numberDecimal"
-            android:maxLength="7" />
+            android:inputType="text"
+            android:maxLength="4"
+            android:nextFocusDown="@+id/enterWidthDimensions"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,8 +111,8 @@
             android:layout_weight="0.5"
             android:id="@+id/enterWidthDimensions"
             android:textAlignment="center"
-            android:inputType="numberDecimal"
-            android:maxLength="7"/>
+            android:inputType="text"
+            android:maxLength="4"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,14 +125,15 @@
     <EditText
         android:id="@+id/enterDescription"
         android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:hint="@string/description"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textAlignment="center"
-        android:inputType="text|textMultiLine" />
+        android:maxLines="2"
+        android:minLines="2"
+        android:imeOptions="actionNext" />
 
     <LinearLayout
         android:orientation="horizontal"
@@ -148,7 +153,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/enterMinPrice"
             android:layout_weight="1"
-            android:inputType="numberDecimal"/>
+            android:maxLength="9"
+            android:inputType="text"/>
 
     </LinearLayout>
 

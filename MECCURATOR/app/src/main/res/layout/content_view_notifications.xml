@@ -29,10 +29,11 @@
         tools:listitem="@android:layout/simple_expandable_list_item_2"/>
 
     <Button
-        android:layout_width="309dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Watch List"
         android:id="@+id/watchList"
+        android:background="@color/buttonColor"
         android:layout_gravity="center_horizontal" />
 
 </LinearLayout>

@@ -156,7 +156,7 @@ public class HomeActivity extends AppCompatActivity {
         super.onResume();
 
         checkIfConnected();
-        if(connected && !ArtList.offLineArt.isEmpty()) {
+        while(connected && !ArtList.offLineArt.isEmpty()) {
             addOffLineArt();
         }
     }
@@ -251,25 +251,30 @@ public class HomeActivity extends AppCompatActivity {
     public void addOffLineArt(){
         // attempt to add offLineArt to the server
         // should already be in allArt but we need to set the id.
-        for (Art art : ArtList.offLineArt) {
-            String art_id = "";
-            ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
-            addArtTask.execute(art);
+        String art_id = "";
+        Art art = ArtList.offLineArt.get(0);
+        Log.i("TODO", "First piece of art: " + art.getTitle());
 
-            try {
-                art_id = addArtTask.get();
-                //Log.i("TODO", "art id: " + art_id);
-            } catch (InterruptedException | ExecutionException e) {
-                e.printStackTrace();
-                //Log.i("TODO", "Art id not gotten");
-            }
+        ElasticsearchArtController.AddArtTask addArtTask = new ElasticsearchArtController.AddArtTask();
+        addArtTask.execute(art);
 
-             ArtList.allArt.get(ArtList.allArt.size() - (1 + ArtList.offLineArt.size())).setId(art_id);
-            // remove art from offLineArt once it's add to the server
-            //Log.i("TODO", "Art Id set");
-            ArtList.offLineArt.remove(art);
-            //Log.i("TODO", "offLineArt emptied");
+        Log.i("TODO", "Art added: " + art.getTitle());
+
+        try {
+            art_id = addArtTask.get();
+            Log.i("TODO", "art id: " + art_id);
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+            Log.i("TODO", "Art id not gotten");
         }
+
+        Log.i("TODO", "IndexOf: " + String.valueOf(ArtList.allArt.indexOf(art)));
+
+        ArtList.allArt.get(ArtList.allArt.size() - ArtList.offLineArt.size()).setId(art_id);
+        // remove art from offLineArt once it's add to the server
+
+        ArtList.offLineArt.remove(art);
+        Log.i("TODO", "Art id saved at: " + String.valueOf(ArtList.allArt.size() - ArtList.offLineArt.size()));
     }
 
     public boolean pullAllServerArt() {
@@ -281,12 +286,12 @@ public class HomeActivity extends AppCompatActivity {
             allServerArt = new ArrayList<Art>();
             allServerArt.addAll(getArtListTask.get());
 
+            // This overwrites the offLineArt we had, so we have to add it again
             if(!ArtList.offLineArt.isEmpty()) {
                 for ( Art art : ArtList.offLineArt ) {
                     allServerArt.add(art);
                 }
             }
-
             return true;
 
         } catch (InterruptedException | ExecutionException e) {

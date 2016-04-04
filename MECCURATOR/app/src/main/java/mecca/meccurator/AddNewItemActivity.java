@@ -155,11 +155,25 @@ public class AddNewItemActivity extends AppCompatActivity {
         if(dimensionsLength.equals("")){
             inputLengthDimensions.setError("Empty Field!");
             return;
+        } else {
+            try {
+                Integer.parseInt(inputLengthDimensions.getText().toString());
+            } catch (NumberFormatException e) {
+                inputLengthDimensions.setError("Invalid Input...");
+                return;
+            }
         }
 
         if(dimensionsWidth.equals("")){
             inputWidthDimensions.setError("Empty Field!");
             return;
+        } else {
+            try {
+                Integer.parseInt(inputWidthDimensions.getText().toString());
+            } catch (NumberFormatException e) {
+                inputWidthDimensions.setError("Invalid Input...");
+                return;
+            }
         }
 
         if(description.equals("")){
@@ -167,12 +181,18 @@ public class AddNewItemActivity extends AppCompatActivity {
             return;
         }
 
-        try {
-            minprice = Float.parseFloat(inputMinPrice.getText().toString());
-        } catch(NumberFormatException wrong){
-            inputMinPrice.setError("Invalid Input...");
+        if(inputMinPrice.getText().toString().equals("")) {
+            inputMinPrice.setError("Empty Field!");
             return;
+        } else {
+            try {
+                minprice = Float.parseFloat(inputMinPrice.getText().toString());
+            } catch(NumberFormatException wrong){
+                inputMinPrice.setError("Invalid Input...");
+                return;
+            }
         }
+
 
         /* add new entry to list of items */
         //TODO: add owner and other attributes by pulling from lists also PHOTO
