@@ -106,6 +106,8 @@ public class AddNewItemActivity extends AppCompatActivity {
 
     public void saveEntry(View view){
 
+        Log.i("TODO", "saveEntry");
+
         float minprice;
 
         /* get text from EditText */
@@ -158,6 +160,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         newestArt.addThumbnail(thumbnail);
 
         isConnected();
+        Log.i("connected", String.valueOf(connected));
         String art_id = ""; // Initialize
 
         if (connected) {
@@ -175,6 +178,7 @@ public class AddNewItemActivity extends AppCompatActivity {
             try {
                 // add it to the offLineArt file
                 ArtList.offLineArt.add(newestArt);
+                Log.i("TODO", "Art added OFFLINE");
             } catch (NullPointerException e) {
                 ArtList offLineArt = new ArtList();
                 ArtList.offLineArt.add(newestArt);
