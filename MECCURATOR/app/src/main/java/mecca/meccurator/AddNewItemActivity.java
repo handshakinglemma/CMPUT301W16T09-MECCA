@@ -54,7 +54,6 @@ public class AddNewItemActivity extends AppCompatActivity {
     private EditText inputMinPrice;
     private TextView inputStatus;
     private ImageView inputImage;
-    /* also need an input field for photos but idk anything yet so */
     private String current_user;
     private int userpos;
 
@@ -69,8 +68,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         Log.i("TODO", "AddNewItemActivity OnCreate");
 
         /**
-         * declare all input fields
-         * maybe can move it out of the onCreate w/e
+         * Declare all input fields.
          */
 
         inputTitle = (EditText) findViewById(R.id.enterTitle);
@@ -127,6 +125,11 @@ public class AddNewItemActivity extends AppCompatActivity {
         }*/
     }
 
+    /**
+     * Add new item. Check if app offline before adding.
+     * Only one new item can be added while offline.
+     * @param view
+     */
     public void saveEntry(View view){
 
         isConnected();
@@ -270,6 +273,10 @@ public class AddNewItemActivity extends AppCompatActivity {
         finish();
     }
 
+    /**
+     * Add notification to watchlist that a new piece of art by given artist has been added.
+     * @param artist
+     */
     private void addNotification(String artist) {
 
         Log.i("TODO", "addNotification");
@@ -320,6 +327,9 @@ public class AddNewItemActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Save art item added while offline.
+     */
     private void saveOffline() {
         Log.i("TODO", "saveOffline");
         try {
