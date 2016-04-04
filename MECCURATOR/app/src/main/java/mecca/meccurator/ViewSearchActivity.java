@@ -34,7 +34,8 @@ import java.util.concurrent.ExecutionException;
 
 /**
  * This shows the user all art items that are not borrowed and that are not
- * owned by the current user
+ * owned by the current user, and if a keyword is given it only shows the
+ * art with the keyword(s) in the description.
  */
 // TODO need to make the search results filterable by keyword(s)
 public class ViewSearchActivity extends AppCompatActivity {
@@ -101,7 +102,13 @@ public class ViewSearchActivity extends AppCompatActivity {
         setSelectedArt(ArtList.allArt);
     }
 
-    // Sets variable selectedArt and updates adapter
+    /**
+     * setSelectedArt takes the keywords given by the user and determines the search
+     * results based on them. If no keywords are given, all art that is not borrowed
+     * and does not belong to the user is displayed. Keywords are searched for in the
+     * description.
+     * @param artlist
+     */
     public void setSelectedArt (ArrayList<Art> artlist){
 
         selectedArt = new ArrayList<>();
