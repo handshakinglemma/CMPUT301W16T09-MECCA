@@ -132,14 +132,14 @@ public class AddNewItemActivity extends AppCompatActivity {
      */
     public void saveEntry(View view){
 
-        isConnected();
+        /*isConnected();
         if(!connected && ArtList.offLineArt.size()>0) {
             Context context = getApplicationContext();
             CharSequence saved = "Already added offline art!";
             int duration = Toast.LENGTH_SHORT;
             Toast.makeText(context, saved, duration).show();
             return;
-        }
+        }*/
 
         Log.i("TODO", "saveEntry");
 
@@ -237,6 +237,9 @@ public class AddNewItemActivity extends AppCompatActivity {
             } catch (InterruptedException | ExecutionException e) {
                 e.printStackTrace();
             }
+
+            newestArt.setId(art_id);
+
         } else {
             //Log.i("TODO",String.valueOf(connected));
             try {
@@ -250,8 +253,6 @@ public class AddNewItemActivity extends AppCompatActivity {
 
             saveOffline();
         }
-
-        newestArt.setId(art_id);
 
         /*if (ArtList.allArt.size()==0) {
             newestArt.setId(art_id);
