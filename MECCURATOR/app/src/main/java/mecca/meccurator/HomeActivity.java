@@ -156,6 +156,15 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        // Pull all server art
+        boolean success = false;
+        while (!success){
+            success = pullAllServerArt();
+        }
+
+        // Save all server art locally
+        saveInFile();
+
         Log.i("TODO", "Home onResume");
         checkIfConnected();
         while(connected && !ArtList.offLineArt.isEmpty()) {
@@ -296,6 +305,7 @@ public class HomeActivity extends AppCompatActivity {
             if(!ArtList.offLineArt.isEmpty()) {
                 for ( Art art : ArtList.offLineArt ) {
                     allServerArt.add(art);
+                    Log.i("TODO", "addOffLineArt");
                 }
             }
             return true;

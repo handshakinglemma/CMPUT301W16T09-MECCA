@@ -87,23 +87,22 @@ public class ViewMyListingsActivity extends AppCompatActivity implements OnItemS
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int pos, long id) {
 
-                // Need to find position of art in ArtList.allArt
-                Log.i("clicked pos", String.valueOf(pos));
-                Art art_clicked = adapter.getItem(pos);
-                Log.i("clicked art", art_clicked.toString());
-                Log.i("ID of clicked art", art_clicked.getId());
-                int meta_position = ArtList.allArt.indexOf(art_clicked);
-                Log.i("meta pos", String.valueOf(meta_position));
+                    // Need to find position of art in ArtList.allArt
+                    Log.i("clicked pos", String.valueOf(pos));
+                    Art art_clicked = adapter.getItem(pos);
+                    Log.i("clicked art", art_clicked.toString());
+                    Log.i("ID of clicked art", art_clicked.getId());
+                    int meta_position = ArtList.allArt.indexOf(art_clicked);
+                    Log.i("meta pos", String.valueOf(meta_position));
 
-                Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
-                edit.putExtra("position", meta_position);
-                edit.putExtra("current_user", current_user);
-                startActivity(edit);
+                    Intent edit = new Intent(getApplicationContext(), EditItemActivity.class);
+                    edit.putExtra("position", meta_position);
+                    edit.putExtra("current_user", current_user);
+                    startActivity(edit);
 
-                return true;
-            }
-
-        });
+                    return true;
+                }
+            });
 
         // NOTE: Spinner uses local data only.
         //Setting up the spinner and the adapter.

@@ -251,8 +251,15 @@ public class AddNewItemActivity extends AppCompatActivity {
             saveOffline();
         }
 
-        ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
-        //newestArt.setId(art_id);
+        newestArt.setId(art_id);
+
+        /*if (ArtList.allArt.size()==0) {
+            newestArt.setId(art_id);
+        } else {
+            ArtList.allArt.get(ArtList.allArt.size()-1).setId(art_id);
+            Log.i("TODO", "newestArt" + String.valueOf(newestArt.getTitle())
+            + "\nlastArt" + String.valueOf(ArtList.allArt.get(ArtList.allArt.size()-1)));
+        }*/
 
         try{
             ArtList.allArt.add(newestArt);
